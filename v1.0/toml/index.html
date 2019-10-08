@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="containo.us">
+        
+        <link rel="shortcut icon" href="img/traefik.icon.png">
+        
+
+	<title>traefik.toml - Traefik</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+        <link href="../css/traefik.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">Traefik</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="..">Getting Started</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../basics/">Basics</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href="./">traefik.toml</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Guide <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        
+<li >
+    <a href="../user-guide/examples/">Configuration examples</a>
+</li>
+
+                    
+                        
+<li >
+    <a href="../user-guide/swarm/">Swarm cluster</a>
+</li>
+
+                    
+                    </ul>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../benchmarks/">Benchmarks</a>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                <li >
+                    <a rel="next" href="../basics/">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../user-guide/examples/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/containous/traefik">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#global-configuration">Global configuration</a></li>
+        
+            <li><a href="#main-section">Main section</a></li>
+        
+            <li><a href="#entrypoints-definition">Entrypoints definition</a></li>
+        
+            <li><a href="#retry-configuration">Retry configuration</a></li>
+        
+            <li><a href="#acme-lets-encrypt-configuration">ACME (Let's Encrypt) configuration</a></li>
+        
+    
+        <li class="main "><a href="#configuration-backends">Configuration backends</a></li>
+        
+            <li><a href="#file-backend">File backend</a></li>
+        
+            <li><a href="#api-backend">API backend</a></li>
+        
+            <li><a href="#docker-backend">Docker backend</a></li>
+        
+            <li><a href="#marathon-backend">Marathon backend</a></li>
+        
+            <li><a href="#kubernetes-ingress-backend">Kubernetes Ingress backend</a></li>
+        
+            <li><a href="#consul-backend">Consul backend</a></li>
+        
+            <li><a href="#consul-catalog-backend">Consul catalog backend</a></li>
+        
+            <li><a href="#etcd-backend">Etcd backend</a></li>
+        
+            <li><a href="#zookeeper-backend">Zookeeper backend</a></li>
+        
+            <li><a href="#boltdb-backend">BoltDB backend</a></li>
+        
+            <li><a href="#key-value-storage-structure">Key-value storage structure</a></li>
+        
+            <li><a href="#atomic-configuration-changes">Atomic configuration changes</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="global-configuration">Global configuration</h1>
+<h2 id="main-section">Main section</h2>
+<pre><code class="toml"># traefik.toml
+################################################################
+# Global configuration
+################################################################
+
+# Traefik logs file
+# If not defined, logs to stdout
+#
+# Optional
+#
+# traefikLogsFile = &quot;log/traefik.log&quot;
+
+# Access logs file
+#
+# Optional
+#
+# accessLogsFile = &quot;log/access.log&quot;
+
+# Log level
+#
+# Optional
+# Default: &quot;ERROR&quot;
+#
+# logLevel = &quot;ERROR&quot;
+
+# Backends throttle duration: minimum duration between 2 events from providers
+# before applying a new configuration. It avoids unnecessary reloads if multiples events
+# are sent in a short amount of time.
+#
+# Optional
+# Default: &quot;2s&quot;
+#
+# ProvidersThrottleDuration = &quot;5s&quot;
+
+# If non-zero, controls the maximum idle (keep-alive) to keep per-host.  If zero, DefaultMaxIdleConnsPerHost is used.
+# If you encounter 'too many open files' errors, you can either change this value, or change `ulimit` value.
+#
+# Optional
+# Default: http.DefaultMaxIdleConnsPerHost
+#
+# MaxIdleConnsPerHost = 200
+
+# Entrypoints to be used by frontends that do not specify any entrypoint.
+# Each frontend can specify its own entrypoints.
+#
+# Optional
+# Default: [&quot;http&quot;]
+#
+# defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+</code></pre>
+
+<h2 id="entrypoints-definition">Entrypoints definition</h2>
+<pre><code class="toml"># Entrypoints definition
+#
+# Optional
+# Default:
+# [entryPoints]
+#   [entryPoints.http]
+#   address = &quot;:80&quot;
+#
+# To redirect an http entrypoint to an https entrypoint (with SNI support):
+# [entryPoints]
+#   [entryPoints.http]
+#   address = &quot;:80&quot;
+#     [entryPoints.http.redirect]
+#       entryPoint = &quot;https&quot;
+#   [entryPoints.https]
+#   address = &quot;:443&quot;
+#     [entryPoints.https.tls]
+#       [[entryPoints.https.tls.certificates]]
+#       CertFile = &quot;integration/fixtures/https/snitest.com.cert&quot;
+#       KeyFile = &quot;integration/fixtures/https/snitest.com.key&quot;
+#       [[entryPoints.https.tls.certificates]]
+#       CertFile = &quot;integration/fixtures/https/snitest.org.cert&quot;
+#       KeyFile = &quot;integration/fixtures/https/snitest.org.key&quot;
+#
+# To redirect an entrypoint rewriting the URL:
+# [entryPoints]
+#   [entryPoints.http]
+#   address = &quot;:80&quot;
+#     [entryPoints.http.redirect]
+#       regex = &quot;^http://localhost/(.*)&quot;
+#       replacement = &quot;http://mydomain/$1&quot;
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+</code></pre>
+
+<h2 id="retry-configuration">Retry configuration</h2>
+<pre><code class="toml"># Enable retry sending request if network error
+#
+# Optional
+#
+[retry]
+
+# Number of attempts
+#
+# Optional
+# Default: (number servers in backend) -1
+#
+# attempts = 3
+</code></pre>
+
+<h2 id="acme-lets-encrypt-configuration">ACME (Let's Encrypt) configuration</h2>
+<pre><code class="toml"># Sample entrypoint configuration when using ACME
+[entryPoints]
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+
+# Enable ACME (Let's Encrypt): automatic SSL
+#
+# Optional
+#
+[acme]
+
+# Email address used for registration
+#
+# Required
+#
+email = &quot;test@traefik.io&quot;
+
+# File used for certificates storage.
+# WARNING, if you use Traefik in Docker, you have 2 options:
+#  - create a file on your host and mount it has a volume
+#      storageFile = &quot;acme.json&quot;
+#      $ docker run -v &quot;/my/host/acme.json:acme.json&quot; traefik
+#  - mount the folder containing the file has a volume
+#      storageFile = &quot;/etc/traefik/acme/acme.json&quot;
+#      $ docker run -v &quot;/my/host/acme:/etc/traefik/acme&quot; traefik
+#
+# Required
+#
+storageFile = &quot;acme.json&quot;
+
+# Entrypoint to proxy acme challenge to.
+# WARNING, must point to an entrypoint on port 443
+#
+# Required
+#
+entryPoint = &quot;https&quot;
+
+# Enable on demand certificate. This will request a certificate from Let's Encrypt during the first TLS handshake for a hostname that does not yet have a certificate.
+# WARNING, TLS handshakes will be slow when requesting a hostname certificate for the first time, this can leads to DoS attacks.
+# WARNING, Take note that Let's Encrypt have rate limiting: https://community.letsencrypt.org/t/quick-start-guide/1631
+#
+# Optional
+#
+# onDemand = true
+
+# CA server to use
+# Uncomment the line to run on the staging let's encrypt server
+# Leave comment to go to prod
+#
+# Optional
+#
+# caServer = &quot;https://acme-staging.api.letsencrypt.org/directory&quot;
+
+# Domains list
+# You can provide SANs (alternative domains) to each main domain
+# All domains must have A/AAAA records pointing to Traefik
+# WARNING, Take note that Let's Encrypt have rate limiting: https://community.letsencrypt.org/t/quick-start-guide/1631
+# Each domain &amp; SANs will lead to a certificate request.
+#
+# [[acme.domains]]
+#   main = &quot;local1.com&quot;
+#   sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+# [[acme.domains]]
+#   main = &quot;local2.com&quot;
+#   sans = [&quot;test1.local2.com&quot;, &quot;test2x.local2.com&quot;]
+# [[acme.domains]]
+#   main = &quot;local3.com&quot;
+# [[acme.domains]]
+#   main = &quot;local4.com&quot;
+[[acme.domains]]
+   main = &quot;local1.com&quot;
+   sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+[[acme.domains]]
+   main = &quot;local3.com&quot;
+[[acme.domains]]
+   main = &quot;local4.com&quot;
+</code></pre>
+
+<h1 id="configuration-backends">Configuration backends</h1>
+<h2 id="file-backend">File backend</h2>
+<p>Like any other reverse proxy, Træfɪk can be configured with a file. You have two choices:</p>
+<ul>
+<li>simply add your configuration at the end of the global configuration file <code>traefik.toml</code> :</li>
+</ul>
+<pre><code class="toml"># traefik.toml
+logLevel = &quot;DEBUG&quot;
+defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+    [entryPoints.http.redirect]
+      entryPoint = &quot;https&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      CertFile = &quot;integration/fixtures/https/snitest.com.cert&quot;
+      KeyFile = &quot;integration/fixtures/https/snitest.com.key&quot;
+      [[entryPoints.https.tls.certificates]]
+      CertFile = &quot;integration/fixtures/https/snitest.org.cert&quot;
+      KeyFile = &quot;integration/fixtures/https/snitest.org.key&quot;
+
+[file]
+
+# rules
+[backends]
+  [backends.backend1]
+    [backends.backend1.circuitbreaker]
+      expression = &quot;NetworkErrorRatio() &gt; 0.5&quot;
+    [backends.backend1.servers.server1]
+    url = &quot;http://172.17.0.2:80&quot;
+    weight = 10
+    [backends.backend1.servers.server2]
+    url = &quot;http://172.17.0.3:80&quot;
+    weight = 1
+  [backends.backend2]
+    [backends.backend1.maxconn]
+      amount = 10
+      extractorfunc = &quot;request.host&quot;
+    [backends.backend2.LoadBalancer]
+      method = &quot;drr&quot;
+    [backends.backend2.servers.server1]
+    url = &quot;http://172.17.0.4:80&quot;
+    weight = 1
+    [backends.backend2.servers.server2]
+    url = &quot;http://172.17.0.5:80&quot;
+    weight = 2
+
+[frontends]
+  [frontends.frontend1]
+  backend = &quot;backend2&quot;
+    [frontends.frontend1.routes.test_1]
+    rule = &quot;Host:test.localhost&quot;
+  [frontends.frontend2]
+  backend = &quot;backend1&quot;
+  passHostHeader = true
+  priority = 10
+  entrypoints = [&quot;https&quot;] # overrides defaultEntryPoints
+    [frontends.frontend2.routes.test_1]
+    rule = &quot;Host:{subdomain:[a-z]+}.localhost&quot;
+  [frontends.frontend3]
+  entrypoints = [&quot;http&quot;, &quot;https&quot;] # overrides defaultEntryPoints
+  backend = &quot;backend2&quot;
+    rule = &quot;Path:/test&quot;
+</code></pre>
+
+<ul>
+<li>or put your rules in a separate file, for example <code>rules.toml</code>:</li>
+</ul>
+<pre><code class="toml"># traefik.toml
+logLevel = &quot;DEBUG&quot;
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+    [entryPoints.http.redirect]
+      entryPoint = &quot;https&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      CertFile = &quot;integration/fixtures/https/snitest.com.cert&quot;
+      KeyFile = &quot;integration/fixtures/https/snitest.com.key&quot;
+      [[entryPoints.https.tls.certificates]]
+      CertFile = &quot;integration/fixtures/https/snitest.org.cert&quot;
+      KeyFile = &quot;integration/fixtures/https/snitest.org.key&quot;
+
+[file]
+filename = &quot;rules.toml&quot;
+</code></pre>
+
+<pre><code class="toml"># rules.toml
+[backends]
+  [backends.backend1]
+    [backends.backend1.circuitbreaker]
+      expression = &quot;NetworkErrorRatio() &gt; 0.5&quot;
+    [backends.backend1.servers.server1]
+    url = &quot;http://172.17.0.2:80&quot;
+    weight = 10
+    [backends.backend1.servers.server2]
+    url = &quot;http://172.17.0.3:80&quot;
+    weight = 1
+  [backends.backend2]
+    [backends.backend1.maxconn]
+      amount = 10
+      extractorfunc = &quot;request.host&quot;
+    [backends.backend2.LoadBalancer]
+      method = &quot;drr&quot;
+    [backends.backend2.servers.server1]
+    url = &quot;http://172.17.0.4:80&quot;
+    weight = 1
+    [backends.backend2.servers.server2]
+    url = &quot;http://172.17.0.5:80&quot;
+    weight = 2
+
+[frontends]
+  [frontends.frontend1]
+  backend = &quot;backend2&quot;
+    [frontends.frontend1.routes.test_1]
+    rule = &quot;Host:test.localhost&quot;
+  [frontends.frontend2]
+  backend = &quot;backend1&quot;
+  passHostHeader = true
+  priority = 10
+  entrypoints = [&quot;https&quot;] # overrides defaultEntryPoints
+    [frontends.frontend2.routes.test_1]
+    rule = &quot;Host:{subdomain:[a-z]+}.localhost&quot;
+  [frontends.frontend3]
+  entrypoints = [&quot;http&quot;, &quot;https&quot;] # overrides defaultEntryPoints
+  backend = &quot;backend2&quot;
+    rule = &quot;Path:/test&quot;
+</code></pre>
+
+<p>If you want Træfɪk to watch file changes automatically, just add:</p>
+<pre><code class="toml">[file]
+watch = true
+</code></pre>
+
+<h2 id="api-backend">API backend</h2>
+<p>Træfik can be configured using a restful api.
+To enable it:</p>
+<pre><code class="toml">[web]
+address = &quot;:8080&quot;
+
+# SSL certificate and key used
+#
+# Optional
+#
+# CertFile = &quot;traefik.crt&quot;
+# KeyFile = &quot;traefik.key&quot;
+#
+# Set REST API to read-only mode
+#
+# Optional
+# ReadOnly = false
+</code></pre>
+
+<ul>
+<li><code>/</code>: provides a simple HTML frontend of Træfik</li>
+</ul>
+<p><img alt="Web UI Providers" src="../img/web.frontend.png" />
+<img alt="Web UI Health" src="../img/traefik-health.png" /></p>
+<ul>
+<li><code>/health</code>: <code>GET</code> json metrics</li>
+</ul>
+<pre><code class="sh">$ curl -s &quot;http://localhost:8080/health&quot; | jq .
+{
+  // Træfɪk PID
+  &quot;pid&quot;: 2458,
+  // Træfɪk server uptime (formated time)
+  &quot;uptime&quot;: &quot;39m6.885931127s&quot;,
+  //  Træfɪk server uptime in seconds
+  &quot;uptime_sec&quot;: 2346.885931127,
+  // current server date
+  &quot;time&quot;: &quot;2015-10-07 18:32:24.362238909 +0200 CEST&quot;,
+  // current server date in seconds
+  &quot;unixtime&quot;: 1444235544,
+  // count HTTP response status code in realtime
+  &quot;status_code_count&quot;: {
+    &quot;502&quot;: 1
+  },
+  // count HTTP response status code since Træfɪk started
+  &quot;total_status_code_count&quot;: {
+    &quot;200&quot;: 7,
+    &quot;404&quot;: 21,
+    &quot;502&quot;: 13
+  },
+  // count HTTP response
+  &quot;count&quot;: 1,
+  // count HTTP response
+  &quot;total_count&quot;: 41,
+  // sum of all response time (formated time)
+  &quot;total_response_time&quot;: &quot;35.456865605s&quot;,
+  // sum of all response time in seconds
+  &quot;total_response_time_sec&quot;: 35.456865605,
+  // average response time (formated time)
+  &quot;average_response_time&quot;: &quot;864.8016ms&quot;,
+  // average response time in seconds
+  &quot;average_response_time_sec&quot;: 0.8648016000000001
+}
+</code></pre>
+
+<ul>
+<li><code>/api</code>: <code>GET</code> configuration for all providers</li>
+</ul>
+<pre><code class="sh">$ curl -s &quot;http://localhost:8080/api&quot; | jq .
+{
+  &quot;file&quot;: {
+    &quot;frontends&quot;: {
+      &quot;frontend2&quot;: {
+        &quot;routes&quot;: {
+          &quot;test_2&quot;: {
+            &quot;rule&quot;: &quot;Path:/test&quot;
+          }
+        },
+        &quot;backend&quot;: &quot;backend1&quot;
+      },
+      &quot;frontend1&quot;: {
+        &quot;routes&quot;: {
+          &quot;test_1&quot;: {
+            &quot;rule&quot;: &quot;Host:test.localhost&quot;
+          }
+        },
+        &quot;backend&quot;: &quot;backend2&quot;
+      }
+    },
+    &quot;backends&quot;: {
+      &quot;backend2&quot;: {
+        &quot;loadBalancer&quot;: {
+          &quot;method&quot;: &quot;drr&quot;
+        },
+        &quot;servers&quot;: {
+          &quot;server2&quot;: {
+            &quot;weight&quot;: 2,
+            &quot;URL&quot;: &quot;http://172.17.0.5:80&quot;
+          },
+          &quot;server1&quot;: {
+            &quot;weight&quot;: 1,
+            &quot;url&quot;: &quot;http://172.17.0.4:80&quot;
+          }
+        }
+      },
+      &quot;backend1&quot;: {
+        &quot;loadBalancer&quot;: {
+          &quot;method&quot;: &quot;wrr&quot;
+        },
+        &quot;circuitBreaker&quot;: {
+          &quot;expression&quot;: &quot;NetworkErrorRatio() &gt; 0.5&quot;
+        },
+        &quot;servers&quot;: {
+          &quot;server2&quot;: {
+            &quot;weight&quot;: 1,
+            &quot;url&quot;: &quot;http://172.17.0.3:80&quot;
+          },
+          &quot;server1&quot;: {
+            &quot;weight&quot;: 10,
+            &quot;url&quot;: &quot;http://172.17.0.2:80&quot;
+          }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+
+<ul>
+<li><code>/api/providers</code>: <code>GET</code> providers</li>
+<li><code>/api/providers/{provider}</code>: <code>GET</code> or <code>PUT</code> provider</li>
+<li><code>/api/providers/{provider}/backends</code>: <code>GET</code> backends</li>
+<li><code>/api/providers/{provider}/backends/{backend}</code>: <code>GET</code> a backend</li>
+<li><code>/api/providers/{provider}/backends/{backend}/servers</code>: <code>GET</code> servers in a backend</li>
+<li><code>/api/providers/{provider}/backends/{backend}/servers/{server}</code>: <code>GET</code> a server in a backend</li>
+<li><code>/api/providers/{provider}/frontends</code>: <code>GET</code> frontends</li>
+<li><code>/api/providers/{provider}/frontends/{frontend}</code>: <code>GET</code> a frontend</li>
+<li><code>/api/providers/{provider}/frontends/{frontend}/routes</code>: <code>GET</code> routes in a frontend</li>
+<li><code>/api/providers/{provider}/frontends/{frontend}/routes/{route}</code>: <code>GET</code> a route in a frontend</li>
+</ul>
+<h2 id="docker-backend">Docker backend</h2>
+<p>Træfɪk can be configured to use Docker as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Docker configuration backend
+################################################################
+
+# Enable Docker configuration backend
+#
+# Optional
+#
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+#
+endpoint = &quot;unix:///var/run/docker.sock&quot;
+
+# Default domain used.
+# Can be overridden by setting the &quot;traefik.domain&quot; label on a container.
+#
+# Required
+#
+domain = &quot;docker.localhost&quot;
+
+# Enable watch docker changes
+#
+# Optional
+#
+watch = true
+
+# Override default configuration template. For advanced users :)
+#
+# Optional
+#
+# filename = &quot;docker.tmpl&quot;
+
+# Enable docker TLS connection
+#
+#  [docker.tls]
+#  ca = &quot;/etc/ssl/ca.crt&quot;
+#  cert = &quot;/etc/ssl/docker.crt&quot;
+#  key = &quot;/etc/ssl/docker.key&quot;
+#  insecureskipverify = true
+</code></pre>
+
+<p>Labels can be used on containers to override default behaviour:</p>
+<ul>
+<li><code>traefik.backend=foo</code>: assign the container to <code>foo</code> backend</li>
+<li><code>traefik.port=80</code>: register this port. Useful when the container exposes multiples ports.</li>
+<li><code>traefik.protocol=https</code>: override the default <code>http</code> protocol</li>
+<li><code>traefik.weight=10</code>: assign this weight to the container</li>
+<li><code>traefik.enable=false</code>: disable this container in Træfɪk</li>
+<li><code>traefik.frontend.rule=Host:test.traefik.io</code>: override the default frontend rule (Default: <code>Host:{containerName}.{domain}</code>).</li>
+<li><code>traefik.frontend.passHostHeader=true</code>: forward client <code>Host</code> header to the backend.</li>
+<li><code>traefik.frontend.priority=10</code>: override default frontend priority</li>
+<li><code>traefik.frontend.entryPoints=http,https</code>: assign this frontend to entry points <code>http</code> and <code>https</code>. Overrides <code>defaultEntryPoints</code>.</li>
+<li><code>traefik.docker.network</code>: Set the docker network to use for connections to this container</li>
+</ul>
+<h2 id="marathon-backend">Marathon backend</h2>
+<p>Træfɪk can be configured to use Marathon as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Mesos/Marathon configuration backend
+################################################################
+
+# Enable Marathon configuration backend
+#
+# Optional
+#
+[marathon]
+
+# Marathon server endpoint.
+# You can also specify multiple endpoint for Marathon:
+# endpoint := &quot;http://10.241.1.71:8080,10.241.1.72:8080,10.241.1.73:8080&quot;
+#
+# Required
+#
+endpoint = &quot;http://127.0.0.1:8080&quot;
+
+# Enable watch Marathon changes
+#
+# Optional
+#
+watch = true
+
+# Default domain used.
+#
+# Required
+#
+domain = &quot;marathon.localhost&quot;
+
+# Override default configuration template. For advanced users :)
+#
+# Optional
+#
+# filename = &quot;marathon.tmpl&quot;
+
+# Expose Marathon apps by default in traefik
+#
+# Optional
+# Default: false
+#
+# exposedByDefault = true
+
+# Convert Marathon groups to subdomains
+# Default behavior: /foo/bar/myapp =&gt; foo-bar-myapp.{defaultDomain}
+# with groupsAsSubDomains enabled: /foo/bar/myapp =&gt; myapp.bar.foo.{defaultDomain}
+#
+# Optional
+# Default: false
+#
+# groupsAsSubDomains = true
+
+# Enable Marathon basic authentication
+#
+# Optional
+#
+#  [marathon.basic]
+#  httpBasicAuthUser = &quot;foo&quot;
+#  httpBasicPassword = &quot;bar&quot;
+
+# TLS client configuration. https://golang.org/pkg/crypto/tls/#Config
+#
+# Optional
+#
+# [marathon.TLS]
+# InsecureSkipVerify = true
+
+# DCOSToken for DCOS environment, This will override the Authorization header
+#
+# Optional
+#
+# dcosToken = &quot;xxxxxx&quot;
+</code></pre>
+
+<p>Labels can be used on containers to override default behaviour:</p>
+<ul>
+<li><code>traefik.backend=foo</code>: assign the application to <code>foo</code> backend</li>
+<li><code>traefik.portIndex=1</code>: register port by index in the application's ports array. Useful when the application exposes multiple ports.</li>
+<li><code>traefik.port=80</code>: register the explicit application port value. Cannot be used alongside <code>traefik.portIndex</code>.</li>
+<li><code>traefik.protocol=https</code>: override the default <code>http</code> protocol</li>
+<li><code>traefik.weight=10</code>: assign this weight to the application</li>
+<li><code>traefik.enable=false</code>: disable this application in Træfɪk</li>
+<li><code>traefik.frontend.rule=Host:test.traefik.io</code>: override the default frontend rule (Default: <code>Host:{containerName}.{domain}</code>).</li>
+<li><code>traefik.frontend.passHostHeader=true</code>: forward client <code>Host</code> header to the backend.</li>
+<li><code>traefik.frontend.priority=10</code>: override default frontend priority</li>
+<li><code>traefik.frontend.entryPoints=http,https</code>: assign this frontend to entry points <code>http</code> and <code>https</code>. Overrides <code>defaultEntryPoints</code>.</li>
+</ul>
+<h2 id="kubernetes-ingress-backend">Kubernetes Ingress backend</h2>
+<p>Træfɪk can be configured to use Kubernetes Ingress as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Kubernetes Ingress configuration backend
+################################################################
+# Enable Kubernetes Ingress configuration backend
+#
+# Optional
+#
+[kubernetes]
+
+# Kubernetes server endpoint
+#
+# When deployed as a replication controller in Kubernetes,
+# Traefik will use env variable KUBERNETES_SERVICE_HOST
+# and KUBERNETES_SERVICE_PORT_HTTPS as endpoint
+# Secure token will be found in /var/run/secrets/kubernetes.io/serviceaccount/token
+# and SSL CA cert in /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+#
+# Optional
+#
+# endpoint = &quot;http://localhost:8080&quot;
+# namespaces = [&quot;default&quot;,&quot;production&quot;]
+</code></pre>
+
+<p>Annotations can be used on containers to override default behaviour for the whole Ingress resource:</p>
+<ul>
+<li><code>traefik.frontend.rule.type: PathPrefixStrip</code>: override the default frontend rule type (Default: <code>PathPrefix</code>).</li>
+</ul>
+<p>You can find here an example <a href="https://raw.githubusercontent.com/containous/traefik/master/examples/k8s.ingress.yaml">ingress</a> and <a href="https://raw.githubusercontent.com/containous/traefik/master/examples/k8s.rc.yaml">replication controller</a>.</p>
+<h2 id="consul-backend">Consul backend</h2>
+<p>Træfɪk can be configured to use Consul as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Consul KV configuration backend
+################################################################
+
+# Enable Consul KV configuration backend
+#
+# Optional
+#
+[consul]
+
+# Consul server endpoint
+#
+# Required
+#
+endpoint = &quot;127.0.0.1:8500&quot;
+
+# Enable watch Consul changes
+#
+# Optional
+#
+watch = true
+
+# Prefix used for KV store.
+#
+# Optional
+#
+prefix = &quot;traefik&quot;
+
+# Override default configuration template. For advanced users :)
+#
+# Optional
+#
+# filename = &quot;consul.tmpl&quot;
+
+# Enable consul TLS connection
+#
+# Optional
+#
+# [consul.tls]
+# ca = &quot;/etc/ssl/ca.crt&quot;
+# cert = &quot;/etc/ssl/consul.crt&quot;
+# key = &quot;/etc/ssl/consul.key&quot;
+# insecureskipverify = true
+</code></pre>
+
+<p>Please refer to the <a href="#key-value-storage-structure">Key Value storage structure</a> section to get documentation en traefik KV structure.</p>
+<h2 id="consul-catalog-backend">Consul catalog backend</h2>
+<p>Træfɪk can be configured to use service discovery catalog of Consul as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Consul Catalog configuration backend
+################################################################
+
+# Enable Consul Catalog configuration backend
+#
+# Optional
+#
+[consulCatalog]
+
+# Consul server endpoint
+#
+# Required
+#
+endpoint = &quot;127.0.0.1:8500&quot;
+
+# Default domain used.
+#
+# Optional
+#
+domain = &quot;consul.localhost&quot;
+
+# Prefix for Consul catalog tags
+#
+# Optional
+#
+prefix = &quot;traefik&quot;
+</code></pre>
+
+<p>This backend will create routes matching on hostname based on the service name
+used in consul.</p>
+<p>Additional settings can be defined using Consul Catalog tags:</p>
+<ul>
+<li><code>traefik.enable=false</code>: disable this container in Træfɪk</li>
+<li><code>traefik.protocol=https</code>: override the default <code>http</code> protocol</li>
+<li><code>traefik.backend.weight=10</code>: assign this weight to the container</li>
+<li><code>traefik.backend.circuitbreaker=NetworkErrorRatio() &gt; 0.5</code></li>
+<li><code>traefik.backend.loadbalancer=drr</code>: override the default load balancing mode</li>
+<li><code>traefik.frontend.rule=Host:test.traefik.io</code>: override the default frontend rule (Default: <code>Host:{containerName}.{domain}</code>).</li>
+<li><code>traefik.frontend.passHostHeader=true</code>: forward client <code>Host</code> header to the backend.</li>
+<li><code>traefik.frontend.priority=10</code>: override default frontend priority</li>
+<li><code>traefik.frontend.entryPoints=http,https</code>: assign this frontend to entry points <code>http</code> and <code>https</code>. Overrides <code>defaultEntryPoints</code>.</li>
+</ul>
+<h2 id="etcd-backend">Etcd backend</h2>
+<p>Træfɪk can be configured to use Etcd as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Etcd configuration backend
+################################################################
+
+# Enable Etcd configuration backend
+#
+# Optional
+#
+[etcd]
+
+# Etcd server endpoint
+#
+# Required
+#
+endpoint = &quot;127.0.0.1:2379&quot;
+
+# Enable watch Etcd changes
+#
+# Optional
+#
+watch = true
+
+# Prefix used for KV store.
+#
+# Optional
+#
+prefix = &quot;/traefik&quot;
+
+# Override default configuration template. For advanced users :)
+#
+# Optional
+#
+# filename = &quot;etcd.tmpl&quot;
+
+# Enable etcd TLS connection
+#
+# Optional
+#
+# [etcd.tls]
+# ca = &quot;/etc/ssl/ca.crt&quot;
+# cert = &quot;/etc/ssl/etcd.crt&quot;
+# key = &quot;/etc/ssl/etcd.key&quot;
+# insecureskipverify = true
+</code></pre>
+
+<p>Please refer to the <a href="#key-value-storage-structure">Key Value storage structure</a> section to get documentation en traefik KV structure.</p>
+<h2 id="zookeeper-backend">Zookeeper backend</h2>
+<p>Træfɪk can be configured to use Zookeeper as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# Zookeeper configuration backend
+################################################################
+
+# Enable Zookeeperconfiguration backend
+#
+# Optional
+#
+[zookeeper]
+
+# Zookeeper server endpoint
+#
+# Required
+#
+endpoint = &quot;127.0.0.1:2181&quot;
+
+# Enable watch Zookeeper changes
+#
+# Optional
+#
+watch = true
+
+# Prefix used for KV store.
+#
+# Optional
+#
+prefix = &quot;/traefik&quot;
+
+# Override default configuration template. For advanced users :)
+#
+# Optional
+#
+# filename = &quot;zookeeper.tmpl&quot;
+</code></pre>
+
+<p>Please refer to the <a href="#key-value-storage-structure">Key Value storage structure</a> section to get documentation en traefik KV structure.</p>
+<h2 id="boltdb-backend">BoltDB backend</h2>
+<p>Træfɪk can be configured to use BoltDB as a backend configuration:</p>
+<pre><code class="toml">################################################################
+# BoltDB configuration backend
+################################################################
+
+# Enable BoltDB configuration backend
+#
+# Optional
+#
+[boltdb]
+
+# BoltDB file
+#
+# Required
+#
+endpoint = &quot;/my.db&quot;
+
+# Enable watch BoltDB changes
+#
+# Optional
+#
+watch = true
+
+# Prefix used for KV store.
+#
+# Optional
+#
+prefix = &quot;/traefik&quot;
+
+# Override default configuration template. For advanced users :)
+#
+# Optional
+#
+# filename = &quot;boltdb.tmpl&quot;
+</code></pre>
+
+<p>Please refer to the <a href="#key-value-storage-structure">Key Value storage structure</a> section to get documentation en traefik KV structure.</p>
+<h2 id="key-value-storage-structure">Key-value storage structure</h2>
+<p>The Keys-Values structure should look (using <code>prefix = "/traefik"</code>):</p>
+<ul>
+<li>backend 1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/backends/backend1/circuitbreaker/expression</code></td>
+<td><code>NetworkErrorRatio() &gt; 0.5</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server2/url</code></td>
+<td><code>http://172.17.0.3:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server2/weight</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>backend 2</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/backends/backend2/maxconn/amount</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/maxconn/extractorfunc</code></td>
+<td><code>request.host</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/loadbalancer/method</code></td>
+<td><code>drr</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server1/url</code></td>
+<td><code>http://172.17.0.4:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server1/weight</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server2/url</code></td>
+<td><code>http://172.17.0.5:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server2/weight</code></td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>frontend 1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/frontends/frontend1/backend</code></td>
+<td><code>backend2</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend1/routes/test_1/rule</code></td>
+<td><code>Host:test.localhost</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>frontend 2</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/frontends/frontend2/backend</code></td>
+<td><code>backend1</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/passHostHeader</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/priority</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/entrypoints</code></td>
+<td><code>http,https</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/routes/test_2/rule</code></td>
+<td><code>PathPrefix:/test</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="atomic-configuration-changes">Atomic configuration changes</h2>
+<p>The <a href="https://github.com/coreos/etcd/issues/860">Etcd</a> and <a href="https://github.com/hashicorp/consul/issues/886">Consul</a> backends do not support updating multiple keys atomically. As a result, it may be possible for Træfɪk to read an intermediate configuration state despite judicious use of the <code>--providersThrottleDuration</code> flag. To solve this problem, Træfɪk supports a special key called <code>/traefik/alias</code>. If set, Træfɪk use the value as an alternative key prefix.</p>
+<p>Given the key structure below, Træfɪk will use the <code>http://172.17.0.2:80</code> as its only backend (frontend keys have been omitted for brevity).</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/alias</code></td>
+<td><code>/traefik_configurations/1</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+</tbody>
+</table>
+<p>When an atomic configuration change is required, you may write a new configuration at an alternative prefix. Here, although the <code>/traefik_configurations/2/...</code> keys have been set, the old configuration is still active because the <code>/traefik/alias</code> key still points to <code>/traefik_configurations/1</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/alias</code></td>
+<td><code>/traefik_configurations/1</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/weight</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/url</code></td>
+<td><code>http://172.17.0.3:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/weight</code></td>
+<td><code>5</code></td>
+</tr>
+</tbody>
+</table>
+<p>Once the <code>/traefik/alias</code> key is updated, the new <code>/traefik_configurations/2</code> configuration becomes active atomically. Here, we have a 50% balance between the <code>http://172.17.0.3:80</code> and the <code>http://172.17.0.4:80</code> hosts while no traffic is sent to the <code>172.17.0.2:80</code> host:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/alias</code></td>
+<td><code>/traefik_configurations/2</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.3:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/weight</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/url</code></td>
+<td><code>http://172.17.0.4:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/weight</code></td>
+<td><code>5</code></td>
+</tr>
+</tbody>
+</table>
+<p>Note that Træfɪk <em>will not watch for key changes in the <code>/traefik_configurations</code> prefix</em>. It will only watch for changes in the <code>/traefik</code> prefix. Further, if the <code>/traefik/alias</code> key is set, all other sibling keys with the <code>/traefik</code> prefix are ignored.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <center>Copyright (c) 2016 Containous SAS</center>
+            
+            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="../theme/js/structor-menu.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

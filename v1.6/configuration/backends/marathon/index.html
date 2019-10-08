@@ -1,0 +1,1760 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Træfik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Marathon - Træfik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#marathon-provider" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="Træfik" class="md-header-nav__button md-logo">
+          
+            <img src="../../../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Træfik
+              </span>
+              <span class="md-header-nav__topic">
+                Marathon
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="Træfik" class="md-nav__button md-logo">
+      
+        <img src="../../../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Træfik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../boltdb/" title="BoltDB" class="md-nav__link">
+      BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../consul/" title="Consul" class="md-nav__link">
+      Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../consulcatalog/" title="Consul Catalog" class="md-nav__link">
+      Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dynamodb/" title="DynamoDB" class="md-nav__link">
+      DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../etcd/" title="Etcd" class="md-nav__link">
+      Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../eureka/" title="Eureka" class="md-nav__link">
+      Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Marathon
+      </label>
+    
+    <a href="./" title="Marathon" class="md-nav__link md-nav__link--active">
+      Marathon
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labels-overriding-default-behavior" title="Labels: overriding default behavior" class="md-nav__link">
+    Labels: overriding default behavior
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-level" title="Application Level" class="md-nav__link">
+    Application Level
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers" title="Custom Headers" class="md-nav__link">
+    Custom Headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-headers" title="Security Headers" class="md-nav__link">
+    Security Headers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications-with-multiple-ports-segment-labels" title="Applications with Multiple Ports (segment labels)" class="md-nav__link">
+    Applications with Multiple Ports (segment labels)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers_1" title="Custom Headers" class="md-nav__link">
+    Custom Headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-headers_1" title="Security Headers" class="md-nav__link">
+    Security Headers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mesos/" title="Mesos" class="md-nav__link">
+      Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rest/" title="Rest" class="md-nav__link">
+      Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../servicefabric/" title="Azure Service Fabric" class="md-nav__link">
+      Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../zookeeper/" title="Zookeeper" class="md-nav__link">
+      Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tracing/" title="Tracing" class="md-nav__link">
+      Tracing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../web/" title="Web (Deprecated)" class="md-nav__link">
+      Web (Deprecated)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#labels-overriding-default-behavior" title="Labels: overriding default behavior" class="md-nav__link">
+    Labels: overriding default behavior
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#application-level" title="Application Level" class="md-nav__link">
+    Application Level
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers" title="Custom Headers" class="md-nav__link">
+    Custom Headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-headers" title="Security Headers" class="md-nav__link">
+    Security Headers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applications-with-multiple-ports-segment-labels" title="Applications with Multiple Ports (segment labels)" class="md-nav__link">
+    Applications with Multiple Ports (segment labels)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers_1" title="Custom Headers" class="md-nav__link">
+    Custom Headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-headers_1" title="Security Headers" class="md-nav__link">
+    Security Headers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.6/docs/configuration/backends/marathon.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="marathon-provider">Marathon Provider<a class="headerlink" href="#marathon-provider" title="Permanent link">&para;</a></h1>
+<p>Træfik can be configured to use Marathon as a provider.</p>
+<p>See also <a href="../../../user-guide/marathon">Marathon user guide</a>.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">################################################################
+# Mesos/Marathon Provider
+################################################################
+
+# Enable Marathon Provider.
+[marathon]
+
+# Marathon server endpoint.
+# You can also specify multiple endpoint for Marathon:
+# endpoint = &quot;http://10.241.1.71:8080,10.241.1.72:8080,10.241.1.73:8080&quot;
+#
+# Required
+# Default: &quot;http://127.0.0.1:8080&quot;
+#
+endpoint = &quot;http://127.0.0.1:8080&quot;
+
+# Enable watch Marathon changes.
+#
+# Optional
+# Default: true
+#
+watch = true
+
+# Default domain used.
+# Can be overridden by setting the &quot;traefik.domain&quot; label on an application.
+#
+# Required
+#
+domain = &quot;marathon.localhost&quot;
+
+# Override default configuration template.
+# For advanced users :)
+#
+# Optional
+#
+# filename = &quot;marathon.tmpl&quot;
+
+# Override template version
+# For advanced users :)
+#
+# Optional
+# - &quot;1&quot;: previous template version (must be used only with older custom templates, see &quot;filename&quot;)
+# - &quot;2&quot;: current template version (must be used to force template version when &quot;filename&quot; is used)
+#
+# templateVersion = 2
+
+# Expose Marathon apps by default in Traefik.
+#
+# Optional
+# Default: true
+#
+# exposedByDefault = false
+
+# Convert Marathon groups to subdomains.
+# Default behavior: /foo/bar/myapp =&gt; foo-bar-myapp.{defaultDomain}
+# with groupsAsSubDomains enabled: /foo/bar/myapp =&gt; myapp.bar.foo.{defaultDomain}
+#
+# Optional
+# Default: false
+#
+# groupsAsSubDomains = true
+
+# Enable compatibility with marathon-lb labels.
+#
+# Optional
+# Default: false
+#
+# marathonLBCompatibility = true
+
+# Enable filtering using Marathon constraints..
+# If enabled, Traefik will read Marathon constraints, as defined in https://mesosphere.github.io/marathon/docs/constraints.html
+# Each individual constraint will be treated as a verbatim compounded tag.
+# i.e. &quot;rack_id:CLUSTER:rack-1&quot;, with all constraint groups concatenated together using &quot;:&quot;
+#
+# Optional
+# Default: false
+#
+# filterMarathonConstraints = true
+
+# Enable Marathon basic authentication.
+#
+# Optional
+#
+#    [marathon.basic]
+#    httpBasicAuthUser = &quot;foo&quot;
+#    httpBasicPassword = &quot;bar&quot;
+
+# TLS client configuration. https://golang.org/pkg/crypto/tls/#Config
+#
+# Optional
+#
+#    [marathon.TLS]
+#    CA = &quot;/etc/ssl/ca.crt&quot;
+#    Cert = &quot;/etc/ssl/marathon.cert&quot;
+#    Key = &quot;/etc/ssl/marathon.key&quot;
+#    insecureSkipVerify = true
+
+# DCOSToken for DCOS environment.
+# This will override the Authorization header.
+#
+# Optional
+#
+# dcosToken = &quot;xxxxxx&quot;
+
+# Override DialerTimeout.
+# Amount of time to allow the Marathon provider to wait to open a TCP connection
+# to a Marathon master.
+# Can be provided in a format supported by [time.ParseDuration](https://golang.org/pkg/time/#ParseDuration) or as raw
+# values (digits).
+# If no units are provided, the value is parsed assuming seconds.
+#
+# Optional
+# Default: &quot;60s&quot;
+#
+# dialerTimeout = &quot;60s&quot;
+
+# Set the TCP Keep Alive interval for the Marathon HTTP Client.
+# Can be provided in a format supported by [time.ParseDuration](https://golang.org/pkg/time/#ParseDuration) or as raw
+# values (digits).
+# If no units are provided, the value is parsed assuming seconds.
+#
+# Optional
+# Default: &quot;10s&quot;
+#
+# keepAlive = &quot;10s&quot;
+
+# By default, a task's IP address (as returned by the Marathon API) is used as
+# backend server if an IP-per-task configuration can be found; otherwise, the
+# name of the host running the task is used.
+# The latter behavior can be enforced by enabling this switch.
+#
+# Optional
+# Default: false
+#
+# forceTaskHostname = true
+
+# Applications may define readiness checks which are probed by Marathon during
+# deployments periodically and the results exposed via the API.
+# Enabling the following parameter causes Traefik to filter out tasks
+# whose readiness checks have not succeeded.
+# Note that the checks are only valid at deployment times.
+# See the Marathon guide for details.
+#
+# Optional
+# Default: false
+#
+# respectReadinessChecks = true
+</code></pre>
+
+<p>To enable constraints see <a href="../../../configuration/commons/#provider-specific">provider-specific constraints section</a>.</p>
+<h2 id="labels-overriding-default-behavior">Labels: overriding default behavior<a class="headerlink" href="#labels-overriding-default-behavior" title="Permanent link">&para;</a></h2>
+<p>Marathon labels may be used to dynamically change the routing and forwarding behavior.</p>
+<p>They may be specified on one of two levels: Application or service.</p>
+<h3 id="application-level">Application Level<a class="headerlink" href="#application-level" title="Permanent link">&para;</a></h3>
+<p>The following labels can be defined on Marathon applications. They adjust the behavior for the entire application.</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.domain</code></td>
+<td>Default domain used for frontend rules.</td>
+</tr>
+<tr>
+<td><code>traefik.enable=false</code></td>
+<td>Disable this container in Træfik</td>
+</tr>
+<tr>
+<td><code>traefik.port=80</code></td>
+<td>Register this port. Useful when the container exposes multiples ports.</td>
+</tr>
+<tr>
+<td><code>traefik.portIndex=1</code></td>
+<td>Register port by index in the application's ports array. Useful when the application exposes multiple ports.</td>
+</tr>
+<tr>
+<td><code>traefik.protocol=https</code></td>
+<td>Override the default <code>http</code> protocol</td>
+</tr>
+<tr>
+<td><code>traefik.weight=10</code></td>
+<td>Assign this weight to the container</td>
+</tr>
+<tr>
+<td><code>traefik.backend=foo</code></td>
+<td>Give the name <code>foo</code> to the generated backend for this container.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.buffering.maxRequestBodyBytes=0</code></td>
+<td>See <a href="../../../configuration/commons/#buffering">buffering</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.buffering.maxResponseBodyBytes=0</code></td>
+<td>See <a href="../../../configuration/commons/#buffering">buffering</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.buffering.memRequestBodyBytes=0</code></td>
+<td>See <a href="../../../configuration/commons/#buffering">buffering</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.buffering.memResponseBodyBytes=0</code></td>
+<td>See <a href="../../../configuration/commons/#buffering">buffering</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.buffering.retryExpression=EXPR</code></td>
+<td>See <a href="../../../configuration/commons/#buffering">buffering</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.circuitbreaker.expression=EXPR</code></td>
+<td>Create a <a href="../../../basics/#backends">circuit breaker</a> to be used against the backend</td>
+</tr>
+<tr>
+<td><code>traefik.backend.healthcheck.path=/health</code></td>
+<td>Enable health check for the backend, hitting the container at <code>path</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.healthcheck.port=8080</code></td>
+<td>Allow to use a different port for the health check.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.healthcheck.interval=1s</code></td>
+<td>Define the health check interval. (Default: 30s)</td>
+</tr>
+<tr>
+<td><code>traefik.backend.loadbalancer.method=drr</code></td>
+<td>Override the default <code>wrr</code> load balancer algorithm</td>
+</tr>
+<tr>
+<td><code>traefik.backend.loadbalancer.stickiness=true</code></td>
+<td>Enable backend sticky sessions</td>
+</tr>
+<tr>
+<td><code>traefik.backend.loadbalancer.stickiness.cookieName=NAME</code></td>
+<td>Manually set the cookie name for sticky sessions</td>
+</tr>
+<tr>
+<td><code>traefik.backend.loadbalancer.sticky=true</code></td>
+<td>Enable backend sticky sessions (DEPRECATED)</td>
+</tr>
+<tr>
+<td><code>traefik.backend.maxconn.amount=10</code></td>
+<td>Set a maximum number of connections to the backend.<br>Must be used in conjunction with the below label to take effect.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.maxconn.extractorfunc=client.ip</code></td>
+<td>Set the function to be used against the request to determine what to limit maximum connections to the backend by.<br>Must be used in conjunction with the above label to take effect.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.auth.basic=EXPR</code></td>
+<td>Sets basic authentication for that frontend in CSV format: <code>User:Hash,User:Hash</code></td>
+</tr>
+<tr>
+<td><code>traefik.frontend.entryPoints=http,https</code></td>
+<td>Assign this frontend to entry points <code>http</code> and <code>https</code>.<br>Overrides <code>defaultEntryPoints</code></td>
+</tr>
+<tr>
+<td><code>traefik.frontend.errors.&lt;name&gt;.backend=NAME</code></td>
+<td>See <a href="../../../configuration/commons/#custom-error-pages">custom error pages</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.errors.&lt;name&gt;.query=PATH</code></td>
+<td>See <a href="../../../configuration/commons/#custom-error-pages">custom error pages</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.errors.&lt;name&gt;.status=RANGE</code></td>
+<td>See <a href="../../../configuration/commons/#custom-error-pages">custom error pages</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.passHostHeader=true</code></td>
+<td>Forward client <code>Host</code> header to the backend.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.passTLSCert=true</code></td>
+<td>Forward TLS Client certificates to the backend.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.priority=10</code></td>
+<td>Override default frontend priority</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.rateLimit.extractorFunc=EXP</code></td>
+<td>See <a href="../../../configuration/commons/#rate-limiting">rate limiting</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.rateLimit.rateSet.&lt;name&gt;.period=6</code></td>
+<td>See <a href="../../../configuration/commons/#rate-limiting">rate limiting</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.rateLimit.rateSet.&lt;name&gt;.average=6</code></td>
+<td>See <a href="../../../configuration/commons/#rate-limiting">rate limiting</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.rateLimit.rateSet.&lt;name&gt;.burst=6</code></td>
+<td>See <a href="../../../configuration/commons/#rate-limiting">rate limiting</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.redirect.entryPoint=https</code></td>
+<td>Enables Redirect to another entryPoint for that frontend (e.g. HTTPS)</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.redirect.regex=^http://localhost/(.*)</code></td>
+<td>Redirect to another URL for that frontend.<br>Must be set with <code>traefik.frontend.redirect.replacement</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.redirect.replacement=http://mydomain/$1</code></td>
+<td>Redirect to another URL for that frontend.<br>Must be set with <code>traefik.frontend.redirect.regex</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.redirect.permanent=true</code></td>
+<td>Return 301 instead of 302.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.rule=EXPR</code></td>
+<td>Override the default frontend rule. Default: <code>Host:{sub_domain}.{domain}</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.whiteList.sourceRange=RANGE</code></td>
+<td>List of IP-Ranges which are allowed to access.<br>An unset or empty list allows all Source-IPs to access. If one of the Net-Specifications are invalid, the whole list is invalid and allows all Source-IPs to access.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.whiteList.useXForwardedFor=true</code></td>
+<td>Use <code>X-Forwarded-For</code> header as valid source of IP for the white list.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="custom-headers">Custom Headers<a class="headerlink" href="#custom-headers" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.frontend.headers.customRequestHeaders=EXPR</code></td>
+<td>Provides the container with custom request headers that will be appended to each request forwarded to the container.<br>Format: <code>HEADER:value&vert;&vert;HEADER2:value2</code></td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.customResponseHeaders=EXPR</code></td>
+<td>Appends the headers to each response returned by the container, before forwarding the response to the client.<br>Format: <code>HEADER:value&vert;&vert;HEADER2:value2</code></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="security-headers">Security Headers<a class="headerlink" href="#security-headers" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.frontend.headers.allowedHosts=EXPR</code></td>
+<td>Provides a list of allowed hosts that requests will be processed.<br>Format: <code>Host1,Host2</code></td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.browserXSSFilter=true</code></td>
+<td>Adds the X-XSS-Protection header with the value <code>1; mode=block</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.contentSecurityPolicy=VALUE</code></td>
+<td>Adds CSP Header with the custom value.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.contentTypeNosniff=true</code></td>
+<td>Adds the <code>X-Content-Type-Options</code> header with the value <code>nosniff</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.customBrowserXSSValue=VALUE</code></td>
+<td>Set custom value for X-XSS-Protection header. This overrides the BrowserXssFilter option.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.customFrameOptionsValue=VALUE</code></td>
+<td>Overrides the <code>X-Frame-Options</code> header with the custom value.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.forceSTSHeader=false</code></td>
+<td>Adds the STS  header to non-SSL requests.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.frameDeny=false</code></td>
+<td>Adds the <code>X-Frame-Options</code> header with the value of <code>DENY</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.hostsProxyHeaders=EXPR</code></td>
+<td>Provides a list of headers that the proxied hostname may be stored.<br>Format: <code>HEADER1,HEADER2</code></td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.isDevelopment=false</code></td>
+<td>This will cause the <code>AllowedHosts</code>, <code>SSLRedirect</code>, and <code>STSSeconds</code>/<code>STSIncludeSubdomains</code> options to be ignored during development.<br>When deploying to production, be sure to set this to false.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.publicKey=VALUE</code></td>
+<td>Adds pinned HTST public key header.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.referrerPolicy=VALUE</code></td>
+<td>Adds referrer policy  header.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.SSLRedirect=true</code></td>
+<td>Forces the frontend to redirect to SSL if a non-SSL request is sent.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.SSLTemporaryRedirect=true</code></td>
+<td>Forces the frontend to redirect to SSL if a non-SSL request is sent, but by sending a 302 instead of a 301.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.SSLHost=HOST</code></td>
+<td>This setting configures the hostname that redirects will be based on. Default is "", which is the same host as the request.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.SSLProxyHeaders=EXPR</code></td>
+<td>Header combinations that would signify a proper SSL Request (Such as <code>X-Forwarded-For:https</code>).<br>Format:  <code>HEADER:value&vert;&vert;HEADER2:value2</code></td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.STSSeconds=315360000</code></td>
+<td>Sets the max-age of the STS header.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.STSIncludeSubdomains=true</code></td>
+<td>Adds the <code>IncludeSubdomains</code> section of the STS  header.</td>
+</tr>
+<tr>
+<td><code>traefik.frontend.headers.STSPreload=true</code></td>
+<td>Adds the preload flag to the STS  header.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="applications-with-multiple-ports-segment-labels">Applications with Multiple Ports (segment labels)<a class="headerlink" href="#applications-with-multiple-ports-segment-labels" title="Permanent link">&para;</a></h3>
+<p>Segment labels are used to define routes to an application exposing multiple ports.
+A segment is a group of labels that apply to a port exposed by an application.
+You can define as many segments as ports exposed in an application.</p>
+<p>Segment labels override the default behavior.</p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.backend=BACKEND</code></td>
+<td>Same as <code>traefik.backend</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.domain=DOMAIN</code></td>
+<td>Same as <code>traefik.domain</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.portIndex=1</code></td>
+<td>Same as <code>traefik.portIndex</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.port=PORT</code></td>
+<td>Same as <code>traefik.port</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.protocol=http</code></td>
+<td>Same as <code>traefik.protocol</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.weight=10</code></td>
+<td>Same as <code>traefik.weight</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.auth.basic=EXPR</code></td>
+<td>Same as <code>traefik.frontend.auth.basic</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.entryPoints=https</code></td>
+<td>Same as <code>traefik.frontend.entryPoints</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.errors.&lt;name&gt;.backend=NAME</code></td>
+<td>Same as <code>traefik.frontend.errors.&lt;name&gt;.backend</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.errors.&lt;name&gt;.query=PATH</code></td>
+<td>Same as <code>traefik.frontend.errors.&lt;name&gt;.query</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.errors.&lt;name&gt;.status=RANGE</code></td>
+<td>Same as <code>traefik.frontend.errors.&lt;name&gt;.status</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.passHostHeader=true</code></td>
+<td>Same as <code>traefik.frontend.passHostHeader</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.passTLSCert=true</code></td>
+<td>Same as <code>traefik.frontend.passTLSCert</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.priority=10</code></td>
+<td>Same as <code>traefik.frontend.priority</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.rateLimit.extractorFunc=EXP</code></td>
+<td>Same as <code>traefik.frontend.rateLimit.extractorFunc</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.rateLimit.rateSet.&lt;name&gt;.period=6</code></td>
+<td>Same as <code>traefik.frontend.rateLimit.rateSet.&lt;name&gt;.period</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.rateLimit.rateSet.&lt;name&gt;.average=6</code></td>
+<td>Same as <code>traefik.frontend.rateLimit.rateSet.&lt;name&gt;.average</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.rateLimit.rateSet.&lt;name&gt;.burst=6</code></td>
+<td>Same as <code>traefik.frontend.rateLimit.rateSet.&lt;name&gt;.burst</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.redirect.entryPoint=https</code></td>
+<td>Same as <code>traefik.frontend.redirect.entryPoint</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.redirect.regex=^http://localhost/(.*)</code></td>
+<td>Same as <code>traefik.frontend.redirect.regex</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.redirect.replacement=http://mydomain/$1</code></td>
+<td>Same as <code>traefik.frontend.redirect.replacement</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.redirect.permanent=true</code></td>
+<td>Same as <code>traefik.frontend.redirect.permanent</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.rule=EXP</code></td>
+<td>Same as <code>traefik.frontend.rule</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.whiteList.sourceRange=RANGE</code></td>
+<td>Same as <code>traefik.frontend.whiteList.sourceRange</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.whiteList.useXForwardedFor=true</code></td>
+<td>Same as <code>traefik.frontend.whiteList.useXForwardedFor</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="custom-headers_1">Custom Headers<a class="headerlink" href="#custom-headers_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.customRequestHeaders=EXPR</code></td>
+<td>Same as <code>traefik.frontend.headers.customRequestHeaders</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.customResponseHeaders=EXPR</code></td>
+<td>Same as <code>traefik.frontend.headers.customResponseHeaders</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="security-headers_1">Security Headers<a class="headerlink" href="#security-headers_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.allowedHosts=EXPR</code></td>
+<td>Same as <code>traefik.frontend.headers.allowedHosts</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.browserXSSFilter=true</code></td>
+<td>Same as <code>traefik.frontend.headers.browserXSSFilter</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.contentSecurityPolicy=VALUE</code></td>
+<td>Same as <code>traefik.frontend.headers.contentSecurityPolicy</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.contentTypeNosniff=true</code></td>
+<td>Same as <code>traefik.frontend.headers.contentTypeNosniff</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.customBrowserXSSValue=VALUE</code></td>
+<td>Same as <code>traefik.frontend.headers.customBrowserXSSValue</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.customFrameOptionsValue=VALUE</code></td>
+<td>Same as <code>traefik.frontend.headers.customFrameOptionsValue</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.forceSTSHeader=false</code></td>
+<td>Same as <code>traefik.frontend.headers.forceSTSHeader</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.frameDeny=false</code></td>
+<td>Same as <code>traefik.frontend.headers.frameDeny</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.hostsProxyHeaders=EXPR</code></td>
+<td>Same as <code>traefik.frontend.headers.hostsProxyHeaders</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.isDevelopment=false</code></td>
+<td>Same as <code>traefik.frontend.headers.isDevelopment</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.publicKey=VALUE</code></td>
+<td>Same as <code>traefik.frontend.headers.publicKey</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.referrerPolicy=VALUE</code></td>
+<td>Same as <code>traefik.frontend.headers.referrerPolicy</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.SSLRedirect=true</code></td>
+<td>Same as <code>traefik.frontend.headers.SSLRedirect</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.SSLTemporaryRedirect=true</code></td>
+<td>Same as <code>traefik.frontend.headers.SSLTemporaryRedirect</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.SSLHost=HOST</code></td>
+<td>Same as <code>traefik.frontend.headers.SSLHost</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.SSLProxyHeaders=EXPR</code></td>
+<td>Same as <code>traefik.frontend.headers.SSLProxyHeaders=EXPR</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.STSSeconds=315360000</code></td>
+<td>Same as <code>traefik.frontend.headers.STSSeconds=315360000</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.STSIncludeSubdomains=true</code></td>
+<td>Same as <code>traefik.frontend.headers.STSIncludeSubdomains=true</code></td>
+</tr>
+<tr>
+<td><code>traefik.&lt;segment_name&gt;.frontend.headers.STSPreload=true</code></td>
+<td>Same as <code>traefik.frontend.headers.STSPreload=true</code></td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../kubernetes/"-->
+               <!--title="Kubernetes Ingress"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--Kubernetes Ingress-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../mesos/" title="Mesos"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--Mesos-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2018 Containous SAS
+                </div>
+                
+                powered by
+                <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="http://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"../../.."}})</script>
+      
+        <script src="../../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../../theme/js/extra.js"></script>
+      
+        <script src="../../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

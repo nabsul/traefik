@@ -1,0 +1,1246 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Træfik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="./img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Træfik</title>
+      
+    
+    
+      <link rel="stylesheet" href="./assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="./assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="./assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="./assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="./theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="./theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#overview" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="." title="Træfik" class="md-header-nav__button md-logo">
+          
+            <img src="./img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Træfik
+              </span>
+              <span class="md-header-nav__topic">
+                Getting Started
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="." title="Træfik" class="md-nav__button md-logo">
+      
+        <img src="./img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Træfik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Getting Started
+      </label>
+    
+    <a href="." title="Getting Started" class="md-nav__link md-nav__link--active">
+      Getting Started
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" title="Features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-backends" title="Supported backends" class="md-nav__link">
+    Supported backends
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-trfik-quickstart-using-docker" title="The Træfik Quickstart (Using Docker)" class="md-nav__link">
+    The Træfik Quickstart (Using Docker)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-launch-trfik-tell-it-to-listen-to-docker" title="1 — Launch Træfik — Tell It to Listen to Docker" class="md-nav__link">
+    1 — Launch Træfik — Tell It to Listen to Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-launch-a-service-trfik-detects-it-and-creates-a-route-for-you" title="2 — Launch a Service — Træfik Detects It and Creates a Route for You" class="md-nav__link">
+    2 — Launch a Service — Træfik Detects It and Creates a Route for You
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-launch-more-instances-traefik-load-balances-them" title="3 — Launch More Instances — Traefik Load Balances Them" class="md-nav__link">
+    3 — Launch More Instances — Traefik Load Balances Them
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-enjoy-trfiks-magic" title="4 — Enjoy Træfik's Magic" class="md-nav__link">
+    4 — Enjoy Træfik's Magic
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" title="Downloads" class="md-nav__link">
+    Downloads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-official-binary-file" title="The Official Binary File" class="md-nav__link">
+    The Official Binary File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-official-docker-image" title="The Official Docker Image" class="md-nav__link">
+    The Official Docker Image
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/web/" title="Backend: Web" class="md-nav__link">
+      Backend: Web
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/boltdb/" title="Backend: BoltDB" class="md-nav__link">
+      Backend: BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/consul/" title="Backend: Consul" class="md-nav__link">
+      Backend: Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/consulcatalog/" title="Backend: Consul Catalog" class="md-nav__link">
+      Backend: Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/docker/" title="Backend: Docker" class="md-nav__link">
+      Backend: Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/dynamodb/" title="Backend: DynamoDB" class="md-nav__link">
+      Backend: DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/ecs/" title="Backend: ECS" class="md-nav__link">
+      Backend: ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/etcd/" title="Backend: Etcd" class="md-nav__link">
+      Backend: Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/eureka/" title="Backend: Eureka" class="md-nav__link">
+      Backend: Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/file/" title="Backend: File" class="md-nav__link">
+      Backend: File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/kubernetes/" title="Backend: Kubernetes Ingress" class="md-nav__link">
+      Backend: Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/marathon/" title="Backend: Marathon" class="md-nav__link">
+      Backend: Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/mesos/" title="Backend: Mesos" class="md-nav__link">
+      Backend: Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/rancher/" title="Backend: Rancher" class="md-nav__link">
+      Backend: Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/rest/" title="Backend: Rest" class="md-nav__link">
+      Backend: Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/servicefabric/" title="Backend: Azure Service Fabric" class="md-nav__link">
+      Backend: Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/backends/zookeeper/" title="Backend: Zookeeper" class="md-nav__link">
+      Backend: Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="configuration/metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="user-guide/cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" title="Overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" title="Features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-backends" title="Supported backends" class="md-nav__link">
+    Supported backends
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-trfik-quickstart-using-docker" title="The Træfik Quickstart (Using Docker)" class="md-nav__link">
+    The Træfik Quickstart (Using Docker)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-launch-trfik-tell-it-to-listen-to-docker" title="1 — Launch Træfik — Tell It to Listen to Docker" class="md-nav__link">
+    1 — Launch Træfik — Tell It to Listen to Docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-launch-a-service-trfik-detects-it-and-creates-a-route-for-you" title="2 — Launch a Service — Træfik Detects It and Creates a Route for You" class="md-nav__link">
+    2 — Launch a Service — Træfik Detects It and Creates a Route for You
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-launch-more-instances-traefik-load-balances-them" title="3 — Launch More Instances — Traefik Load Balances Them" class="md-nav__link">
+    3 — Launch More Instances — Traefik Load Balances Them
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-enjoy-trfiks-magic" title="4 — Enjoy Træfik's Magic" class="md-nav__link">
+    4 — Enjoy Træfik's Magic
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloads" title="Downloads" class="md-nav__link">
+    Downloads
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-official-binary-file" title="The Official Binary File" class="md-nav__link">
+    The Official Binary File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-official-docker-image" title="The Official Docker Image" class="md-nav__link">
+    The Official Docker Image
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.5/docs/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                  <h1>Getting Started</h1>
+                
+                <p align="center">
+<img src="img/traefik.logo.png" alt="Træfik" title="Træfik" />
+</p>
+
+<p><a href="https://semaphoreci.com/containous/traefik"><img alt="Build Status SemaphoreCI" src="https://semaphoreci.com/api/v1/containous/traefik/branches/master/shields_badge.svg" /></a>
+<a href="https://docs.traefik.io"><img alt="Docs" src="https://img.shields.io/badge/docs-current-brightgreen.svg" /></a>
+<a href="https://goreportcard.com/report/github.com/containous/traefik"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/containous/traefik" /></a>
+<a href="https://github.com/containous/traefik/blob/master/LICENSE.md"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+<a href="https://traefik.herokuapp.com"><img alt="Join the chat at https://traefik.herokuapp.com" src="https://img.shields.io/badge/style-register-green.svg?style=social&amp;label=Slack" /></a>
+<a href="https://twitter.com/intent/follow?screen_name=traefikproxy"><img alt="Twitter" src="https://img.shields.io/twitter/follow/traefikproxy.svg?style=social" /></a></p>
+<p>Træfik is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy.
+Træfik integrates with your existing infrastructure components (<a href="https://www.docker.com/">Docker</a>, <a href="https://docs.docker.com/engine/swarm/">Swarm mode</a>, <a href="https://kubernetes.io">Kubernetes</a>, <a href="https://mesosphere.github.io/marathon/">Marathon</a>, <a href="https://www.consul.io/">Consul</a>, <a href="https://coreos.com/etcd/">Etcd</a>, <a href="https://rancher.com">Rancher</a>, <a href="https://aws.amazon.com/ecs">Amazon ECS</a>, ...) and configures itself automatically and dynamically.
+Telling Træfik where your orchestrator is could be the <em>only</em> configuration step you need to do.</p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Imagine that you have deployed a bunch of microservices with the help of an orchestrator (like Swarm or Kubernetes) or a service registry (like etcd or consul).
+Now you want users to access these microservices, and you need a reverse proxy.</p>
+<p>Traditional reverse-proxies require that you configure <em>each</em> route that will connect paths and subdomains to <em>each</em> microservice. In an environment where you add, remove, kill, upgrade, or scale your services <em>many</em> times a day, the task of keeping the routes up to date becomes tedious. </p>
+<p><strong>This is when Træfik can help you!</strong></p>
+<p>Træfik listens to your service registry/orchestrator API and instantly generates the routes so your microservices are connected to the outside world -- without further intervention from your part. </p>
+<p><strong>Run Træfik and let it do the work for you!</strong> 
+<em>(But if you'd rather configure some of your routes manually, Træfik supports that too!)</em></p>
+<p><img alt="Architecture" src="./img/architecture.png" /></p>
+<h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Continuously updates its configuration (No restarts!)</li>
+<li>Supports multiple load balancing algorithms</li>
+<li>Provides HTTPS to your microservices by leveraging <a href="https://letsencrypt.org">Let's Encrypt</a></li>
+<li>Circuit breakers, retry</li>
+<li>High Availability with cluster mode (beta)</li>
+<li>See the magic through its clean web UI</li>
+<li>Websocket, HTTP/2, GRPC ready</li>
+<li>Provides metrics (Rest, Prometheus, Datadog, Statsd, InfluxDB)</li>
+<li>Keeps access logs (JSON, CLF)</li>
+<li><a href="./benchmarks">Fast</a> ... which is nice</li>
+<li>Exposes a Rest API</li>
+<li>Packaged as a single binary file (made with :heart: with go) and available as a <a href="https://microbadger.com/images/traefik">tiny</a> <a href="https://hub.docker.com/r/_/traefik/">official</a> docker image</li>
+</ul>
+<h2 id="supported-backends">Supported backends<a class="headerlink" href="#supported-backends" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="./configuration/backends/docker/">Docker</a> / <a href="./configuration/backends/docker/#docker-swarm-mode">Swarm mode</a></li>
+<li><a href="./configuration/backends/kubernetes/">Kubernetes</a></li>
+<li><a href="./configuration/backends/mesos/">Mesos</a> / <a href="./configuration/backends/marathon/">Marathon</a></li>
+<li><a href="./configuration/backends/rancher/">Rancher</a> (API, Metadata)</li>
+<li><a href="./configuration/backends/servicefabric/">Azure Service Fabric</a></li>
+<li><a href="./configuration/backends/consulcatalog/">Consul Catalog</a></li>
+<li><a href="./configuration/backends/consul/">Consul</a> / <a href="./configuration/backends/etcd/">Etcd</a> / <a href="./configuration/backends/zookeeper/">Zookeeper</a> / <a href="./configuration/backends/boltdb/">BoltDB</a></li>
+<li><a href="./configuration/backends/eureka/">Eureka</a></li>
+<li><a href="./configuration/backends/ecs/">Amazon ECS</a></li>
+<li><a href="./configuration/backends/dynamodb/">Amazon DynamoDB</a></li>
+<li><a href="./configuration/backends/file/">File</a></li>
+<li><a href="./configuration/backends/rest/">Rest</a></li>
+</ul>
+<h2 id="the-trfik-quickstart-using-docker">The Træfik Quickstart (Using Docker)<a class="headerlink" href="#the-trfik-quickstart-using-docker" title="Permanent link">&para;</a></h2>
+<p>In this quickstart, we'll use <a href="https://docs.docker.com/compose">Docker compose</a> to create our demo infrastructure.</p>
+<p>To save some time, you can clone <a href="https://github.com/containous/traefik">Træfik's repository</a> and use the quickstart files located in the <a href="https://github.com/containous/traefik/tree/master/examples/quickstart/">examples/quickstart</a> directory.</p>
+<h3 id="1-launch-trfik-tell-it-to-listen-to-docker">1 — Launch Træfik — Tell It to Listen to Docker<a class="headerlink" href="#1-launch-trfik-tell-it-to-listen-to-docker" title="Permanent link">&para;</a></h3>
+<p>Create a <code>docker-compose.yml</code> file where you will define a <code>reverse-proxy</code> service that uses the official Træfik image:</p>
+<pre><code class="yaml">version: '3'
+
+services:
+  reverse-proxy:
+    image: traefik #The official Traefik docker image
+    command: --api --docker #Enables the web UI and tells Træfik to listen to docker
+    ports:
+      - &quot;80:80&quot;     #The HTTP port
+      - &quot;8080:8080&quot; #The Web UI (enabled by --api)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock #So that Traefik can listen to the Docker events
+</code></pre>
+
+<p><strong>That's it. Now you can launch Træfik!</strong></p>
+<p>Start your <code>reverse-proxy</code> with the following command:</p>
+<pre><code class="shell">docker-compose up -d reverse-proxy 
+</code></pre>
+
+<p>You can open a browser and go to <a href="http://localhost:8080">http://localhost:8080</a> to see Træfik's dashboard (we'll go back there once we have launched a service in step 2).</p>
+<h3 id="2-launch-a-service-trfik-detects-it-and-creates-a-route-for-you">2 — Launch a Service — Træfik Detects It and Creates a Route for You<a class="headerlink" href="#2-launch-a-service-trfik-detects-it-and-creates-a-route-for-you" title="Permanent link">&para;</a></h3>
+<p>Now that we have a Træfik instance up and running, we will deploy new services. </p>
+<p>Edit your <code>docker-compose.yml</code> file and add the following at the end of your file. </p>
+<pre><code class="yaml"># ... 
+  whoami:
+    image: emilevauge/whoami #A container that exposes an API to show it's IP address
+    labels:
+      - &quot;traefik.frontend.rule=Host:whoami.docker.localhost&quot;
+</code></pre>
+
+<p>The above defines <code>whoami</code>: a simple web service that outputs information about the machine it is deployed on (its IP address, host, and so on).</p>
+<p>Start the <code>whoami</code> service with the following command:</p>
+<pre><code class="shell">docker-compose up -d whoami
+</code></pre>
+
+<p>Go back to your browser (<a href="http://localhost:8080">http://localhost:8080</a>) and see that Træfik has automatically detected the new container and updated its own configuration.</p>
+<p>When Traefik detects new services, it creates the corresponding routes so you can call them ... <em>let's see!</em>  (Here, we're using curl)</p>
+<pre><code class="shell">curl -H Host:whoami.docker.localhost http://127.0.0.1
+</code></pre>
+
+<p><em>Shows the following output:</em></p>
+<pre><code class="yaml">Hostname: 8656c8ddca6c
+IP: 172.27.0.3
+#...
+</code></pre>
+
+<h3 id="3-launch-more-instances-traefik-load-balances-them">3 — Launch More Instances — Traefik Load Balances Them<a class="headerlink" href="#3-launch-more-instances-traefik-load-balances-them" title="Permanent link">&para;</a></h3>
+<p>Run more instances of your <code>whoami</code> service with the following command:</p>
+<pre><code class="shell">docker-compose up -d --scale whoami=2 
+</code></pre>
+
+<p>Go back to your browser (<a href="http://localhost:8080">http://localhost:8080</a>) and see that Træfik has automatically detected the new instance of the container.</p>
+<p>Finally, see that Træfik load-balances between the two instances of your services by running twice the following command:</p>
+<pre><code class="shell">curl -H Host:whoami.docker.localhost http://127.0.0.1
+</code></pre>
+
+<p>The output will show alternatively one of the followings:</p>
+<pre><code class="yaml">Hostname: 8656c8ddca6c
+IP: 172.27.0.3
+#...
+</code></pre>
+
+<pre><code class="yaml">Hostname: 8458f154e1f1
+IP: 172.27.0.4
+# ...
+</code></pre>
+
+<h3 id="4-enjoy-trfiks-magic">4 — Enjoy Træfik's Magic<a class="headerlink" href="#4-enjoy-trfiks-magic" title="Permanent link">&para;</a></h3>
+<p>Now that you have a basic understanding of how Træfik can automatically create the routes to your services and load balance them, it might be time to dive into <a href="https://docs.traefik.io/">the documentation</a> and let Træfik work for you! Whatever your infrastructure is, there is probably <a href="https://docs.traefik.io/configuration/backends/available">an available Træfik backend</a> that will do the job. </p>
+<p>Our recommendation would be to see for yourself how simple it is to enable HTTPS with <a href="https://docs.traefik.io/user-guide/examples/#lets-encrypt-support">Træfik's let's encrypt integration</a> using the dedicated <a href="https://docs.traefik.io/user-guide/docker-and-lets-encrypt/">user guide</a>.</p>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<p>Here is a talk given by <a href="https://github.com/emilevauge">Emile Vauge</a> at <a href="https://gophercon.com">GopherCon 2017</a>.
+You will learn Træfik basics in less than 10 minutes.</p>
+<p><a href="https://www.youtube.com/watch?v=RgudiksfL-k"><img alt="Traefik GopherCon 2017" src="https://img.youtube.com/vi/RgudiksfL-k/0.jpg" /></a></p>
+<p>Here is a talk given by <a href="https://github.com/errm">Ed Robinson</a> at <a href="https://container.camp">ContainerCamp UK</a> conference.
+You will learn fundamental Træfik features and see some demos with Kubernetes.</p>
+<p><a href="https://www.youtube.com/watch?v=aFtpIShV60I"><img alt="Traefik ContainerCamp UK" src="https://img.youtube.com/vi/aFtpIShV60I/0.jpg" /></a></p>
+<h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link">&para;</a></h2>
+<h3 id="the-official-binary-file">The Official Binary File<a class="headerlink" href="#the-official-binary-file" title="Permanent link">&para;</a></h3>
+<p>You can grab the latest binary from the <a href="https://github.com/containous/traefik/releases">releases</a> page and just run it with the <a href="https://raw.githubusercontent.com/containous/traefik/master/traefik.sample.toml">sample configuration file</a>:</p>
+<pre><code class="shell">./traefik -c traefik.toml
+</code></pre>
+
+<h3 id="the-official-docker-image">The Official Docker Image<a class="headerlink" href="#the-official-docker-image" title="Permanent link">&para;</a></h3>
+<p>Using the tiny Docker image:</p>
+<pre><code class="shell">docker run -d -p 8080:8080 -p 80:80 -v $PWD/traefik.toml:/etc/traefik/traefik.toml traefik
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="basics/" title="Basics"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--Basics-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2018 Containous SAS
+                </div>
+                
+                powered by
+                <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="http://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="./assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"."}})</script>
+      
+        <script src="./theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="./theme/js/extra.js"></script>
+      
+        <script src="./theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

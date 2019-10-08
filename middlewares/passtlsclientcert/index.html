@@ -1,0 +1,2755 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>PassTLSClientCert - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/styles/atom-one-light.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-51880359-3", "docs.traefik.io")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#passtlsclientcert" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../assets/img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Traefik
+            </span>
+            <span class="md-header-nav__topic">
+              PassTLSClientCert
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../assets/img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/concepts/" title="Concepts" class="md-nav__link">
+      Concepts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/configuration-overview/" title="Configuration Introduction" class="md-nav__link">
+      Configuration Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/install-traefik/" title="Install Traefik" class="md-nav__link">
+      Install Traefik
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration Discovery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration Discovery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/kubernetes-ingress/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Routing & Load Balancing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Routing & Load Balancing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/routers/" title="Routers" class="md-nav__link">
+      Routers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/services/" title="Services" class="md-nav__link">
+      Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Providers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Providers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      HTTPS & TLS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        HTTPS & TLS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/tls/" title="TLS" class="md-nav__link">
+      TLS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      Middlewares
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Middlewares
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../addprefix/" title="AddPrefix" class="md-nav__link">
+      AddPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basicauth/" title="BasicAuth" class="md-nav__link">
+      BasicAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../buffering/" title="Buffering" class="md-nav__link">
+      Buffering
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../chain/" title="Chain" class="md-nav__link">
+      Chain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../circuitbreaker/" title="CircuitBreaker" class="md-nav__link">
+      CircuitBreaker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../compress/" title="Compress" class="md-nav__link">
+      Compress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../digestauth/" title="DigestAuth" class="md-nav__link">
+      DigestAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../errorpages/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../forwardauth/" title="ForwardAuth" class="md-nav__link">
+      ForwardAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../headers/" title="Headers" class="md-nav__link">
+      Headers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ipwhitelist/" title="IpWhitelist" class="md-nav__link">
+      IpWhitelist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../inflightreq/" title="InFlightReq" class="md-nav__link">
+      InFlightReq
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        PassTLSClientCert
+      </label>
+    
+    <a href="./" title="PassTLSClientCert" class="md-nav__link md-nav__link--active">
+      PassTLSClientCert
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" title="Configuration Examples" class="md-nav__link">
+    Configuration Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" title="Configuration Options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" title="General" class="md-nav__link">
+    General
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pem" title="pem" class="md-nav__link">
+    pem
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info" title="info" class="md-nav__link">
+    info
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infonotafter" title="info.notAfter" class="md-nav__link">
+    info.notAfter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infonotbefore" title="info.notBefore" class="md-nav__link">
+    info.notBefore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosans" title="info.sans" class="md-nav__link">
+    info.sans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubject" title="info.subject" class="md-nav__link">
+    info.subject
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectcountry" title="info.subject.country" class="md-nav__link">
+    info.subject.country
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectprovince" title="info.subject.province" class="md-nav__link">
+    info.subject.province
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectlocality" title="info.subject.locality" class="md-nav__link">
+    info.subject.locality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectorganization" title="info.subject.organization" class="md-nav__link">
+    info.subject.organization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectcommonname" title="info.subject.commonName" class="md-nav__link">
+    info.subject.commonName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectserialnumber" title="info.subject.serialNumber" class="md-nav__link">
+    info.subject.serialNumber
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectdomaincomponent" title="info.subject.domainComponent" class="md-nav__link">
+    info.subject.domainComponent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuer" title="info.issuer" class="md-nav__link">
+    info.issuer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infoissuercountry" title="info.issuer.country" class="md-nav__link">
+    info.issuer.country
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerprovince" title="info.issuer.province" class="md-nav__link">
+    info.issuer.province
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerlocality" title="info.issuer.locality" class="md-nav__link">
+    info.issuer.locality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerorganization" title="info.issuer.organization" class="md-nav__link">
+    info.issuer.organization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuercommonname" title="info.issuer.commonName" class="md-nav__link">
+    info.issuer.commonName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerserialnumber" title="info.issuer.serialNumber" class="md-nav__link">
+    info.issuer.serialNumber
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerdomaincomponent" title="info.issuer.domainComponent" class="md-nav__link">
+    info.issuer.domainComponent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ratelimit/" title="RateLimit" class="md-nav__link">
+      RateLimit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../redirectregex/" title="RedirectRegex" class="md-nav__link">
+      RedirectRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../redirectscheme/" title="RedirectScheme" class="md-nav__link">
+      RedirectScheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../replacepath/" title="ReplacePath" class="md-nav__link">
+      ReplacePath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../replacepathregex/" title="ReplacePathRegex" class="md-nav__link">
+      ReplacePathRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../retry/" title="Retry" class="md-nav__link">
+      Retry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../stripprefix/" title="StripPrefix" class="md-nav__link">
+      StripPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../stripprefixregex/" title="StripPrefixRegex" class="md-nav__link">
+      StripPrefixRegex
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Operations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dashboard/" title="Dashboard" class="md-nav__link">
+      Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Observability
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Observability
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/access-logs/" title="Access Logs" class="md-nav__link">
+      Access Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-3" type="checkbox" id="nav-8-3">
+    
+    <label class="md-nav__link" for="nav-8-3">
+      Metrics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-3">
+        Metrics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/influxdb/" title="InfluxDB" class="md-nav__link">
+      InfluxDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/prometheus/" title="Prometheus" class="md-nav__link">
+      Prometheus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/statsd/" title="StatsD" class="md-nav__link">
+      StatsD
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-4" type="checkbox" id="nav-8-4">
+    
+    <label class="md-nav__link" for="nav-8-4">
+      Tracing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-4">
+        Tracing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/jaeger/" title="Jaeger" class="md-nav__link">
+      Jaeger
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/zipkin/" title="Zipkin" class="md-nav__link">
+      Zipkin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/instana/" title="Instana" class="md-nav__link">
+      Instana
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/haystack/" title="Haystack" class="md-nav__link">
+      Haystack
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/crd-acme/" title="Kubernetes and Let's Encrypt" class="md-nav__link">
+      Kubernetes and Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/grpc/" title="gRPC Examples" class="md-nav__link">
+      gRPC Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/basic-example/" title="Basic Example" class="md-nav__link">
+      Basic Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4-2" type="checkbox" id="nav-9-4-2">
+    
+    <label class="md-nav__link" for="nav-9-4-2">
+      HTTPS with Let's Encrypt
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-9-4-2">
+        HTTPS with Let's Encrypt
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-tls/" title="TLS Challenge" class="md-nav__link">
+      TLS Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-http/" title="HTTP Challenge" class="md-nav__link">
+      HTTP Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-dns/" title="DNS Challenge" class="md-nav__link">
+      DNS Challenge
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Migration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Migration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../migration/v1-to-v2/" title="Traefik v1 to v2" class="md-nav__link">
+      Traefik v1 to v2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Contributing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Contributing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/thank-you/" title="Thank You!" class="md-nav__link">
+      Thank You!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-issues/" title="Submitting Issues" class="md-nav__link">
+      Submitting Issues
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-pull-requests/" title="Submitting PRs" class="md-nav__link">
+      Submitting PRs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/building-testing/" title="Building and Testing" class="md-nav__link">
+      Building and Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/documentation/" title="Documentation" class="md-nav__link">
+      Documentation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/data-collection/" title="Data Collection" class="md-nav__link">
+      Data Collection
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/advocating/" title="Advocating" class="md-nav__link">
+      Advocating
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/maintainers/" title="Maintainers" class="md-nav__link">
+      Maintainers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
+    
+    <label class="md-nav__link" for="nav-12">
+      References
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-12">
+        References
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-1" type="checkbox" id="nav-12-1">
+    
+    <label class="md-nav__link" for="nav-12-1">
+      Static Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-1">
+        Static Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/env/" title="Environment variables" class="md-nav__link">
+      Environment variables
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-2" type="checkbox" id="nav-12-2">
+    
+    <label class="md-nav__link" for="nav-12-2">
+      Dynamic Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-2">
+        Dynamic Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/kubernetes-crd/" title="Kubernetes CRD" class="md-nav__link">
+      Kubernetes CRD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" title="Configuration Examples" class="md-nav__link">
+    Configuration Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" title="Configuration Options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" title="General" class="md-nav__link">
+    General
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pem" title="pem" class="md-nav__link">
+    pem
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info" title="info" class="md-nav__link">
+    info
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infonotafter" title="info.notAfter" class="md-nav__link">
+    info.notAfter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infonotbefore" title="info.notBefore" class="md-nav__link">
+    info.notBefore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosans" title="info.sans" class="md-nav__link">
+    info.sans
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubject" title="info.subject" class="md-nav__link">
+    info.subject
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectcountry" title="info.subject.country" class="md-nav__link">
+    info.subject.country
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectprovince" title="info.subject.province" class="md-nav__link">
+    info.subject.province
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectlocality" title="info.subject.locality" class="md-nav__link">
+    info.subject.locality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectorganization" title="info.subject.organization" class="md-nav__link">
+    info.subject.organization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectcommonname" title="info.subject.commonName" class="md-nav__link">
+    info.subject.commonName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectserialnumber" title="info.subject.serialNumber" class="md-nav__link">
+    info.subject.serialNumber
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infosubjectdomaincomponent" title="info.subject.domainComponent" class="md-nav__link">
+    info.subject.domainComponent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuer" title="info.issuer" class="md-nav__link">
+    info.issuer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#infoissuercountry" title="info.issuer.country" class="md-nav__link">
+    info.issuer.country
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerprovince" title="info.issuer.province" class="md-nav__link">
+    info.issuer.province
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerlocality" title="info.issuer.locality" class="md-nav__link">
+    info.issuer.locality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerorganization" title="info.issuer.organization" class="md-nav__link">
+    info.issuer.organization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuercommonname" title="info.issuer.commonName" class="md-nav__link">
+    info.issuer.commonName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerserialnumber" title="info.issuer.serialNumber" class="md-nav__link">
+    info.issuer.serialNumber
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#infoissuerdomaincomponent" title="info.issuer.domainComponent" class="md-nav__link">
+    info.issuer.domainComponent
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v2.0/docs/content/middlewares/passtlsclientcert.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="passtlsclientcert">PassTLSClientCert<a class="headerlink" href="#passtlsclientcert" title="Permanent link">&para;</a></h1>
+<p class="subtitle">Adding Client Certificates in a Header</p>
+<!--
+TODO: add schema
+-->
+
+<p>PassTLSClientCert adds in header the selected data from the passed client tls certificate.</p>
+<h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
+<p>Pass the escaped pem in the <code>X-Forwarded-Tls-Client-Cert</code> header.</p>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">Docker</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass the escaped pem in the `X-Forwarded-Tls-Client-Cert` header.
+labels:
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.pem=true"</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">Kubernetes</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: addprefix
+spec:
+  passTLSClientCert:
+    pem: true</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_2" />
+<label for="__tab_1_2">Marathon</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-json">"labels": {
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.pem": "true"
+}</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_3" />
+<label for="__tab_1_3">Rancher</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass the escaped pem in the `X-Forwarded-Tls-Client-Cert` header.
+labels:
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.pem=true"</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_4" />
+<label for="__tab_1_4">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml"># Pass the escaped pem in the `X-Forwarded-Tls-Client-Cert` header.
+[http.middlewares]
+  [http.middlewares.test-passtlsclientcert.passTLSClientCert]
+    pem = true</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_5" />
+<label for="__tab_1_5">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass the escaped pem in the `X-Forwarded-Tls-Client-Cert` header.
+http:
+  middlewares:
+    test-passtlsclientcert:
+      passTLSClientCert:
+        pem: true</code></pre></div>
+</div>
+<details class="example"><summary>Pass the escaped pem in the <code>X-Forwarded-Tls-Client-Cert</code> header</summary><div class="superfences-tabs">
+<input name="__tabs_2" type="radio" id="__tab_2_0" checked="checked" />
+<label for="__tab_2_0">Docker</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass all the available info in the `X-Forwarded-Tls-Client-Cert-Info` header
+labels:
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.notafter=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.notbefore=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.sans=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.commonname=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.country=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.domaincomponent=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.locality=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.organization=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.province=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.serialnumber=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.commonname=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.country=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.domaincomponent=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.locality=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.organization=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.province=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.serialnumber=true"</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_1" />
+<label for="__tab_2_1">Kubernetes</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass all the available info in the `X-Forwarded-Tls-Client-Cert-Info` header
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: test-passtlsclientcert
+spec:
+  passTLSClientCert:
+    info:
+      notAfter: true
+      notBefore: true
+      sans: true
+      subject:
+        country: true
+        province: true
+        locality: true
+        organization: true
+        commonName: true
+        serialNumber: true
+        domainComponent: true
+      issuer:
+        country: true
+        province: true
+        locality: true
+        organization: true
+        commonName: true
+        serialNumber: true
+        domainComponent: true</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_2" />
+<label for="__tab_2_2">Rancher</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass all the available info in the `X-Forwarded-Tls-Client-Cert-Info` header
+labels:
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.notafter=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.notbefore=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.sans=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.commonname=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.country=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.domaincomponent=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.locality=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.organization=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.province=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.serialnumber=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.commonname=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.country=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.domaincomponent=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.locality=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.organization=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.province=true"
+  - "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.serialnumber=true"</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_3" />
+<label for="__tab_2_3">Marathon</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-json">"labels": {
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.notafter": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.notbefore": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.sans": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.commonname": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.country": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.domaincomponent": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.locality": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.organization": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.province": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.subject.serialnumber": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.commonname": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.country": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.domaincomponent": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.locality": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.organization": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.province": "true",
+  "traefik.http.middlewares.test-passtlsclientcert.passtlsclientcert.info.issuer.serialnumber": "true"
+}</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_4" />
+<label for="__tab_2_4">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml"># Pass all the available info in the `X-Forwarded-Tls-Client-Cert-Info` header
+[http.middlewares]
+  [http.middlewares.test-passtlsclientcert.passTLSClientCert]
+    [http.middlewares.test-passtlsclientcert.passTLSClientCert.info]
+      notAfter = true
+      notBefore = true
+      sans = true
+      [http.middlewares.test-passtlsclientcert.passTLSClientCert.info.subject]
+        country = true
+        province = true
+        locality = true
+        organization = true
+        commonName = true
+        serialNumber = true
+        domainComponent = true
+      [http.middlewares.test-passtlsclientcert.passTLSClientCert.info.issuer]
+        country = true
+        province = true
+        locality = true
+        organization = true
+        commonName = true
+        serialNumber = true
+        domainComponent = true</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_5" />
+<label for="__tab_2_5">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Pass all the available info in the `X-Forwarded-Tls-Client-Cert-Info` header
+http:
+  middlewares:
+    test-passtlsclientcert:
+      passTLSClientCert:
+        info:
+          notAfter: true
+          notBefore: true
+          sans: true
+          subject:
+            country: true
+            province: true
+            locality: true
+            organization: true
+            commonName: true
+            serialNumber: true
+            domainComponent: true
+          issuer:
+            country: true
+            province: true
+            locality: true
+            organization: true
+            commonName: true
+            serialNumber: true
+            domainComponent: true</code></pre></div>
+</div>
+</details>
+<h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h2>
+<h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
+<p>PassTLSClientCert can add two headers to the request: </p>
+<ul>
+<li><code>X-Forwarded-Tls-Client-Cert</code> that contains the escaped pem.</li>
+<li><code>X-Forwarded-Tls-Client-Cert-Info</code> that contains all the selected certificate information in an escaped string.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The headers are filled with escaped string so it can be safely placed inside a URL query.</p>
+</div>
+<p>In the following example, you can see a complete certificate. We will use each part of it to explain the middleware options.</p>
+<details class="example"><summary>A complete client tls certificate</summary><pre class="highlight"><code>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: DC=org, DC=cheese, O=Cheese, O=Cheese 2, OU=Simple Signing Section, OU=Simple Signing Section 2, CN=Simple Signing CA, CN=Simple Signing CA 2, C=FR, C=US, L=TOULOUSE, L=LYON, ST=Signing State, ST=Signing State 2/emailAddress=simple@signing.com/emailAddress=simple2@signing.com
+        Validity
+            Not Before: Dec  6 11:10:16 2018 GMT
+            Not After : Dec  5 11:10:16 2020 GMT
+        Subject: DC=org, DC=cheese, O=Cheese, O=Cheese 2, OU=Simple Signing Section, OU=Simple Signing Section 2, CN=*.cheese.org, CN=*.cheese.com, C=FR, C=US, L=TOULOUSE, L=LYON, ST=Cheese org state, ST=Cheese com state/emailAddress=cert@cheese.org/emailAddress=cert@scheese.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:de:77:fa:8d:03:70:30:39:dd:51:1b:cc:60:db:
+                    a9:5a:13:b1:af:fe:2c:c6:38:9b:88:0a:0f:8e:d9:
+                    1b:a1:1d:af:0d:66:e4:13:5b:bc:5d:36:92:d7:5e:
+                    d0:fa:88:29:d3:78:e1:81:de:98:b2:a9:22:3f:bf:
+                    8a:af:12:92:63:d4:a9:c3:f2:e4:7e:d2:dc:a2:c5:
+                    39:1c:7a:eb:d7:12:70:63:2e:41:47:e0:f0:08:e8:
+                    dc:be:09:01:ec:28:09:af:35:d7:79:9c:50:35:d1:
+                    6b:e5:87:7b:34:f6:d2:31:65:1d:18:42:69:6c:04:
+                    11:83:fe:44:ae:90:92:2d:0b:75:39:57:62:e6:17:
+                    2f:47:2b:c7:53:dd:10:2d:c9:e3:06:13:d2:b9:ba:
+                    63:2e:3c:7d:83:6b:d6:89:c9:cc:9d:4d:bf:9f:e8:
+                    a3:7b:da:c8:99:2b:ba:66:d6:8e:f8:41:41:a0:c9:
+                    d0:5e:c8:11:a4:55:4a:93:83:87:63:04:63:41:9c:
+                    fb:68:04:67:c2:71:2f:f2:65:1d:02:5d:15:db:2c:
+                    d9:04:69:85:c2:7d:0d:ea:3b:ac:85:f8:d4:8f:0f:
+                    c5:70:b2:45:e1:ec:b2:54:0b:e9:f7:82:b4:9b:1b:
+                    2d:b9:25:d4:ab:ca:8f:5b:44:3e:15:dd:b8:7f:b7:
+                    ee:f9
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature, Key Encipherment
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication
+            X509v3 Subject Key Identifier: 
+                94:BA:73:78:A2:87:FB:58:28:28:CF:98:3B:C2:45:70:16:6E:29:2F
+            X509v3 Authority Key Identifier: 
+                keyid:1E:52:A2:E8:54:D5:37:EB:D5:A8:1D:E4:C2:04:1D:37:E2:F7:70:03
+
+            X509v3 Subject Alternative Name: 
+                DNS:*.cheese.org, DNS:*.cheese.net, DNS:*.cheese.com, IP Address:10.0.1.0, IP Address:10.0.1.2, email:test@cheese.org, email:test@cheese.net
+    Signature Algorithm: sha1WithRSAEncryption
+         76:6b:05:b0:0e:34:11:b1:83:99:91:dc:ae:1b:e2:08:15:8b:
+         16:b2:9b:27:1c:02:ac:b5:df:1b:d0:d0:75:a4:2b:2c:5c:65:
+         ed:99:ab:f7:cd:fe:38:3f:c3:9a:22:31:1b:ac:8c:1c:c2:f9:
+         5d:d4:75:7a:2e:72:c7:85:a9:04:af:9f:2a:cc:d3:96:75:f0:
+         8e:c7:c6:76:48:ac:45:a4:b9:02:1e:2f:c0:15:c4:07:08:92:
+         cb:27:50:67:a1:c8:05:c5:3a:b3:a6:48:be:eb:d5:59:ab:a2:
+         1b:95:30:71:13:5b:0a:9a:73:3b:60:cc:10:d0:6a:c7:e5:d7:
+         8b:2f:f9:2e:98:f2:ff:81:14:24:09:e3:4b:55:57:09:1a:22:
+         74:f1:f6:40:13:31:43:89:71:0a:96:1a:05:82:1f:83:3a:87:
+         9b:17:25:ef:5a:55:f2:2d:cd:0d:4d:e4:81:58:b6:e3:8d:09:
+         62:9a:0c:bd:e4:e5:5c:f0:95:da:cb:c7:34:2c:34:5f:6d:fc:
+         60:7b:12:5b:86:fd:df:21:89:3b:48:08:30:bf:67:ff:8c:e6:
+         9b:53:cc:87:36:47:70:40:3b:d9:90:2a:d2:d2:82:c6:9c:f5:
+         d1:d8:e0:e6:fd:aa:2f:95:7e:39:ac:fc:4e:d4:ce:65:b3:ec:
+         c6:98:8a:31
+-----BEGIN CERTIFICATE-----
+MIIGWjCCBUKgAwIBAgIBATANBgkqhkiG9w0BAQUFADCCAYQxEzARBgoJkiaJk/Is
+ZAEZFgNvcmcxFjAUBgoJkiaJk/IsZAEZFgZjaGVlc2UxDzANBgNVBAoMBkNoZWVz
+ZTERMA8GA1UECgwIQ2hlZXNlIDIxHzAdBgNVBAsMFlNpbXBsZSBTaWduaW5nIFNl
+Y3Rpb24xITAfBgNVBAsMGFNpbXBsZSBTaWduaW5nIFNlY3Rpb24gMjEaMBgGA1UE
+AwwRU2ltcGxlIFNpZ25pbmcgQ0ExHDAaBgNVBAMME1NpbXBsZSBTaWduaW5nIENB
+IDIxCzAJBgNVBAYTAkZSMQswCQYDVQQGEwJVUzERMA8GA1UEBwwIVE9VTE9VU0Ux
+DTALBgNVBAcMBExZT04xFjAUBgNVBAgMDVNpZ25pbmcgU3RhdGUxGDAWBgNVBAgM
+D1NpZ25pbmcgU3RhdGUgMjEhMB8GCSqGSIb3DQEJARYSc2ltcGxlQHNpZ25pbmcu
+Y29tMSIwIAYJKoZIhvcNAQkBFhNzaW1wbGUyQHNpZ25pbmcuY29tMB4XDTE4MTIw
+NjExMTAxNloXDTIwMTIwNTExMTAxNlowggF2MRMwEQYKCZImiZPyLGQBGRYDb3Jn
+MRYwFAYKCZImiZPyLGQBGRYGY2hlZXNlMQ8wDQYDVQQKDAZDaGVlc2UxETAPBgNV
+BAoMCENoZWVzZSAyMR8wHQYDVQQLDBZTaW1wbGUgU2lnbmluZyBTZWN0aW9uMSEw
+HwYDVQQLDBhTaW1wbGUgU2lnbmluZyBTZWN0aW9uIDIxFTATBgNVBAMMDCouY2hl
+ZXNlLm9yZzEVMBMGA1UEAwwMKi5jaGVlc2UuY29tMQswCQYDVQQGEwJGUjELMAkG
+A1UEBhMCVVMxETAPBgNVBAcMCFRPVUxPVVNFMQ0wCwYDVQQHDARMWU9OMRkwFwYD
+VQQIDBBDaGVlc2Ugb3JnIHN0YXRlMRkwFwYDVQQIDBBDaGVlc2UgY29tIHN0YXRl
+MR4wHAYJKoZIhvcNAQkBFg9jZXJ0QGNoZWVzZS5vcmcxHzAdBgkqhkiG9w0BCQEW
+EGNlcnRAc2NoZWVzZS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQDed/qNA3AwOd1RG8xg26laE7Gv/izGOJuICg+O2RuhHa8NZuQTW7xdNpLXXtD6
+iCnTeOGB3piyqSI/v4qvEpJj1KnD8uR+0tyixTkceuvXEnBjLkFH4PAI6Ny+CQHs
+KAmvNdd5nFA10Wvlh3s09tIxZR0YQmlsBBGD/kSukJItC3U5V2LmFy9HK8dT3RAt
+yeMGE9K5umMuPH2Da9aJycydTb+f6KN72siZK7pm1o74QUGgydBeyBGkVUqTg4dj
+BGNBnPtoBGfCcS/yZR0CXRXbLNkEaYXCfQ3qO6yF+NSPD8VwskXh7LJUC+n3grSb
+Gy25JdSryo9bRD4V3bh/t+75AgMBAAGjgeAwgd0wDgYDVR0PAQH/BAQDAgWgMAkG
+A1UdEwQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMB0GA1UdDgQW
+BBSUunN4oof7WCgoz5g7wkVwFm4pLzAfBgNVHSMEGDAWgBQeUqLoVNU369WoHeTC
+BB034vdwAzBhBgNVHREEWjBYggwqLmNoZWVzZS5vcmeCDCouY2hlZXNlLm5ldIIM
+Ki5jaGVlc2UuY29thwQKAAEAhwQKAAECgQ90ZXN0QGNoZWVzZS5vcmeBD3Rlc3RA
+Y2hlZXNlLm5ldDANBgkqhkiG9w0BAQUFAAOCAQEAdmsFsA40EbGDmZHcrhviCBWL
+FrKbJxwCrLXfG9DQdaQrLFxl7Zmr983+OD/DmiIxG6yMHML5XdR1ei5yx4WpBK+f
+KszTlnXwjsfGdkisRaS5Ah4vwBXEBwiSyydQZ6HIBcU6s6ZIvuvVWauiG5UwcRNb
+CppzO2DMENBqx+XXiy/5Lpjy/4EUJAnjS1VXCRoidPH2QBMxQ4lxCpYaBYIfgzqH
+mxcl71pV8i3NDU3kgVi2440JYpoMveTlXPCV2svHNCw0X238YHsSW4b93yGJO0gI
+ML9n/4zmm1PMhzZHcEA72ZAq0tKCxpz10djg5v2qL5V+Oaz8TtTOZbPsxpiKMQ==
+-----END CERTIFICATE-----</code></pre>
+
+</details>
+<h3 id="pem"><code>pem</code><a class="headerlink" href="#pem" title="Permanent link">&para;</a></h3>
+<p>The <code>pem</code> option sets the <code>X-Forwarded-Tls-Client-Cert</code> header with the escape certificate.</p>
+<p>In the example, it is the part between <code>-----BEGIN CERTIFICATE-----</code> and <code>-----END CERTIFICATE-----</code> delimiters :</p>
+<details class="example"><summary>The data used by the pem option</summary><pre class="highlight"><code>-----BEGIN CERTIFICATE-----
+MIIGWjCCBUKgAwIBAgIBATANBgkqhkiG9w0BAQUFADCCAYQxEzARBgoJkiaJk/Is
+ZAEZFgNvcmcxFjAUBgoJkiaJk/IsZAEZFgZjaGVlc2UxDzANBgNVBAoMBkNoZWVz
+ZTERMA8GA1UECgwIQ2hlZXNlIDIxHzAdBgNVBAsMFlNpbXBsZSBTaWduaW5nIFNl
+Y3Rpb24xITAfBgNVBAsMGFNpbXBsZSBTaWduaW5nIFNlY3Rpb24gMjEaMBgGA1UE
+AwwRU2ltcGxlIFNpZ25pbmcgQ0ExHDAaBgNVBAMME1NpbXBsZSBTaWduaW5nIENB
+IDIxCzAJBgNVBAYTAkZSMQswCQYDVQQGEwJVUzERMA8GA1UEBwwIVE9VTE9VU0Ux
+DTALBgNVBAcMBExZT04xFjAUBgNVBAgMDVNpZ25pbmcgU3RhdGUxGDAWBgNVBAgM
+D1NpZ25pbmcgU3RhdGUgMjEhMB8GCSqGSIb3DQEJARYSc2ltcGxlQHNpZ25pbmcu
+Y29tMSIwIAYJKoZIhvcNAQkBFhNzaW1wbGUyQHNpZ25pbmcuY29tMB4XDTE4MTIw
+NjExMTAxNloXDTIwMTIwNTExMTAxNlowggF2MRMwEQYKCZImiZPyLGQBGRYDb3Jn
+MRYwFAYKCZImiZPyLGQBGRYGY2hlZXNlMQ8wDQYDVQQKDAZDaGVlc2UxETAPBgNV
+BAoMCENoZWVzZSAyMR8wHQYDVQQLDBZTaW1wbGUgU2lnbmluZyBTZWN0aW9uMSEw
+HwYDVQQLDBhTaW1wbGUgU2lnbmluZyBTZWN0aW9uIDIxFTATBgNVBAMMDCouY2hl
+ZXNlLm9yZzEVMBMGA1UEAwwMKi5jaGVlc2UuY29tMQswCQYDVQQGEwJGUjELMAkG
+A1UEBhMCVVMxETAPBgNVBAcMCFRPVUxPVVNFMQ0wCwYDVQQHDARMWU9OMRkwFwYD
+VQQIDBBDaGVlc2Ugb3JnIHN0YXRlMRkwFwYDVQQIDBBDaGVlc2UgY29tIHN0YXRl
+MR4wHAYJKoZIhvcNAQkBFg9jZXJ0QGNoZWVzZS5vcmcxHzAdBgkqhkiG9w0BCQEW
+EGNlcnRAc2NoZWVzZS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQDed/qNA3AwOd1RG8xg26laE7Gv/izGOJuICg+O2RuhHa8NZuQTW7xdNpLXXtD6
+iCnTeOGB3piyqSI/v4qvEpJj1KnD8uR+0tyixTkceuvXEnBjLkFH4PAI6Ny+CQHs
+KAmvNdd5nFA10Wvlh3s09tIxZR0YQmlsBBGD/kSukJItC3U5V2LmFy9HK8dT3RAt
+yeMGE9K5umMuPH2Da9aJycydTb+f6KN72siZK7pm1o74QUGgydBeyBGkVUqTg4dj
+BGNBnPtoBGfCcS/yZR0CXRXbLNkEaYXCfQ3qO6yF+NSPD8VwskXh7LJUC+n3grSb
+Gy25JdSryo9bRD4V3bh/t+75AgMBAAGjgeAwgd0wDgYDVR0PAQH/BAQDAgWgMAkG
+A1UdEwQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMB0GA1UdDgQW
+BBSUunN4oof7WCgoz5g7wkVwFm4pLzAfBgNVHSMEGDAWgBQeUqLoVNU369WoHeTC
+BB034vdwAzBhBgNVHREEWjBYggwqLmNoZWVzZS5vcmeCDCouY2hlZXNlLm5ldIIM
+Ki5jaGVlc2UuY29thwQKAAEAhwQKAAECgQ90ZXN0QGNoZWVzZS5vcmeBD3Rlc3RA
+Y2hlZXNlLm5ldDANBgkqhkiG9w0BAQUFAAOCAQEAdmsFsA40EbGDmZHcrhviCBWL
+FrKbJxwCrLXfG9DQdaQrLFxl7Zmr983+OD/DmiIxG6yMHML5XdR1ei5yx4WpBK+f
+KszTlnXwjsfGdkisRaS5Ah4vwBXEBwiSyydQZ6HIBcU6s6ZIvuvVWauiG5UwcRNb
+CppzO2DMENBqx+XXiy/5Lpjy/4EUJAnjS1VXCRoidPH2QBMxQ4lxCpYaBYIfgzqH
+mxcl71pV8i3NDU3kgVi2440JYpoMveTlXPCV2svHNCw0X238YHsSW4b93yGJO0gI
+ML9n/4zmm1PMhzZHcEA72ZAq0tKCxpz10djg5v2qL5V+Oaz8TtTOZbPsxpiKMQ==
+-----END CERTIFICATE-----</code></pre>
+
+</details>
+<div class="admonition info">
+<p class="admonition-title">Extracted data</p>
+<p>The delimiters and <code>\n</code> will be removed.<br />
+If there are more than one certificate, they are separated by a "<code>;</code>".</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title"><code>X-Forwarded-Tls-Client-Cert</code> value could exceed the web server header size limit</p>
+<p>The header size limit of web servers is commonly between 4kb and 8kb.<br />
+You could change the server configuration to allow bigger header or use the <code>info</code> option with the needed field(s).</p>
+</div>
+<h3 id="info"><code>info</code><a class="headerlink" href="#info" title="Permanent link">&para;</a></h3>
+<p>The <code>info</code> option select the specific client certificate details you want to add to the <code>X-Forwarded-Tls-Client-Cert-Info</code> header.
+The value of the header will be an escaped concatenation of all the selected certificate details.</p>
+<p>The following example shows an unescaped result that uses all the available fields: </p>
+<pre class="highlight"><code class="language-text">Subject="DC=org,DC=cheese,C=FR,C=US,ST=Cheese org state,ST=Cheese com state,L=TOULOUSE,L=LYON,O=Cheese,O=Cheese 2,CN=*.cheese.com",Issuer="DC=org,DC=cheese,C=FR,C=US,ST=Signing State,ST=Signing State 2,L=TOULOUSE,L=LYON,O=Cheese,O=Cheese 2,CN=Simple Signing CA 2",NB=1544094616,NA=1607166616,SAN=*.cheese.org,*.cheese.net,*.cheese.com,test@cheese.org,test@cheese.net,10.0.1.0,10.0.1.2</code></pre>
+
+<div class="admonition info">
+<p class="admonition-title">Multiple certificates</p>
+<p>If there are more than one certificate, they are separated by a <code>;</code>.</p>
+</div>
+<h4 id="infonotafter"><code>info.notAfter</code><a class="headerlink" href="#infonotafter" title="Permanent link">&para;</a></h4>
+<p>Set the <code>info.notAfter</code> option to <code>true</code> to add the <code>Not After</code> information from the <code>Validity</code> part.</p>
+<p>The data are taken from the following certificate part:      </p>
+<pre class="highlight"><code class="language-text">    Validity
+        Not After : Dec  5 11:10:16 2020 GMT            </code></pre>
+
+<p>The escape <code>notAfter</code> info part will be like:</p>
+<pre class="highlight"><code class="language-text">NA=1607166616</code></pre>
+
+<h4 id="infonotbefore"><code>info.notBefore</code><a class="headerlink" href="#infonotbefore" title="Permanent link">&para;</a></h4>
+<p>Set the <code>info.notBefore</code> option to <code>true</code> to add the <code>Not Before</code> information from the <code>Validity</code> part.</p>
+<p>The data are taken from the following certificate part:</p>
+<pre class="highlight"><code class="language-text">Validity
+    Not Before: Dec  6 11:10:16 2018 GMT</code></pre>
+
+<p>The escape <code>notBefore</code> info part will be like:</p>
+<pre class="highlight"><code class="language-text">NB=1544094616</code></pre>
+
+<h4 id="infosans"><code>info.sans</code><a class="headerlink" href="#infosans" title="Permanent link">&para;</a></h4>
+<p>Set the <code>info.sans</code> option to <code>true</code> to add the <code>Subject Alternative Name</code> information from the <code>Subject Alternative Name</code> part.</p>
+<p>The data are taken from the following certificate part:</p>
+<pre class="highlight"><code class="language-text"> X509v3 Subject Alternative Name: 
+    DNS:*.cheese.org, DNS:*.cheese.net, DNS:*.cheese.com, IP Address:10.0.1.0, IP Address:10.0.1.2, email:test@cheese.org, email:test@cheese.net</code></pre>
+
+<p>The escape SANs info part will be like:</p>
+<pre class="highlight"><code class="language-text">SAN=*.cheese.org,*.cheese.net,*.cheese.com,test@cheese.org,test@cheese.net,10.0.1.0,10.0.1.2</code></pre>
+
+<div class="admonition info">
+<p class="admonition-title">multiple values</p>
+<p>All the SANs data are separated by a <code>,</code>.</p>
+</div>
+<h4 id="infosubject"><code>info.subject</code><a class="headerlink" href="#infosubject" title="Permanent link">&para;</a></h4>
+<p>The <code>info.subject</code> select the specific client certificate subject details you want to add to the <code>X-Forwarded-Tls-Client-Cert-Info</code> header.</p>
+<p>The data are taken from the following certificate part :</p>
+<pre class="highlight"><code class="language-text">Subject: DC=org, DC=cheese, O=Cheese, O=Cheese 2, OU=Simple Signing Section, OU=Simple Signing Section 2, CN=*.cheese.org, CN=*.cheese.com, C=FR, C=US, L=TOULOUSE, L=LYON, ST=Cheese org state, ST=Cheese com state/emailAddress=cert@cheese.org/emailAddress=cert@scheese.com</code></pre>
+
+<h5 id="infosubjectcountry"><code>info.subject.country</code><a class="headerlink" href="#infosubjectcountry" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.country</code> option to true to add the <code>country</code> information into the subject.<br />
+The data are taken from the subject part with the <code>C</code> key. 
+The escape country info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">C=FR,C=US</code></pre>
+
+<h5 id="infosubjectprovince"><code>info.subject.province</code><a class="headerlink" href="#infosubjectprovince" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.province</code> option to true to add the <code>province</code> information into the subject.</p>
+<p>The data are taken from the subject part with the <code>ST</code> key.</p>
+<p>The escape province info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">ST=Cheese org state,ST=Cheese com state</code></pre>
+
+<h5 id="infosubjectlocality"><code>info.subject.locality</code><a class="headerlink" href="#infosubjectlocality" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.locality</code> option to true to add the <code>locality</code> information into the subject.</p>
+<p>The data are taken from the subject part with the <code>L</code> key.</p>
+<p>The escape locality info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">L=TOULOUSE,L=LYON</code></pre>
+
+<h5 id="infosubjectorganization"><code>info.subject.organization</code><a class="headerlink" href="#infosubjectorganization" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.organization</code> option to true to add the <code>organization</code> information into the subject.</p>
+<p>The data are taken from the subject part with the <code>O</code> key.</p>
+<p>The escape organization info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">O=Cheese,O=Cheese 2</code></pre>
+
+<h5 id="infosubjectcommonname"><code>info.subject.commonName</code><a class="headerlink" href="#infosubjectcommonname" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.commonName</code> option to true to add the <code>commonName</code> information into the subject.</p>
+<p>The data are taken from the subject part with the <code>CN</code> key.</p>
+<p>The escape common name info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">CN=*.cheese.com</code></pre>
+
+<h5 id="infosubjectserialnumber"><code>info.subject.serialNumber</code><a class="headerlink" href="#infosubjectserialnumber" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.serialNumber</code> option to true to add the <code>serialNumber</code> information into the subject.</p>
+<p>The data are taken from the subject part with the <code>SN</code> key.</p>
+<p>The escape serial number info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">SN=1234567890</code></pre>
+
+<h5 id="infosubjectdomaincomponent"><code>info.subject.domainComponent</code><a class="headerlink" href="#infosubjectdomaincomponent" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.subject.domainComponent</code> option to true to add the <code>domainComponent</code> information into the subject.</p>
+<p>The data are taken from the subject part with the <code>DC</code> key.</p>
+<p>The escape domaincomponent info in the subject part will be like :</p>
+<pre class="highlight"><code class="language-text">DC=org,DC=cheese</code></pre>
+
+<h4 id="infoissuer"><code>info.issuer</code><a class="headerlink" href="#infoissuer" title="Permanent link">&para;</a></h4>
+<p>The <code>info.issuer</code> select the specific client certificate issuer details you want to add to the <code>X-Forwarded-Tls-Client-Cert-Info</code> header.</p>
+<p>The data are taken from the following certificate part :</p>
+<pre class="highlight"><code class="language-text">Issuer: DC=org, DC=cheese, O=Cheese, O=Cheese 2, OU=Simple Signing Section, OU=Simple Signing Section 2, CN=Simple Signing CA, CN=Simple Signing CA 2, C=FR, C=US, L=TOULOUSE, L=LYON, ST=Signing State, ST=Signing State 2/emailAddress=simple@signing.com/emailAddress=simple2@signing.com</code></pre>
+
+<h5 id="infoissuercountry"><code>info.issuer.country</code><a class="headerlink" href="#infoissuercountry" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.country</code> option to true to add the <code>country</code> information into the issuer.<br />
+The data are taken from the issuer part with the <code>C</code> key. 
+The escape country info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">C=FR,C=US</code></pre>
+
+<h5 id="infoissuerprovince"><code>info.issuer.province</code><a class="headerlink" href="#infoissuerprovince" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.province</code> option to true to add the <code>province</code> information into the issuer.</p>
+<p>The data are taken from the issuer part with the <code>ST</code> key.</p>
+<p>The escape province info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">ST=Signing State,ST=Signing State 2</code></pre>
+
+<h5 id="infoissuerlocality"><code>info.issuer.locality</code><a class="headerlink" href="#infoissuerlocality" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.locality</code> option to true to add the <code>locality</code> information into the issuer.</p>
+<p>The data are taken from the issuer part with the <code>L</code> key.</p>
+<p>The escape locality info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">L=TOULOUSE,L=LYON</code></pre>
+
+<h5 id="infoissuerorganization"><code>info.issuer.organization</code><a class="headerlink" href="#infoissuerorganization" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.organization</code> option to true to add the <code>organization</code> information into the issuer.</p>
+<p>The data are taken from the issuer part with the <code>O</code> key.</p>
+<p>The escape organization info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">O=Cheese,O=Cheese 2</code></pre>
+
+<h5 id="infoissuercommonname"><code>info.issuer.commonName</code><a class="headerlink" href="#infoissuercommonname" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.commonName</code> option to true to add the <code>commonName</code> information into the issuer.</p>
+<p>The data are taken from the issuer part with the <code>CN</code> key.</p>
+<p>The escape common name info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">CN=Simple Signing CA 2</code></pre>
+
+<h5 id="infoissuerserialnumber"><code>info.issuer.serialNumber</code><a class="headerlink" href="#infoissuerserialnumber" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.serialNumber</code> option to true to add the <code>serialNumber</code> information into the issuer.</p>
+<p>The data are taken from the issuer part with the <code>SN</code> key.</p>
+<p>The escape serial number info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">SN=1234567890</code></pre>
+
+<h5 id="infoissuerdomaincomponent"><code>info.issuer.domainComponent</code><a class="headerlink" href="#infoissuerdomaincomponent" title="Permanent link">&para;</a></h5>
+<p>Set the <code>info.issuer.domainComponent</code> option to true to add the <code>domainComponent</code> information into the issuer.</p>
+<p>The data are taken from the issuer part with the <code>DC</code> key.</p>
+<p>The escape domain component info in the issuer part will be like :</p>
+<pre class="highlight"><code class="language-text">DC=org,DC=cheese</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../assets/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

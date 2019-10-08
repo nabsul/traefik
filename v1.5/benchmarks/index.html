@@ -1,0 +1,1260 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Træfik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Benchmarks - Træfik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#benchmarks" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="Træfik" class="md-header-nav__button md-logo">
+          
+            <img src="../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Træfik
+              </span>
+              <span class="md-header-nav__topic">
+                Benchmarks
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="Træfik" class="md-nav__button md-logo">
+      
+        <img src="../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Træfik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/web/" title="Backend: Web" class="md-nav__link">
+      Backend: Web
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/boltdb/" title="Backend: BoltDB" class="md-nav__link">
+      Backend: BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/consul/" title="Backend: Consul" class="md-nav__link">
+      Backend: Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/consulcatalog/" title="Backend: Consul Catalog" class="md-nav__link">
+      Backend: Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/docker/" title="Backend: Docker" class="md-nav__link">
+      Backend: Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/dynamodb/" title="Backend: DynamoDB" class="md-nav__link">
+      Backend: DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/ecs/" title="Backend: ECS" class="md-nav__link">
+      Backend: ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/etcd/" title="Backend: Etcd" class="md-nav__link">
+      Backend: Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/eureka/" title="Backend: Eureka" class="md-nav__link">
+      Backend: Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/file/" title="Backend: File" class="md-nav__link">
+      Backend: File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/kubernetes/" title="Backend: Kubernetes Ingress" class="md-nav__link">
+      Backend: Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/marathon/" title="Backend: Marathon" class="md-nav__link">
+      Backend: Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/mesos/" title="Backend: Mesos" class="md-nav__link">
+      Backend: Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/rancher/" title="Backend: Rancher" class="md-nav__link">
+      Backend: Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/rest/" title="Backend: Rest" class="md-nav__link">
+      Backend: Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/servicefabric/" title="Backend: Azure Service Fabric" class="md-nav__link">
+      Backend: Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/backends/zookeeper/" title="Backend: Zookeeper" class="md-nav__link">
+      Backend: Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../configuration/metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../user-guide/cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Benchmarks
+      </label>
+    
+    <a href="./" title="Benchmarks" class="md-nav__link md-nav__link--active">
+      Benchmarks
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nginx" title="Nginx" class="md-nav__link">
+    Nginx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traefik" title="Traefik" class="md-nav__link">
+    Traefik
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" title="Results" class="md-nav__link">
+    Results
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whoami" title="whoami:" class="md-nav__link">
+    whoami:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx_1" title="nginx:" class="md-nav__link">
+    nginx:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traefik_1" title="Traefik:" class="md-nav__link">
+    Traefik:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup" title="Setup" class="md-nav__link">
+    Setup
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nginx" title="Nginx" class="md-nav__link">
+    Nginx
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traefik" title="Traefik" class="md-nav__link">
+    Traefik
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#results" title="Results" class="md-nav__link">
+    Results
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whoami" title="whoami:" class="md-nav__link">
+    whoami:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx_1" title="nginx:" class="md-nav__link">
+    nginx:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#traefik_1" title="Traefik:" class="md-nav__link">
+    Traefik:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" title="Conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.5/docs/benchmarks.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="benchmarks">Benchmarks<a class="headerlink" href="#benchmarks" title="Permanent link">&para;</a></h1>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>I would like to thanks <a href="https://github.com/vincentbernat">vincentbernat</a> from <a href="https://www.exoscale.ch">exoscale.ch</a> who kindly provided the infrastructure needed for the benchmarks.</p>
+<p>I used 4 VMs for the tests with the following configuration:</p>
+<ul>
+<li>32 GB RAM</li>
+<li>8 CPU Cores</li>
+<li>10 GB SSD</li>
+<li>Ubuntu 14.04 LTS 64-bit</li>
+</ul>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<ol>
+<li>One VM used to launch the benchmarking tool <a href="https://github.com/wg/wrk">wrk</a></li>
+<li>One VM for Traefik (v1.0.0-beta.416) / nginx (v1.4.6)</li>
+<li>Two VMs for 2 backend servers in go <a href="https://github.com/emilevauge/whoamI/">whoami</a></li>
+</ol>
+<p>Each VM has been tuned using the following limits:</p>
+<pre><code class="bash">sysctl -w fs.file-max=&quot;9999999&quot;
+sysctl -w fs.nr_open=&quot;9999999&quot;
+sysctl -w net.core.netdev_max_backlog=&quot;4096&quot;
+sysctl -w net.core.rmem_max=&quot;16777216&quot;
+sysctl -w net.core.somaxconn=&quot;65535&quot;
+sysctl -w net.core.wmem_max=&quot;16777216&quot;
+sysctl -w net.ipv4.ip_local_port_range=&quot;1025       65535&quot;
+sysctl -w net.ipv4.tcp_fin_timeout=&quot;30&quot;
+sysctl -w net.ipv4.tcp_keepalive_time=&quot;30&quot;
+sysctl -w net.ipv4.tcp_max_syn_backlog=&quot;20480&quot;
+sysctl -w net.ipv4.tcp_max_tw_buckets=&quot;400000&quot;
+sysctl -w net.ipv4.tcp_no_metrics_save=&quot;1&quot;
+sysctl -w net.ipv4.tcp_syn_retries=&quot;2&quot;
+sysctl -w net.ipv4.tcp_synack_retries=&quot;2&quot;
+sysctl -w net.ipv4.tcp_tw_recycle=&quot;1&quot;
+sysctl -w net.ipv4.tcp_tw_reuse=&quot;1&quot;
+sysctl -w vm.min_free_kbytes=&quot;65536&quot;
+sysctl -w vm.overcommit_memory=&quot;1&quot;
+ulimit -n 9999999
+</code></pre>
+
+<h3 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3>
+<p>Here is the config Nginx file use <code>/etc/nginx/nginx.conf</code>:</p>
+<pre><code>user www-data;
+worker_processes auto;
+worker_rlimit_nofile 200000;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 10000;
+    use epoll;
+    multi_accept on;
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 300;
+    keepalive_requests 10000;
+    types_hash_max_size 2048;
+
+    open_file_cache max=200000 inactive=300s;
+    open_file_cache_valid 300s;
+    open_file_cache_min_uses 2;
+    open_file_cache_errors on;
+
+    server_tokens off;
+    dav_methods off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    access_log /var/log/nginx/access.log combined;
+    error_log /var/log/nginx/error.log warn;
+
+    gzip off;
+    gzip_vary off;
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*.conf;
+}
+</code></pre>
+
+<p>Here is the Nginx vhost file used:</p>
+<pre><code>upstream whoami {
+    server IP-whoami1:80;
+    server IP-whoami2:80;
+    keepalive 300;
+}
+
+server {
+    listen 8001;
+    server_name test.traefik;
+    access_log off;
+    error_log /dev/null crit;
+    if ($host != &quot;test.traefik&quot;) {
+        return 404;
+    }
+    location / {
+        proxy_pass http://whoami;
+        proxy_http_version 1.1;
+        proxy_set_header Connection &quot;&quot;;
+    proxy_set_header  X-Forwarded-Host $host;
+    }
+}
+</code></pre>
+
+<h3 id="traefik">Traefik<a class="headerlink" href="#traefik" title="Permanent link">&para;</a></h3>
+<p>Here is the <code>traefik.toml</code> file used:</p>
+<pre><code class="toml">MaxIdleConnsPerHost = 100000
+defaultEntryPoints = [&quot;http&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:8000&quot;
+
+[file]
+[backends]
+  [backends.backend1]
+    [backends.backend1.servers.server1]
+    url = &quot;http://IP-whoami1:80&quot;
+    weight = 1
+    [backends.backend1.servers.server2]
+    url = &quot;http://IP-whoami2:80&quot;
+    weight = 1
+
+[frontends]
+  [frontends.frontend1]
+  backend = &quot;backend1&quot;
+    [frontends.frontend1.routes.test_1]
+    rule = &quot;Host: test.traefik&quot;
+</code></pre>
+
+<h2 id="results">Results<a class="headerlink" href="#results" title="Permanent link">&para;</a></h2>
+<h3 id="whoami">whoami:<a class="headerlink" href="#whoami" title="Permanent link">&para;</a></h3>
+<pre><code class="shell">wrk -t20 -c1000 -d60s -H &quot;Host: test.traefik&quot; --latency  http://IP-whoami:80/bench
+Running 1m test @ http://IP-whoami:80/bench
+  20 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    70.28ms  134.72ms   1.91s    89.94%
+    Req/Sec     2.92k   742.42     8.78k    68.80%
+  Latency Distribution
+     50%   10.63ms
+     75%   75.64ms
+     90%  205.65ms
+     99%  668.28ms
+  3476705 requests in 1.00m, 384.61MB read
+  Socket errors: connect 0, read 0, write 0, timeout 103
+Requests/sec:  57894.35
+Transfer/sec:      6.40MB
+</code></pre>
+
+<h3 id="nginx_1">nginx:<a class="headerlink" href="#nginx_1" title="Permanent link">&para;</a></h3>
+<pre><code class="shell">wrk -t20 -c1000 -d60s -H &quot;Host: test.traefik&quot; --latency  http://IP-nginx:8001/bench
+Running 1m test @ http://IP-nginx:8001/bench
+  20 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency   101.25ms  180.09ms   1.99s    89.34%
+    Req/Sec     1.69k   567.69     9.39k    72.62%
+  Latency Distribution
+     50%   15.46ms
+     75%  129.11ms
+     90%  302.44ms
+     99%  846.59ms
+  2018427 requests in 1.00m, 298.36MB read
+  Socket errors: connect 0, read 0, write 0, timeout 90
+Requests/sec:  33591.67
+Transfer/sec:      4.97MB
+</code></pre>
+
+<h3 id="traefik_1">Traefik:<a class="headerlink" href="#traefik_1" title="Permanent link">&para;</a></h3>
+<pre><code class="shell">wrk -t20 -c1000 -d60s -H &quot;Host: test.traefik&quot; --latency  http://IP-traefik:8000/bench
+Running 1m test @ http://IP-traefik:8000/bench
+  20 threads and 1000 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    91.72ms  150.43ms   2.00s    90.50%
+    Req/Sec     1.43k   266.37     2.97k    69.77%
+  Latency Distribution
+     50%   19.74ms
+     75%  121.98ms
+     90%  237.39ms
+     99%  687.49ms
+  1705073 requests in 1.00m, 188.63MB read
+  Socket errors: connect 0, read 0, write 0, timeout 7
+Requests/sec:  28392.44
+Transfer/sec:      3.14MB
+</code></pre>
+
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>Traefik is obviously slower than Nginx, but not so much: Traefik can serve 28392 requests/sec and Nginx 33591 requests/sec which gives a ratio of 85%.
+Not bad for young project :) !</p>
+<p>Some areas of possible improvements:</p>
+<ul>
+<li>Use <a href="https://github.com/kavu/go_reuseport">GO_REUSEPORT</a> listener</li>
+<li>Run a separate server instance per CPU core with <code>GOMAXPROCS=1</code> (it appears during benchmarks that there is a lot more context switches with Traefik than with nginx)</li>
+</ul>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../user-guide/cluster-docker-consul/"-->
+               <!--title="Traefik cluster example with Swarm"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--Traefik cluster example with Swarm-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2018 Containous SAS
+                </div>
+                
+                powered by
+                <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="http://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:".."}})</script>
+      
+        <script src="../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../theme/js/extra.js"></script>
+      
+        <script src="../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

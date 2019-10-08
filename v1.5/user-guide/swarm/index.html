@@ -1,0 +1,1255 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Træfik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Swarm Cluster - Træfik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#swarm-cluster" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Træfik" class="md-header-nav__button md-logo">
+          
+            <img src="../../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Træfik
+              </span>
+              <span class="md-header-nav__topic">
+                Swarm Cluster
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Træfik" class="md-nav__button md-logo">
+      
+        <img src="../../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Træfik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/web/" title="Backend: Web" class="md-nav__link">
+      Backend: Web
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/boltdb/" title="Backend: BoltDB" class="md-nav__link">
+      Backend: BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/consul/" title="Backend: Consul" class="md-nav__link">
+      Backend: Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/consulcatalog/" title="Backend: Consul Catalog" class="md-nav__link">
+      Backend: Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/docker/" title="Backend: Docker" class="md-nav__link">
+      Backend: Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/dynamodb/" title="Backend: DynamoDB" class="md-nav__link">
+      Backend: DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/ecs/" title="Backend: ECS" class="md-nav__link">
+      Backend: ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/etcd/" title="Backend: Etcd" class="md-nav__link">
+      Backend: Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/eureka/" title="Backend: Eureka" class="md-nav__link">
+      Backend: Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/file/" title="Backend: File" class="md-nav__link">
+      Backend: File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/kubernetes/" title="Backend: Kubernetes Ingress" class="md-nav__link">
+      Backend: Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/marathon/" title="Backend: Marathon" class="md-nav__link">
+      Backend: Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/mesos/" title="Backend: Mesos" class="md-nav__link">
+      Backend: Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/rancher/" title="Backend: Rancher" class="md-nav__link">
+      Backend: Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/rest/" title="Backend: Rest" class="md-nav__link">
+      Backend: Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/servicefabric/" title="Backend: Azure Service Fabric" class="md-nav__link">
+      Backend: Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/zookeeper/" title="Backend: Zookeeper" class="md-nav__link">
+      Backend: Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Swarm Cluster
+      </label>
+    
+    <a href="./" title="Swarm Cluster" class="md-nav__link md-nav__link--active">
+      Swarm Cluster
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-provisioning" title="Cluster provisioning" class="md-nav__link">
+    Cluster provisioning
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-machine-mh-keystore" title="Create machine mh-keystore" class="md-nav__link">
+    Create machine mh-keystore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-machine-mhs-demo0" title="Create machine mhs-demo0" class="md-nav__link">
+    Create machine mhs-demo0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-machine-mhs-demo1" title="Create machine mhs-demo1" class="md-nav__link">
+    Create machine mhs-demo1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-overlay-network" title="Create the overlay Network" class="md-nav__link">
+    Create the overlay Network
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-trfik" title="Deploy Træfik" class="md-nav__link">
+    Deploy Træfik
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-your-apps" title="Deploy your apps" class="md-nav__link">
+    Deploy your apps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-to-your-apps-through-trfik" title="Access to your apps through Træfik" class="md-nav__link">
+    Access to your apps through Træfik
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-provisioning" title="Cluster provisioning" class="md-nav__link">
+    Cluster provisioning
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-machine-mh-keystore" title="Create machine mh-keystore" class="md-nav__link">
+    Create machine mh-keystore
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-machine-mhs-demo0" title="Create machine mhs-demo0" class="md-nav__link">
+    Create machine mhs-demo0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-machine-mhs-demo1" title="Create machine mhs-demo1" class="md-nav__link">
+    Create machine mhs-demo1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-overlay-network" title="Create the overlay Network" class="md-nav__link">
+    Create the overlay Network
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-trfik" title="Deploy Træfik" class="md-nav__link">
+    Deploy Træfik
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-your-apps" title="Deploy your apps" class="md-nav__link">
+    Deploy your apps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-to-your-apps-through-trfik" title="Access to your apps through Træfik" class="md-nav__link">
+    Access to your apps through Træfik
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.5/docs/user-guide/swarm.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="swarm-cluster">Swarm cluster<a class="headerlink" href="#swarm-cluster" title="Permanent link">&para;</a></h1>
+<p>This section explains how to create a multi-host <a href="https://docs.docker.com/swarm">swarm</a> cluster using <a href="https://docs.docker.com/machine/">docker-machine</a> and how to deploy Træfik on it.</p>
+<p>The cluster consists of:</p>
+<ul>
+<li>2 servers</li>
+<li>1 swarm master</li>
+<li>2 swarm nodes</li>
+<li>1 <a href="https://docs.docker.com/engine/userguide/networking/dockernetworks/#an-overlay-network">overlay</a> network (multi-host networking)</li>
+</ul>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ol>
+<li>You need to install <a href="https://docs.docker.com/machine/">docker-machine</a></li>
+<li>You need the latest <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a></li>
+</ol>
+<h2 id="cluster-provisioning">Cluster provisioning<a class="headerlink" href="#cluster-provisioning" title="Permanent link">&para;</a></h2>
+<p>We first follow <a href="https://docs.docker.com/engine/userguide/networking/get-started-overlay/">this guide</a> to create the cluster.</p>
+<h3 id="create-machine-mh-keystore">Create machine <code>mh-keystore</code><a class="headerlink" href="#create-machine-mh-keystore" title="Permanent link">&para;</a></h3>
+<p>This machine is the service registry of our cluster.</p>
+<pre><code class="shell">docker-machine create -d virtualbox mh-keystore
+</code></pre>
+
+<p>Then we install the service registry <a href="https://consul.io">Consul</a> on this machine:</p>
+<pre><code class="shell">eval &quot;$(docker-machine env mh-keystore)&quot;
+docker run -d \
+    -p &quot;8500:8500&quot; \
+    -h &quot;consul&quot; \
+    progrium/consul -server -bootstrap
+</code></pre>
+
+<h3 id="create-machine-mhs-demo0">Create machine <code>mhs-demo0</code><a class="headerlink" href="#create-machine-mhs-demo0" title="Permanent link">&para;</a></h3>
+<p>This machine is a swarm master and a swarm agent on it.</p>
+<pre><code class="shell">docker-machine create -d virtualbox \
+    --swarm --swarm-master \
+    --swarm-discovery=&quot;consul://$(docker-machine ip mh-keystore):8500&quot; \
+    --engine-opt=&quot;cluster-store=consul://$(docker-machine ip mh-keystore):8500&quot; \
+    --engine-opt=&quot;cluster-advertise=eth1:2376&quot; \
+    mhs-demo0
+</code></pre>
+
+<h3 id="create-machine-mhs-demo1">Create machine <code>mhs-demo1</code><a class="headerlink" href="#create-machine-mhs-demo1" title="Permanent link">&para;</a></h3>
+<p>This machine have a swarm agent on it.</p>
+<pre><code class="shell">docker-machine create -d virtualbox \
+    --swarm \
+    --swarm-discovery=&quot;consul://$(docker-machine ip mh-keystore):8500&quot; \
+    --engine-opt=&quot;cluster-store=consul://$(docker-machine ip mh-keystore):8500&quot; \
+    --engine-opt=&quot;cluster-advertise=eth1:2376&quot; \
+    mhs-demo1
+</code></pre>
+
+<h3 id="create-the-overlay-network">Create the overlay Network<a class="headerlink" href="#create-the-overlay-network" title="Permanent link">&para;</a></h3>
+<p>Create the overlay network on the swarm master:</p>
+<pre><code class="shell">eval $(docker-machine env --swarm mhs-demo0)
+docker network create --driver overlay --subnet=10.0.9.0/24 my-net
+</code></pre>
+
+<h2 id="deploy-trfik">Deploy Træfik<a class="headerlink" href="#deploy-trfik" title="Permanent link">&para;</a></h2>
+<p>Deploy Træfik:</p>
+<pre><code class="shell">docker $(docker-machine config mhs-demo0) run \
+    -d \
+    -p 80:80 -p 8080:8080 \
+    --net=my-net \
+    -v /var/lib/boot2docker/:/ssl \
+    traefik \
+    -l DEBUG \
+    -c /dev/null \
+    --docker \
+    --docker.domain=traefik \
+    --docker.endpoint=tcp://$(docker-machine ip mhs-demo0):2376 \
+    --docker.tls \
+    --docker.tls.ca=/ssl/ca.pem \
+    --docker.tls.cert=/ssl/server.pem \
+    --docker.tls.key=/ssl/server-key.pem \
+    --docker.tls.insecureSkipVerify \
+    --docker.watch \
+    --api
+</code></pre>
+
+<p>Let's explain this command:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-p 80:80 -p 8080:8080</code></td>
+<td>we bind ports 80 and 8080</td>
+</tr>
+<tr>
+<td><code>--net=my-net</code></td>
+<td>run the container on the network my-net</td>
+</tr>
+<tr>
+<td><code>-v /var/lib/boot2docker/:/ssl</code></td>
+<td>mount the ssl keys generated by docker-machine</td>
+</tr>
+<tr>
+<td><code>-c /dev/null</code></td>
+<td>empty config file</td>
+</tr>
+<tr>
+<td><code>--docker</code></td>
+<td>enable docker backend</td>
+</tr>
+<tr>
+<td><code>--docker.endpoint=tcp://172.18.0.1:2376</code></td>
+<td>connect to the swarm master using the docker_gwbridge network</td>
+</tr>
+<tr>
+<td><code>--docker.tls</code></td>
+<td>enable TLS using the docker-machine keys</td>
+</tr>
+<tr>
+<td><code>--api</code></td>
+<td>activate the webUI on port 8080</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deploy-your-apps">Deploy your apps<a class="headerlink" href="#deploy-your-apps" title="Permanent link">&para;</a></h2>
+<p>We can now deploy our app on the cluster, here <a href="https://github.com/emilevauge/whoami">whoami</a>, a simple web server in GO, on the network <code>my-net</code>:</p>
+<pre><code class="shell">eval $(docker-machine env --swarm mhs-demo0)
+docker run -d --name=whoami0 --net=my-net --env=&quot;constraint:node==mhs-demo0&quot; emilevauge/whoami
+docker run -d --name=whoami1 --net=my-net --env=&quot;constraint:node==mhs-demo1&quot; emilevauge/whoami
+</code></pre>
+
+<p>Check that everything is started:</p>
+<pre><code class="shell">docker ps
+</code></pre>
+
+<pre><code>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                                      NAMES
+ba2c21488299        emilevauge/whoami   &quot;/whoamI&quot;                8 seconds ago       Up 9 seconds        80/tcp                                                     mhs-demo1/whoami1
+8147a7746e7a        emilevauge/whoami   &quot;/whoamI&quot;                19 seconds ago      Up 20 seconds       80/tcp                                                     mhs-demo0/whoami0
+8fbc39271b4c        traefik             &quot;/traefik -l DEBUG -c&quot;   36 seconds ago      Up 37 seconds       192.168.99.101:80-&gt;80/tcp, 192.168.99.101:8080-&gt;8080/tcp   mhs-demo0/serene_bhabha
+</code></pre>
+
+<h2 id="access-to-your-apps-through-trfik">Access to your apps through Træfik<a class="headerlink" href="#access-to-your-apps-through-trfik" title="Permanent link">&para;</a></h2>
+<pre><code class="shell">curl -H Host:whoami0.traefik http://$(docker-machine ip mhs-demo0)
+</code></pre>
+
+<pre><code class="yaml">Hostname: 8147a7746e7a
+IP: 127.0.0.1
+IP: ::1
+IP: 10.0.9.3
+IP: fe80::42:aff:fe00:903
+IP: 172.18.0.3
+IP: fe80::42:acff:fe12:3
+GET / HTTP/1.1
+Host: 10.0.9.3:80
+User-Agent: curl/7.35.0
+Accept: */*
+Accept-Encoding: gzip
+X-Forwarded-For: 192.168.99.1
+X-Forwarded-Host: 10.0.9.3:80
+X-Forwarded-Proto: http
+X-Forwarded-Server: 8fbc39271b4c
+</code></pre>
+
+<pre><code class="shell">curl -H Host:whoami1.traefik http://$(docker-machine ip mhs-demo0)
+</code></pre>
+
+<pre><code class="yaml">Hostname: ba2c21488299
+IP: 127.0.0.1
+IP: ::1
+IP: 10.0.9.4
+IP: fe80::42:aff:fe00:904
+IP: 172.18.0.2
+IP: fe80::42:acff:fe12:2
+GET / HTTP/1.1
+Host: 10.0.9.4:80
+User-Agent: curl/7.35.0
+Accept: */*
+Accept-Encoding: gzip
+X-Forwarded-For: 192.168.99.1
+X-Forwarded-Host: 10.0.9.4:80
+X-Forwarded-Proto: http
+X-Forwarded-Server: 8fbc39271b4c
+</code></pre>
+
+<p><img alt="" src="https://i.giphy.com/ujUdrdpX7Ok5W.gif" /></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../swarm-mode/"-->
+               <!--title="Swarm Mode Cluster"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--Swarm Mode Cluster-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../docker-and-lets-encrypt/" title="Let's Encrypt & Docker"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--Let's Encrypt & Docker-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2018 Containous SAS
+                </div>
+                
+                powered by
+                <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="http://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../theme/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

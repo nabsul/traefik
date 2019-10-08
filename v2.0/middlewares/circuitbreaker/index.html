@@ -1,0 +1,2271 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>CircuitBreaker - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/styles/atom-one-light.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-51880359-3", "docs.traefik.io")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#circuitbreaker" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../assets/img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Traefik
+            </span>
+            <span class="md-header-nav__topic">
+              CircuitBreaker
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../assets/img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/concepts/" title="Concepts" class="md-nav__link">
+      Concepts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/configuration-overview/" title="Configuration Introduction" class="md-nav__link">
+      Configuration Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/install-traefik/" title="Install Traefik" class="md-nav__link">
+      Install Traefik
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration Discovery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration Discovery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/kubernetes-ingress/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Routing & Load Balancing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Routing & Load Balancing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/routers/" title="Routers" class="md-nav__link">
+      Routers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/services/" title="Services" class="md-nav__link">
+      Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Providers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Providers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      HTTPS & TLS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        HTTPS & TLS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/tls/" title="TLS" class="md-nav__link">
+      TLS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" checked>
+    
+    <label class="md-nav__link" for="nav-6">
+      Middlewares
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Middlewares
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../addprefix/" title="AddPrefix" class="md-nav__link">
+      AddPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../basicauth/" title="BasicAuth" class="md-nav__link">
+      BasicAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../buffering/" title="Buffering" class="md-nav__link">
+      Buffering
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../chain/" title="Chain" class="md-nav__link">
+      Chain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        CircuitBreaker
+      </label>
+    
+    <a href="./" title="CircuitBreaker" class="md-nav__link md-nav__link--active">
+      CircuitBreaker
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" title="Configuration Examples" class="md-nav__link">
+    Configuration Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-states" title="Possible States" class="md-nav__link">
+    Possible States
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#close" title="Close" class="md-nav__link">
+    Close
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open" title="Open" class="md-nav__link">
+    Open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering" title="Recovering" class="md-nav__link">
+    Recovering
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" title="Configuration Options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-trigger" title="Configuring the Trigger" class="md-nav__link">
+    Configuring the Trigger
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#networkerrorratio" title="NetworkErrorRatio" class="md-nav__link">
+    NetworkErrorRatio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responsecoderatio" title="ResponseCodeRatio" class="md-nav__link">
+    ResponseCodeRatio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latencyatquantilems" title="LatencyAtQuantileMS" class="md-nav__link">
+    LatencyAtQuantileMS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-multiple-metrics" title="Using multiple metrics" class="md-nav__link">
+    Using multiple metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operators" title="Operators" class="md-nav__link">
+    Operators
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback-mechanism" title="Fallback mechanism" class="md-nav__link">
+    Fallback mechanism
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkperiod" title="CheckPeriod" class="md-nav__link">
+    CheckPeriod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallbackduration" title="FallbackDuration" class="md-nav__link">
+    FallbackDuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recoveringduration" title="RecoveringDuration" class="md-nav__link">
+    RecoveringDuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../compress/" title="Compress" class="md-nav__link">
+      Compress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../digestauth/" title="DigestAuth" class="md-nav__link">
+      DigestAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../errorpages/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../forwardauth/" title="ForwardAuth" class="md-nav__link">
+      ForwardAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../headers/" title="Headers" class="md-nav__link">
+      Headers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ipwhitelist/" title="IpWhitelist" class="md-nav__link">
+      IpWhitelist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../inflightreq/" title="InFlightReq" class="md-nav__link">
+      InFlightReq
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../passtlsclientcert/" title="PassTLSClientCert" class="md-nav__link">
+      PassTLSClientCert
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ratelimit/" title="RateLimit" class="md-nav__link">
+      RateLimit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../redirectregex/" title="RedirectRegex" class="md-nav__link">
+      RedirectRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../redirectscheme/" title="RedirectScheme" class="md-nav__link">
+      RedirectScheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../replacepath/" title="ReplacePath" class="md-nav__link">
+      ReplacePath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../replacepathregex/" title="ReplacePathRegex" class="md-nav__link">
+      ReplacePathRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../retry/" title="Retry" class="md-nav__link">
+      Retry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../stripprefix/" title="StripPrefix" class="md-nav__link">
+      StripPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../stripprefixregex/" title="StripPrefixRegex" class="md-nav__link">
+      StripPrefixRegex
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Operations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dashboard/" title="Dashboard" class="md-nav__link">
+      Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Observability
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Observability
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/access-logs/" title="Access Logs" class="md-nav__link">
+      Access Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-3" type="checkbox" id="nav-8-3">
+    
+    <label class="md-nav__link" for="nav-8-3">
+      Metrics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-3">
+        Metrics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/influxdb/" title="InfluxDB" class="md-nav__link">
+      InfluxDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/prometheus/" title="Prometheus" class="md-nav__link">
+      Prometheus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/statsd/" title="StatsD" class="md-nav__link">
+      StatsD
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-4" type="checkbox" id="nav-8-4">
+    
+    <label class="md-nav__link" for="nav-8-4">
+      Tracing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-4">
+        Tracing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/jaeger/" title="Jaeger" class="md-nav__link">
+      Jaeger
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/zipkin/" title="Zipkin" class="md-nav__link">
+      Zipkin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/instana/" title="Instana" class="md-nav__link">
+      Instana
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/haystack/" title="Haystack" class="md-nav__link">
+      Haystack
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/crd-acme/" title="Kubernetes and Let's Encrypt" class="md-nav__link">
+      Kubernetes and Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/grpc/" title="gRPC Examples" class="md-nav__link">
+      gRPC Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/basic-example/" title="Basic Example" class="md-nav__link">
+      Basic Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4-2" type="checkbox" id="nav-9-4-2">
+    
+    <label class="md-nav__link" for="nav-9-4-2">
+      HTTPS with Let's Encrypt
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-9-4-2">
+        HTTPS with Let's Encrypt
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-tls/" title="TLS Challenge" class="md-nav__link">
+      TLS Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-http/" title="HTTP Challenge" class="md-nav__link">
+      HTTP Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-dns/" title="DNS Challenge" class="md-nav__link">
+      DNS Challenge
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Migration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Migration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../migration/v1-to-v2/" title="Traefik v1 to v2" class="md-nav__link">
+      Traefik v1 to v2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Contributing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Contributing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/thank-you/" title="Thank You!" class="md-nav__link">
+      Thank You!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-issues/" title="Submitting Issues" class="md-nav__link">
+      Submitting Issues
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-pull-requests/" title="Submitting PRs" class="md-nav__link">
+      Submitting PRs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/building-testing/" title="Building and Testing" class="md-nav__link">
+      Building and Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/documentation/" title="Documentation" class="md-nav__link">
+      Documentation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/data-collection/" title="Data Collection" class="md-nav__link">
+      Data Collection
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/advocating/" title="Advocating" class="md-nav__link">
+      Advocating
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/maintainers/" title="Maintainers" class="md-nav__link">
+      Maintainers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
+    
+    <label class="md-nav__link" for="nav-12">
+      References
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-12">
+        References
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-1" type="checkbox" id="nav-12-1">
+    
+    <label class="md-nav__link" for="nav-12-1">
+      Static Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-1">
+        Static Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/env/" title="Environment variables" class="md-nav__link">
+      Environment variables
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-2" type="checkbox" id="nav-12-2">
+    
+    <label class="md-nav__link" for="nav-12-2">
+      Dynamic Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-2">
+        Dynamic Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/kubernetes-crd/" title="Kubernetes CRD" class="md-nav__link">
+      Kubernetes CRD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" title="Configuration Examples" class="md-nav__link">
+    Configuration Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-states" title="Possible States" class="md-nav__link">
+    Possible States
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#close" title="Close" class="md-nav__link">
+    Close
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open" title="Open" class="md-nav__link">
+    Open
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovering" title="Recovering" class="md-nav__link">
+    Recovering
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-options" title="Configuration Options" class="md-nav__link">
+    Configuration Options
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-the-trigger" title="Configuring the Trigger" class="md-nav__link">
+    Configuring the Trigger
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#networkerrorratio" title="NetworkErrorRatio" class="md-nav__link">
+    NetworkErrorRatio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#responsecoderatio" title="ResponseCodeRatio" class="md-nav__link">
+    ResponseCodeRatio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#latencyatquantilems" title="LatencyAtQuantileMS" class="md-nav__link">
+    LatencyAtQuantileMS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-multiple-metrics" title="Using multiple metrics" class="md-nav__link">
+    Using multiple metrics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operators" title="Operators" class="md-nav__link">
+    Operators
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallback-mechanism" title="Fallback mechanism" class="md-nav__link">
+    Fallback mechanism
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checkperiod" title="CheckPeriod" class="md-nav__link">
+    CheckPeriod
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallbackduration" title="FallbackDuration" class="md-nav__link">
+    FallbackDuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recoveringduration" title="RecoveringDuration" class="md-nav__link">
+    RecoveringDuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v2.0/docs/content/middlewares/circuitbreaker.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="circuitbreaker">CircuitBreaker<a class="headerlink" href="#circuitbreaker" title="Permanent link">&para;</a></h1>
+<p class="subtitle">Don't Waste Time Calling Unhealthy Services</p>
+<p><img alt="CircuitBreaker" src="../../assets/img/middleware/circuitbreaker.png" /> </p>
+<p>The circuit breaker protects your system from stacking requests to unhealthy services (resulting in cascading failures).</p>
+<p>When your system is healthy, the circuit is close (normal operations). 
+When your system becomes unhealthy, the circuit becomes open and the requests are no longer forwarded (but handled by a fallback mechanism).</p>
+<p>To assess if your system is healthy, the circuit breaker constantly monitors the services. </p>
+<div class="admonition note">
+<ul>
+<li>The CircuitBreaker only analyses what happens <em>after</em> it is positioned in the middleware chain. What happens <em>before</em> has no impact on its state.</li>
+<li>The CircuitBreaker only affects the routers that use it. Routers that don't use the CircuitBreaker won't be affected by its state.</li>
+</ul>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Each router will eventually gets its own instance of a given circuit breaker.</p>
+<p>If two different routers refer to the same circuit breaker definition, they will get one instance each.
+It means that one circuit breaker can be open while the other stays closed: their state is not shared.</p>
+<p>This is the expected behavior, we want you to be able to define what makes a service healthy without having to declare a circuit breaker for each route.</p>
+</div>
+<h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">Docker</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Latency Check
+labels:
+  - "traefik.http.middlewares.latency-check.circuitbreaker.expression=LatencyAtQuantileMS(50.0) &gt; 100"</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">Kubernetes</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Latency Check
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: latency-check
+spec:
+  circuitBreaker:
+    expression: LatencyAtQuantileMS(50.0) &gt; 100</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_2" />
+<label for="__tab_1_2">Marathon</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-json">"labels": {
+  "traefik.http.middlewares.latency-check.circuitbreaker.expression": "LatencyAtQuantileMS(50.0) &gt; 100"
+}</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_3" />
+<label for="__tab_1_3">Rancher</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Latency Check
+labels:
+  - "traefik.http.middlewares.latency-check.circuitbreaker.expression=LatencyAtQuantileMS(50.0) &gt; 100"</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_4" />
+<label for="__tab_1_4">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml"># Latency Check
+[http.middlewares]
+  [http.middlewares.latency-check.circuitBreaker]
+    expression = "LatencyAtQuantileMS(50.0) &gt; 100"</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_5" />
+<label for="__tab_1_5">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml"># Latency Check
+http:
+  middlewares:
+    latency-check:
+      circuitBreaker:
+        expression: "LatencyAtQuantileMS(50.0) &gt; 100"</code></pre></div>
+</div>
+<h2 id="possible-states">Possible States<a class="headerlink" href="#possible-states" title="Permanent link">&para;</a></h2>
+<p>There are three possible states for your circuit breaker:</p>
+<ul>
+<li>Close (your service operates normally)</li>
+<li>Open (the fallback mechanism takes over your service)</li>
+<li>Recovering (the circuit breaker tries to resume normal operations by progressively sending requests to your service)</li>
+</ul>
+<h3 id="close">Close<a class="headerlink" href="#close" title="Permanent link">&para;</a></h3>
+<p>While close, the circuit breaker only collects metrics to analyze the behavior of the requests.</p>
+<p>At specified intervals (<code>checkPeriod</code>), it will evaluate <code>expression</code> to decide if its state must change. </p>
+<h3 id="open">Open<a class="headerlink" href="#open" title="Permanent link">&para;</a></h3>
+<p>While open, the fallback mechanism takes over the normal service calls for a duration of <code>FallbackDuration</code>.
+After this duration, it will enter the recovering state.</p>
+<h3 id="recovering">Recovering<a class="headerlink" href="#recovering" title="Permanent link">&para;</a></h3>
+<p>While recovering, the circuit breaker will progressively send requests to your service again (in a linear way, for <code>RecoveryDuration</code>).
+If your service fails during recovery, the circuit breaker becomes open again.
+If the service operates normally during the whole recovering duration, then the circuit breaker returns to close.</p>
+<h2 id="configuration-options">Configuration Options<a class="headerlink" href="#configuration-options" title="Permanent link">&para;</a></h2>
+<h3 id="configuring-the-trigger">Configuring the Trigger<a class="headerlink" href="#configuring-the-trigger" title="Permanent link">&para;</a></h3>
+<p>You can specify an <code>expression</code> that, once matched, will trigger the circuit breaker (and apply the fallback mechanism instead of calling your services).</p>
+<p>The <code>expression</code> can check three different metrics:</p>
+<ul>
+<li>The network error ratio (<code>NetworkErrorRatio</code>)</li>
+<li>The status code ratio (<code>ResponseCodeRatio</code>)</li>
+<li>The latency at quantile, in milliseconds (<code>LatencyAtQuantileMS</code>)</li>
+</ul>
+<h4 id="networkerrorratio"><code>NetworkErrorRatio</code><a class="headerlink" href="#networkerrorratio" title="Permanent link">&para;</a></h4>
+<p>If you want the circuit breaker to trigger at a 30% ratio of network errors, the expression will be <code>NetworkErrorRatio() &gt; 0.30</code></p>
+<h4 id="responsecoderatio"><code>ResponseCodeRatio</code><a class="headerlink" href="#responsecoderatio" title="Permanent link">&para;</a></h4>
+<p>You can trigger the circuit breaker based on the ratio of a given range of status codes.</p>
+<p>The <code>ResponseCodeRatio</code> accepts four parameters, <code>from</code>, <code>to</code>, <code>dividedByFrom</code>, <code>dividedByTo</code>.</p>
+<p>The operation that will be computed is sum(<code>to</code> -&gt; <code>from</code>) / sum (<code>dividedByFrom</code> -&gt; <code>dividedByTo</code>).</p>
+<div class="admonition note">
+<p>If sum (<code>dividedByFrom</code> -&gt; <code>dividedByTo</code>) equals 0, then <code>ResponseCodeRatio</code> returns 0.</p>
+<p><code>from</code>is inclusive, <code>to</code> is exclusive. </p>
+</div>
+<p>For example, the expression <code>ResponseCodeRatio(500, 600, 0, 600) &gt; 0.25</code> will trigger the circuit breaker if 25% of the requests returned a 5XX status (amongst the request that returned a status code from 0 to 5XX). </p>
+<h4 id="latencyatquantilems"><code>LatencyAtQuantileMS</code><a class="headerlink" href="#latencyatquantilems" title="Permanent link">&para;</a></h4>
+<p>You can trigger the circuit breaker when a given proportion of your requests become too slow.</p>
+<p>For example, the expression <code>LatencyAtQuantileMS(50.0) &gt; 100</code> will trigger the circuit breaker when the median latency (quantile 50) reaches 100MS.</p>
+<div class="admonition note">
+<p>You must provide a float number (with the trailing .0) for the quantile value</p>
+</div>
+<h4 id="using-multiple-metrics">Using multiple metrics<a class="headerlink" href="#using-multiple-metrics" title="Permanent link">&para;</a></h4>
+<p>You can combine multiple metrics using operators in your expression.</p>
+<p>Supported operators are:</p>
+<ul>
+<li>AND (<code>&amp;&amp;</code>)</li>
+<li>OR (<code>||</code>)</li>
+</ul>
+<p>For example, <code>ResponseCodeRatio(500, 600, 0, 600) &gt; 0.30 || NetworkErrorRatio() &gt; 0.10</code> triggers the circuit breaker when 30% of the requests return a 5XX status code, or when the ratio of network errors reaches 10%. </p>
+<h4 id="operators">Operators<a class="headerlink" href="#operators" title="Permanent link">&para;</a></h4>
+<p>Here is the list of supported operators:</p>
+<ul>
+<li>Greater than (<code>&gt;</code>)</li>
+<li>Greater or equal than (<code>&gt;=</code>)</li>
+<li>Lesser than (<code>&lt;</code>)</li>
+<li>Lesser or equal than (<code>&lt;=</code>)</li>
+<li>Equal (<code>==</code>)</li>
+<li>Not Equal (<code>!=</code>)</li>
+</ul>
+<h3 id="fallback-mechanism">Fallback mechanism<a class="headerlink" href="#fallback-mechanism" title="Permanent link">&para;</a></h3>
+<p>The fallback mechanism returns a <code>HTTP 503 Service Unavailable</code> to the client (instead of calling the target service).
+This behavior cannot be configured. </p>
+<h3 id="checkperiod"><code>CheckPeriod</code><a class="headerlink" href="#checkperiod" title="Permanent link">&para;</a></h3>
+<p>The interval used to evaluate <code>expression</code> and decide if the state of the circuit breaker must change.
+By default, <code>CheckPeriod</code> is 100ms. This value cannot be configured.</p>
+<h3 id="fallbackduration"><code>FallbackDuration</code><a class="headerlink" href="#fallbackduration" title="Permanent link">&para;</a></h3>
+<p>By default, <code>FallbackDuration</code> is 10 seconds. This value cannot be configured.</p>
+<h3 id="recoveringduration"><code>RecoveringDuration</code><a class="headerlink" href="#recoveringduration" title="Permanent link">&para;</a></h3>
+<p>The duration of the recovering mode (recovering state). </p>
+<p>By default, <code>RecoveringDuration</code> is 10 seconds. This value cannot be configured.  </p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../assets/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

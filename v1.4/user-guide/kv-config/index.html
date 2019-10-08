@@ -1,0 +1,1566 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Træfik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.languages" content="">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      
+        <link rel="shortcut icon" href="../../img/traefik.icon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.12.2">
+    
+    
+      
+        <title>Key-value Store Configuration - Træfik</title>
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr-e826f8942a.js"></script>
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application-04ea671600.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-23f75ab9c7.palette.css">
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+      <link rel="stylesheet" href="../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+  
+  
+  
+    <body data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Træfik" class="md-header-nav__button md-logo">
+          
+            
+              <img src="../../img/traefik.logo.png" width="24" height="24">
+            
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  User Guides
+                </span>
+              
+            
+            Key-value Store Configuration
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        
+          <img src="../../img/traefik.logo.png">
+        
+      
+    </span>
+    Træfik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/web/" title="Backend: Web" class="md-nav__link">
+      Backend: Web
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/boltdb/" title="Backend: BoltDB" class="md-nav__link">
+      Backend: BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/consul/" title="Backend: Consul" class="md-nav__link">
+      Backend: Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/docker/" title="Backend: Docker" class="md-nav__link">
+      Backend: Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/dynamodb/" title="Backend: DynamoDB" class="md-nav__link">
+      Backend: DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/ecs/" title="Backend: ECS" class="md-nav__link">
+      Backend: ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/etcd/" title="Backend: Etcd" class="md-nav__link">
+      Backend: Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/eureka/" title="Backend: Eureka" class="md-nav__link">
+      Backend: Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/file/" title="Backend: File" class="md-nav__link">
+      Backend: File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/kubernetes/" title="Backend: Kubernetes Ingress" class="md-nav__link">
+      Backend: Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/marathon/" title="Backend: Marathon" class="md-nav__link">
+      Backend: Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/mesos/" title="Backend: Mesos" class="md-nav__link">
+      Backend: Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/rancher/" title="Backend: Rancher" class="md-nav__link">
+      Backend: Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/zookeeper/" title="Backend: Zookeeper" class="md-nav__link">
+      Backend: Zookeeper
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Key-value Store Configuration
+      </label>
+    
+    <a href="./" title="Key-value Store Configuration" class="md-nav__link md-nav__link--active">
+      Key-value Store Configuration
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#static-configuration-in-key-value-store" title="Static configuration in Key-value store" class="md-nav__link">
+    Static configuration in Key-value store
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose-file-for-consul" title="docker-compose file for Consul" class="md-nav__link">
+    docker-compose file for Consul
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-the-configuration-in-the-key-value-store" title="Upload the configuration in the Key-value store" class="md-nav__link">
+    Upload the configuration in the Key-value store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-trfik" title="Launch Træfik" class="md-nav__link">
+    Launch Træfik
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consul-acl-token-support" title="Consul ACL Token support" class="md-nav__link">
+    Consul ACL Token support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-support" title="TLS support" class="md-nav__link">
+    TLS support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-support-with-client-certificates" title="TLS support with client certificates" class="md-nav__link">
+    TLS support with client certificates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-configuration-in-key-value-store" title="Dynamic configuration in Key-value store" class="md-nav__link">
+    Dynamic configuration in Key-value store
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-value-storage-structure" title="Key-value storage structure" class="md-nav__link">
+    Key-value storage structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomic-configuration-changes" title="Atomic configuration changes" class="md-nav__link">
+    Atomic configuration changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-configuration-in-key-value-store" title="Store configuration in Key-value store" class="md-nav__link">
+    Store configuration in Key-value store
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../archive/" title="Archive" class="md-nav__link">
+      Archive
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#static-configuration-in-key-value-store" title="Static configuration in Key-value store" class="md-nav__link">
+    Static configuration in Key-value store
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose-file-for-consul" title="docker-compose file for Consul" class="md-nav__link">
+    docker-compose file for Consul
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upload-the-configuration-in-the-key-value-store" title="Upload the configuration in the Key-value store" class="md-nav__link">
+    Upload the configuration in the Key-value store
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-trfik" title="Launch Træfik" class="md-nav__link">
+    Launch Træfik
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consul-acl-token-support" title="Consul ACL Token support" class="md-nav__link">
+    Consul ACL Token support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-support" title="TLS support" class="md-nav__link">
+    TLS support
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-support-with-client-certificates" title="TLS support with client certificates" class="md-nav__link">
+    TLS support with client certificates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-configuration-in-key-value-store" title="Dynamic configuration in Key-value store" class="md-nav__link">
+    Dynamic configuration in Key-value store
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-value-storage-structure" title="Key-value storage structure" class="md-nav__link">
+    Key-value storage structure
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atomic-configuration-changes" title="Atomic configuration changes" class="md-nav__link">
+    Atomic configuration changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#store-configuration-in-key-value-store" title="Store configuration in Key-value store" class="md-nav__link">
+    Store configuration in Key-value store
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.4/docs/user-guide/kv-config.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="key-value-store-configuration">Key-value store configuration<a class="headerlink" href="#key-value-store-configuration" title="Permanent link">&para;</a></h1>
+<p>Both <a href="../../user-guide/kv-config/#static-configuration-in-key-value-store">static global configuration</a> and <a href="../../user-guide/kv-config/#dynamic-configuration-in-key-value-store">dynamic</a> configuration can be sorted in a Key-value store.</p>
+<p>This section explains how to launch Træfik using a configuration loaded from a Key-value store.</p>
+<p>Træfik supports several Key-value stores:</p>
+<ul>
+<li><a href="https://consul.io">Consul</a></li>
+<li><a href="https://coreos.com/etcd/">etcd</a></li>
+<li><a href="https://zookeeper.apache.org/">ZooKeeper</a></li>
+<li><a href="https://github.com/boltdb/bolt">boltdb</a></li>
+</ul>
+<h2 id="static-configuration-in-key-value-store">Static configuration in Key-value store<a class="headerlink" href="#static-configuration-in-key-value-store" title="Permanent link">&para;</a></h2>
+<p>We will see the steps to set it up with an easy example.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We could do the same with any other Key-value Store.</p>
+</div>
+<h3 id="docker-compose-file-for-consul">docker-compose file for Consul<a class="headerlink" href="#docker-compose-file-for-consul" title="Permanent link">&para;</a></h3>
+<p>The Træfik global configuration will be retrieved from a <a href="https://consul.io">Consul</a> store.</p>
+<p>First we have to launch Consul in a container.</p>
+<p>The <a href="https://docs.docker.com/compose/compose-file/">docker-compose file</a> allows us to launch Consul and four instances of the trivial app <a href="https://github.com/emilevauge/whoamI">emilevauge/whoamI</a> :</p>
+<pre><code class="yaml">consul:
+  image: progrium/consul
+  command: -server -bootstrap -log-level debug -ui-dir /ui
+  ports:
+    - &quot;8400:8400&quot;
+    - &quot;8500:8500&quot;
+    - &quot;8600:53/udp&quot;
+  expose:
+    - &quot;8300&quot;
+    - &quot;8301&quot;
+    - &quot;8301/udp&quot;
+    - &quot;8302&quot;
+    - &quot;8302/udp&quot;
+
+whoami1:
+  image: emilevauge/whoami
+
+whoami2:
+  image: emilevauge/whoami
+
+whoami3:
+  image: emilevauge/whoami
+
+whoami4:
+  image: emilevauge/whoami
+</code></pre>
+
+<h3 id="upload-the-configuration-in-the-key-value-store">Upload the configuration in the Key-value store<a class="headerlink" href="#upload-the-configuration-in-the-key-value-store" title="Permanent link">&para;</a></h3>
+<p>We should now fill the store with the Træfik global configuration, as we do with a <a href="../../toml">TOML file configuration</a>.<br />
+To do that, we can send the Key-value pairs via <a href="https://www.consul.io/intro/getting-started/kv.html">curl commands</a> or via the <a href="https://www.consul.io/intro/getting-started/ui.html">Web UI</a>.</p>
+<p>Fortunately, Træfik allows automation of this process using the <code>storeconfig</code> subcommand.<br />
+Please refer to the <a href="../../user-guide/kv-config/#store-configuration-in-key-value-store">store Træfik configuration</a> section to get documentation on it.</p>
+<p>Here is the toml configuration we would like to store in the Key-value Store  :</p>
+<pre><code class="toml">logLevel = &quot;DEBUG&quot;
+
+defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      CertFile = &quot;integration/fixtures/https/snitest.com.cert&quot;
+      KeyFile = &quot;integration/fixtures/https/snitest.com.key&quot;
+      [[entryPoints.https.tls.certificates]]
+      CertFile = &quot;&quot;&quot;-----BEGIN CERTIFICATE-----
+                      &lt;cert file content&gt;
+                      -----END CERTIFICATE-----&quot;&quot;&quot;
+      KeyFile = &quot;&quot;&quot;-----BEGIN CERTIFICATE-----
+                      &lt;key file content&gt;
+                      -----END CERTIFICATE-----&quot;&quot;&quot;
+
+[consul]
+  endpoint = &quot;127.0.0.1:8500&quot;
+  watch = true
+  prefix = &quot;traefik&quot;
+
+[web]
+  address = &quot;:8081&quot;
+</code></pre>
+
+<p>And there, the same global configuration in the Key-value Store (using <code>prefix = "traefik"</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/loglevel</code></td>
+<td><code>DEBUG</code></td>
+</tr>
+<tr>
+<td><code>/traefik/defaultentrypoints/0</code></td>
+<td><code>http</code></td>
+</tr>
+<tr>
+<td><code>/traefik/defaultentrypoints/1</code></td>
+<td><code>https</code></td>
+</tr>
+<tr>
+<td><code>/traefik/entrypoints/http/address</code></td>
+<td><code>:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/entrypoints/https/address</code></td>
+<td><code>:443</code></td>
+</tr>
+<tr>
+<td><code>/traefik/entrypoints/https/tls/certificates/0/certfile</code></td>
+<td><code>integration/fixtures/https/snitest.com.cert</code></td>
+</tr>
+<tr>
+<td><code>/traefik/entrypoints/https/tls/certificates/0/keyfile</code></td>
+<td><code>integration/fixtures/https/snitest.com.key</code></td>
+</tr>
+<tr>
+<td><code>/traefik/entrypoints/https/tls/certificates/1/certfile</code></td>
+<td><code>--BEGIN CERTIFICATE--&lt;cert file content&gt;--END CERTIFICATE--</code></td>
+</tr>
+<tr>
+<td><code>/traefik/entrypoints/https/tls/certificates/1/keyfile</code></td>
+<td><code>--BEGIN CERTIFICATE--&lt;key file content&gt;--END CERTIFICATE--</code></td>
+</tr>
+<tr>
+<td><code>/traefik/consul/endpoint</code></td>
+<td><code>127.0.0.1:8500</code></td>
+</tr>
+<tr>
+<td><code>/traefik/consul/watch</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>/traefik/consul/prefix</code></td>
+<td><code>traefik</code></td>
+</tr>
+<tr>
+<td><code>/traefik/web/address</code></td>
+<td><code>:8081</code></td>
+</tr>
+</tbody>
+</table>
+<p>In case you are setting key values manually:</p>
+<ul>
+<li>Remember to specify the indexes (<code>0</code>,<code>1</code>, <code>2</code>, ... ) under prefixes <code>/traefik/defaultentrypoints/</code> and <code>/traefik/entrypoints/https/tls/certificates/</code> in order to match the global configuration structure.</li>
+<li>Be careful to give the correct IP address and port on the key <code>/traefik/consul/endpoint</code>.</li>
+</ul>
+<p>Note that we can either give path to certificate file or directly the file content itself.</p>
+<h3 id="launch-trfik">Launch Træfik<a class="headerlink" href="#launch-trfik" title="Permanent link">&para;</a></h3>
+<p>We will now launch Træfik in a container.</p>
+<p>We use CLI flags to setup the connection between Træfik and Consul.
+All the rest of the global configuration is stored in Consul.</p>
+<p>Here is the <a href="https://docs.docker.com/compose/compose-file/">docker-compose file</a> :</p>
+<pre><code class="yaml">traefik:
+  image: traefik
+  command: --consul --consul.endpoint=127.0.0.1:8500
+  ports:
+    - &quot;80:80&quot;
+    - &quot;8080:8080&quot;
+</code></pre>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful to give the correct IP address and port in the flag <code>--consul.endpoint</code>.</p>
+</div>
+<h3 id="consul-acl-token-support">Consul ACL Token support<a class="headerlink" href="#consul-acl-token-support" title="Permanent link">&para;</a></h3>
+<p>To specify a Consul ACL token for Traefik, we have to set a System Environment variable named <code>CONSUL_HTTP_TOKEN</code> prior to starting Traefik.
+This variable must be initialized with the ACL token value.</p>
+<p>If Traefik is launched into a Docker container, the variable <code>CONSUL_HTTP_TOKEN</code> can be initialized with the <code>-e</code> Docker option : <code>-e "CONSUL_HTTP_TOKEN=[consul-acl-token-value]"</code></p>
+<p>If a Consul ACL is used to restrict Træfik read/write access, one of the following configurations is needed.</p>
+<ul>
+<li>HCL format :</li>
+</ul>
+<pre><code>    key &quot;traefik&quot; {
+        policy = &quot;write&quot;
+    },
+
+    session &quot;&quot; {
+        policy = &quot;write&quot;
+    }
+</code></pre>
+
+<ul>
+<li>JSON format :</li>
+</ul>
+<pre><code class="json">{
+    &quot;key&quot;: {
+        &quot;traefik&quot;: {
+          &quot;policy&quot;: &quot;write&quot;
+        }
+    },
+    &quot;session&quot;: {
+        &quot;&quot;: {
+        &quot;policy&quot;: &quot;write&quot;
+        }
+    }
+}
+</code></pre>
+
+<h3 id="tls-support">TLS support<a class="headerlink" href="#tls-support" title="Permanent link">&para;</a></h3>
+<p>To connect to a Consul endpoint using SSL, simply specify <code>https://</code> in the <code>consul.endpoint</code> property</p>
+<ul>
+<li><code>--consul.endpoint=https://[consul-host]:[consul-ssl-port]</code></li>
+</ul>
+<h3 id="tls-support-with-client-certificates">TLS support with client certificates<a class="headerlink" href="#tls-support-with-client-certificates" title="Permanent link">&para;</a></h3>
+<p>So far, only <a href="https://consul.io">Consul</a> and <a href="https://coreos.com/etcd/">etcd</a> support TLS connections with client certificates.</p>
+<p>To set it up, we should enable <a href="https://www.consul.io/docs/internals/security.html">consul security</a> (or <a href="https://coreos.com/etcd/docs/latest/security.html">etcd security</a>).</p>
+<p>Then, we have to provide CA, Cert and Key to Træfik using <code>consul</code> flags :</p>
+<ul>
+<li><code>--consul.tls</code></li>
+<li><code>--consul.tls.ca=path/to/the/file</code></li>
+<li><code>--consul.tls.cert=path/to/the/file</code></li>
+<li><code>--consul.tls.key=path/to/the/file</code></li>
+</ul>
+<p>Or etcd flags :</p>
+<ul>
+<li><code>--etcd.tls</code></li>
+<li><code>--etcd.tls.ca=path/to/the/file</code></li>
+<li><code>--etcd.tls.cert=path/to/the/file</code></li>
+<li><code>--etcd.tls.key=path/to/the/file</code></li>
+</ul>
+<p>!! note
+    We can either give directly directly the file content itself (instead of the path to certificate) in a TOML file configuration.</p>
+<p>Remember the command <code>traefik --help</code> to display the updated list of flags.</p>
+<h2 id="dynamic-configuration-in-key-value-store">Dynamic configuration in Key-value store<a class="headerlink" href="#dynamic-configuration-in-key-value-store" title="Permanent link">&para;</a></h2>
+<p>Following our example, we will provide backends/frontends rules to Træfik.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is independent of the way Træfik got its static configuration.
+It means that the static configuration can either come from the same Key-value store or from any other sources.</p>
+</div>
+<h3 id="key-value-storage-structure">Key-value storage structure<a class="headerlink" href="#key-value-storage-structure" title="Permanent link">&para;</a></h3>
+<p>Here is the toml configuration we would like to store in the store :</p>
+<pre><code class="toml">[file]
+
+# rules
+[backends]
+  [backends.backend1]
+    [backends.backend1.circuitbreaker]
+    expression = &quot;NetworkErrorRatio() &gt; 0.5&quot;
+    [backends.backend1.servers.server1]
+    url = &quot;http://172.17.0.2:80&quot;
+    weight = 10
+    [backends.backend1.servers.server2]
+    url = &quot;http://172.17.0.3:80&quot;
+    weight = 1
+  [backends.backend2]
+    [backends.backend1.maxconn]
+    amount = 10
+    extractorfunc = &quot;request.host&quot;
+    [backends.backend2.LoadBalancer]
+    method = &quot;drr&quot;
+    [backends.backend2.servers.server1]
+    url = &quot;http://172.17.0.4:80&quot;
+    weight = 1
+    [backends.backend2.servers.server2]
+    url = &quot;http://172.17.0.5:80&quot;
+    weight = 2
+
+[frontends]
+  [frontends.frontend1]
+  backend = &quot;backend2&quot;
+    [frontends.frontend1.routes.test_1]
+    rule = &quot;Host:test.localhost&quot;
+  [frontends.frontend2]
+  backend = &quot;backend1&quot;
+  passHostHeader = true
+  priority = 10
+  entrypoints = [&quot;https&quot;] # overrides defaultEntryPoints
+    [frontends.frontend2.routes.test_1]
+    rule = &quot;Host:{subdomain:[a-z]+}.localhost&quot;
+  [frontends.frontend3]
+  entrypoints = [&quot;http&quot;, &quot;https&quot;] # overrides defaultEntryPoints
+  backend = &quot;backend2&quot;
+  rule = &quot;Path:/test&quot;
+</code></pre>
+
+<p>And there, the same dynamic configuration in a KV Store (using <code>prefix = "traefik"</code>):</p>
+<ul>
+<li>backend 1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/backends/backend1/circuitbreaker/expression</code></td>
+<td><code>NetworkErrorRatio() &gt; 0.5</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server2/url</code></td>
+<td><code>http://172.17.0.3:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server2/weight</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend1/servers/server2/tags</code></td>
+<td><code>api,helloworld</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>backend 2</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/backends/backend2/maxconn/amount</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/maxconn/extractorfunc</code></td>
+<td><code>request.host</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/loadbalancer/method</code></td>
+<td><code>drr</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server1/url</code></td>
+<td><code>http://172.17.0.4:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server1/weight</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server2/url</code></td>
+<td><code>http://172.17.0.5:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server2/weight</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>/traefik/backends/backend2/servers/server2/tags</code></td>
+<td><code>web</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>frontend 1</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/frontends/frontend1/backend</code></td>
+<td><code>backend2</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend1/routes/test_1/rule</code></td>
+<td><code>Host:test.localhost</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>frontend 2</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/frontends/frontend2/backend</code></td>
+<td><code>backend1</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/passHostHeader</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/priority</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/entrypoints</code></td>
+<td><code>http,https</code></td>
+</tr>
+<tr>
+<td><code>/traefik/frontends/frontend2/routes/test_2/rule</code></td>
+<td><code>PathPrefix:/test</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="atomic-configuration-changes">Atomic configuration changes<a class="headerlink" href="#atomic-configuration-changes" title="Permanent link">&para;</a></h3>
+<p>Træfik can watch the backends/frontends configuration changes and generate its configuration automatically.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only backends/frontends rules are dynamic, the rest of the Træfik configuration stay static.</p>
+</div>
+<p>The <a href="https://github.com/coreos/etcd/issues/860">Etcd</a> and <a href="https://github.com/hashicorp/consul/issues/886">Consul</a> backends do not support updating multiple keys atomically.<br />
+As a result, it may be possible for Træfik to read an intermediate configuration state despite judicious use of the <code>--providersThrottleDuration</code> flag.<br />
+To solve this problem, Træfik supports a special key called <code>/traefik/alias</code>.
+If set, Træfik use the value as an alternative key prefix.</p>
+<p>Given the key structure below, Træfik will use the <code>http://172.17.0.2:80</code> as its only backend (frontend keys have been omitted for brevity).</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/alias</code></td>
+<td><code>/traefik_configurations/1</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+</tbody>
+</table>
+<p>When an atomic configuration change is required, you may write a new configuration at an alternative prefix.</p>
+<p>Here, although the <code>/traefik_configurations/2/...</code> keys have been set, the old configuration is still active because the <code>/traefik/alias</code> key still points to <code>/traefik_configurations/1</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/alias</code></td>
+<td><code>/traefik_configurations/1</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/weight</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/url</code></td>
+<td><code>http://172.17.0.3:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/weight</code></td>
+<td><code>5</code></td>
+</tr>
+</tbody>
+</table>
+<p>Once the <code>/traefik/alias</code> key is updated, the new <code>/traefik_configurations/2</code> configuration becomes active atomically.</p>
+<p>Here, we have a 50% balance between the <code>http://172.17.0.3:80</code> and the <code>http://172.17.0.4:80</code> hosts while no traffic is sent to the <code>172.17.0.2:80</code> host:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/traefik/alias</code></td>
+<td><code>/traefik_configurations/2</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.2:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/1/backends/backend1/servers/server1/weight</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/url</code></td>
+<td><code>http://172.17.0.3:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server1/weight</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/url</code></td>
+<td><code>http://172.17.0.4:80</code></td>
+</tr>
+<tr>
+<td><code>/traefik_configurations/2/backends/backend1/servers/server2/weight</code></td>
+<td><code>5</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Træfik <em>will not watch for key changes in the <code>/traefik_configurations</code> prefix</em>. It will only watch for changes in the <code>/traefik/alias</code>.<br />
+Further, if the <code>/traefik/alias</code> key is set, all other configuration with <code>/traefik/backends</code> or <code>/traefik/frontends</code> prefix are ignored.</p>
+</div>
+<h2 id="store-configuration-in-key-value-store">Store configuration in Key-value store<a class="headerlink" href="#store-configuration-in-key-value-store" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don't forget to <a href="../../user-guide/kv-config/#launch-trfk">setup the connection between Træfik and Key-value store</a>.</p>
+</div>
+<p>The static Træfik configuration in a key-value store can be automatically created and updated, using the <a href="../../basics/#commands"><code>storeconfig</code> subcommand</a>.</p>
+<pre><code class="bash">traefik storeconfig [flags] ...
+</code></pre>
+
+<p>This command is here only to automate the <a href="../../user-guide/kv-config/#upload-the-configuration-in-the-key-value-store">process which upload the configuration into the Key-value store</a>.
+Træfik will not start but the <a href="../../basics/#static-trfk-configuration">static configuration</a> will be uploaded into the Key-value store.<br />
+If you configured ACME (Let's Encrypt), your registration account and your certificates will also be uploaded.</p>
+<p>To upload your ACME certificates to the KV store, get your Traefik TOML file and add the new <code>storage</code> option in the <code>acme</code> section:</p>
+<pre><code class="toml">[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;traefik/acme/account&quot; # the key where to store your certificates in the KV store
+storageFile = &quot;acme.json&quot; # your old certificates store
+</code></pre>
+
+<p>Call <code>traefik storeconfig</code> to upload your config in the KV store.
+Then remove the line <code>storageFile = "acme.json"</code> from your TOML config file.</p>
+<p>That's it!</p>
+<p><img alt="" src="https://i.giphy.com/ujUdrdpX7Ok5W.gif" /></p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../marathon/"-->
+               <!--title="Marathon"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--Marathon-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../cluster/" title="Clustering/HA"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--Clustering/HA-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2017 Containous SAS
+                </div>
+                
+                powered by
+                <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="http://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application-946997f430.js"></script>
+      
+      
+      <script>app.initialize({version:"0.16.3",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../theme/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+      <script>!function(e,t,a,n,o,c,i){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,c=t.createElement(a),i=t.getElementsByTagName(a)[0],c.async=1,c.src=n,i.parentNode.insertBefore(c,i)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",t,e.href)})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})</script>
+      
+    
+  </body>
+</html>

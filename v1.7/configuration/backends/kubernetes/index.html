@@ -1,0 +1,1733 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Kubernetes Ingress - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#kubernetes-ingress-provider" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Traefik
+              </span>
+              <span class="md-header-nav__topic">
+                Kubernetes Ingress
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../boltdb/" title="BoltDB" class="md-nav__link">
+      BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../consul/" title="Consul" class="md-nav__link">
+      Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../consulcatalog/" title="Consul Catalog" class="md-nav__link">
+      Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dynamodb/" title="DynamoDB" class="md-nav__link">
+      DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../etcd/" title="Etcd" class="md-nav__link">
+      Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../eureka/" title="Eureka" class="md-nav__link">
+      Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Kubernetes Ingress
+      </label>
+    
+    <a href="./" title="Kubernetes Ingress" class="md-nav__link md-nav__link--active">
+      Kubernetes Ingress
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" title="endpoint" class="md-nav__link">
+    endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labelselector" title="labelselector" class="md-nav__link">
+    labelselector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingressendpoint" title="ingressEndpoint" class="md-nav__link">
+    ingressEndpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-communication-between-traefik-and-backend-pods" title="TLS communication between Traefik and backend pods" class="md-nav__link">
+    TLS communication between Traefik and backend pods
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotations" title="Annotations" class="md-nav__link">
+    Annotations
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-annotations" title="General annotations" class="md-nav__link">
+    General annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers-annotations" title="Custom Headers Annotations" class="md-nav__link">
+    Custom Headers Annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-headers-annotations" title="Security Headers Annotations" class="md-nav__link">
+    Security Headers Annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication" title="Authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-certificates-management" title="TLS certificates management" class="md-nav__link">
+    TLS certificates management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-default-backend-ingresses" title="Global Default Backend Ingresses" class="md-nav__link">
+    Global Default Backend Ingresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../mesos/" title="Mesos" class="md-nav__link">
+      Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rest/" title="Rest" class="md-nav__link">
+      Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../servicefabric/" title="Azure Service Fabric" class="md-nav__link">
+      Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../zookeeper/" title="Zookeeper" class="md-nav__link">
+      Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tracing/" title="Tracing" class="md-nav__link">
+      Tracing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../web/" title="Web (Deprecated)" class="md-nav__link">
+      Web (Deprecated)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../user-guide/cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" title="endpoint" class="md-nav__link">
+    endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#labelselector" title="labelselector" class="md-nav__link">
+    labelselector
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ingressendpoint" title="ingressEndpoint" class="md-nav__link">
+    ingressEndpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-communication-between-traefik-and-backend-pods" title="TLS communication between Traefik and backend pods" class="md-nav__link">
+    TLS communication between Traefik and backend pods
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotations" title="Annotations" class="md-nav__link">
+    Annotations
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-annotations" title="General annotations" class="md-nav__link">
+    General annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-headers-annotations" title="Custom Headers Annotations" class="md-nav__link">
+    Custom Headers Annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#security-headers-annotations" title="Security Headers Annotations" class="md-nav__link">
+    Security Headers Annotations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication" title="Authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls-certificates-management" title="TLS certificates management" class="md-nav__link">
+    TLS certificates management
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-default-backend-ingresses" title="Global Default Backend Ingresses" class="md-nav__link">
+    Global Default Backend Ingresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.7/docs/configuration/backends/kubernetes.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="kubernetes-ingress-provider">Kubernetes Ingress Provider<a class="headerlink" href="#kubernetes-ingress-provider" title="Permanent link">&para;</a></h1>
+<p>Traefik can be configured to use Kubernetes Ingress as a provider.</p>
+<p>See also <a href="../../../user-guide/kubernetes">Kubernetes user guide</a>.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">################################################################
+# Kubernetes Ingress Provider
+################################################################
+
+# Enable Kubernetes Ingress Provider.
+[kubernetes]
+
+# Kubernetes server endpoint.
+#
+# Optional for in-cluster configuration, required otherwise.
+# Default: empty
+#
+# endpoint = &quot;http://localhost:8080&quot;
+
+# Bearer token used for the Kubernetes client configuration.
+#
+# Optional
+# Default: empty
+#
+# token = &quot;my token&quot;
+
+# Path to the certificate authority file.
+# Used for the Kubernetes client configuration.
+#
+# Optional
+# Default: empty
+#
+# certAuthFilePath = &quot;/my/ca.crt&quot;
+
+# Array of namespaces to watch.
+#
+# Optional
+# Default: all namespaces (empty array).
+#
+# namespaces = [&quot;default&quot;, &quot;production&quot;]
+
+# Ingress label selector to filter Ingress objects that should be processed.
+#
+# Optional
+# Default: empty (process all Ingresses)
+#
+# labelselector = &quot;A and not B&quot;
+
+# Value of `kubernetes.io/ingress.class` annotation that identifies Ingress objects to be processed.
+# If the parameter is non-empty, only Ingresses containing an annotation with the same value are processed.
+# Otherwise, Ingresses missing the annotation, having an empty value, or the value `traefik` are processed.
+#
+# Optional
+# Default: empty
+#
+# ingressClass = &quot;traefik-internal&quot;
+
+# Disable PassHost Headers.
+#
+# Optional
+# Default: false
+#
+# disablePassHostHeaders = true
+
+# Enable PassTLSCert Headers.
+#
+# Optional
+# Default: false
+#
+# enablePassTLSCert = true
+
+# Throttle how frequently we refresh our configuration from Ingresses when there
+# are frequent changes.
+#
+# Optional
+# Default: 0 (no throttling)
+#
+# throttleDuration = 10s
+
+# Override default configuration template.
+#
+# Optional
+# Default: &lt;built-in template&gt;
+#
+# filename = &quot;kubernetes.tmpl&quot;
+
+# Enable IngressEndpoint configuration.
+# This will allow Traefik to update the status section of ingress objects, if desired.
+#
+# Optional
+#
+# [kubernetes.ingressEndpoint]
+#
+# At least one must be configured.
+# `publishedservice` will override the `hostname` and `ip` settings if configured.
+#
+# hostname = &quot;localhost&quot;
+# ip = &quot;127.0.0.1&quot;
+# publishedService = &quot;namespace/servicename&quot;
+</code></pre>
+
+<h3 id="endpoint"><code>endpoint</code><a class="headerlink" href="#endpoint" title="Permanent link">&para;</a></h3>
+<p>The Kubernetes server endpoint as URL.</p>
+<p>When deployed into Kubernetes, Traefik will read the environment variables <code>KUBERNETES_SERVICE_HOST</code> and <code>KUBERNETES_SERVICE_PORT</code> to construct the endpoint.</p>
+<p>The access token will be looked up in <code>/var/run/secrets/kubernetes.io/serviceaccount/token</code> and the SSL CA certificate in <code>/var/run/secrets/kubernetes.io/serviceaccount/ca.crt</code>.
+Both are provided mounted automatically when deployed inside Kubernetes.</p>
+<p>The endpoint may be specified to override the environment variable values inside a cluster.</p>
+<p>When the environment variables are not found, Traefik will try to connect to the Kubernetes API server with an external-cluster client.
+In this case, the endpoint is required.
+Specifically, it may be set to the URL used by <code>kubectl proxy</code> to connect to a Kubernetes cluster using the granted authentication and authorization of the associated kubeconfig.</p>
+<h3 id="labelselector"><code>labelselector</code><a class="headerlink" href="#labelselector" title="Permanent link">&para;</a></h3>
+<p>By default, Traefik processes all Ingress objects in the configured namespaces.
+A label selector can be defined to filter on specific Ingress objects only.</p>
+<p>See <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors">label-selectors</a> for details.</p>
+<h3 id="ingressendpoint"><code>ingressEndpoint</code><a class="headerlink" href="#ingressendpoint" title="Permanent link">&para;</a></h3>
+<p>You can configure a static hostname or IP address that Traefik will add to the status section of Ingress objects that it manages.
+If you prefer, you can provide a service, which traefik will copy the status spec from.
+This will give more flexibility in cloud/dynamic environments.</p>
+<h3 id="tls-communication-between-traefik-and-backend-pods">TLS communication between Traefik and backend pods<a class="headerlink" href="#tls-communication-between-traefik-and-backend-pods" title="Permanent link">&para;</a></h3>
+<p>Traefik automatically requests endpoint information based on the service provided in the ingress spec.
+Although traefik will connect directly to the endpoints (pods), it still checks the service port to see if TLS communication is required.</p>
+<p>There are 3 ways to configure Traefik to use https to communicate with backend pods:</p>
+<ol>
+<li>If the service port defined in the ingress spec is 443 (note that you can still use <code>targetPort</code> to use a different port on your pod).</li>
+<li>If the service port defined in the ingress spec has a name that starts with <code>https</code> (such as <code>https-api</code>, <code>https-web</code> or just <code>https</code>).</li>
+<li>If the ingress spec includes the annotation <code>ingress.kubernetes.io/protocol: https</code>.</li>
+</ol>
+<p>If either of those configuration options exist, then the backend communication protocol is assumed to be TLS, and will connect via TLS automatically.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that by enabling TLS communication between traefik and your pods, you will have to have trusted certificates that have the proper trust chain and IP subject name.
+If this is not an option, you may need to skip TLS certificate verification.
+See the <a href="../../../configuration/commons/#main-section">insecureSkipVerify</a> setting for more details.</p>
+</div>
+<h2 id="annotations">Annotations<a class="headerlink" href="#annotations" title="Permanent link">&para;</a></h2>
+<h3 id="general-annotations">General annotations<a class="headerlink" href="#general-annotations" title="Permanent link">&para;</a></h3>
+<p>The following general annotations are applicable on the Ingress object:</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/app-root: "/index.html"</code></td>
+<td>Redirects all requests for <code>/</code> to the defined path. (1)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/error-pages: &lt;YML&gt;</code></td>
+<td>See <a href="../../../configuration/commons/#custom-error-pages">custom error pages</a> section. (2)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/frontend-entry-points: http,https</code></td>
+<td>Override the default frontend endpoints.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/pass-client-tls-cert: &lt;YML&gt;</code></td>
+<td>Forward the client certificate following the configuration in YAML. (3)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/pass-tls-cert: "true"</code></td>
+<td>Override the default frontend PassTLSCert value. Default: <code>false</code>.(DEPRECATED)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/preserve-host: "true"</code></td>
+<td>Forward client <code>Host</code> header to the backend.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/priority: "3"</code></td>
+<td>Override the default frontend rule priority.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/rate-limit: &lt;YML&gt;</code></td>
+<td>See <a href="../../../configuration/commons/#rate-limiting">rate limiting</a> section. (4)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/redirect-entry-point: https</code></td>
+<td>Enables Redirect to another entryPoint for that frontend (e.g. HTTPS).</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/redirect-permanent: "true"</code></td>
+<td>Return 301 instead of 302.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/redirect-regex: ^http://localhost/(.*)</code></td>
+<td>Redirect to another URL for that frontend. Must be set with <code>traefik.ingress.kubernetes.io/redirect-replacement</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/redirect-replacement: http://mydomain/$1</code></td>
+<td>Redirect to another URL for that frontend. Must be set with <code>traefik.ingress.kubernetes.io/redirect-regex</code>.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/request-modifier: AddPrefix: /users</code></td>
+<td>Adds a <a href="../../../basics/#modifiers">request modifier</a> to the backend request.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/rewrite-target: /users</code></td>
+<td>Replaces each matched Ingress path with the specified one, and adds the old path to the <code>X-Replaced-Path</code> header.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip</code></td>
+<td>Overrides the default frontend rule type. Only path-related matchers can be specified <a href="../../../basics/#path-matcher-usage-guidelines">(<code>Path</code>, <code>PathPrefix</code>, <code>PathStrip</code>, <code>PathPrefixStrip</code>)</a>.(5)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/service-weights: &lt;YML&gt;</code></td>
+<td>Set ingress backend weights specified as percentage or decimal numbers in YAML. (6)</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/whitelist-source-range: "1.2.3.0/24, fe80::/16"</code></td>
+<td>A comma-separated list of IP ranges permitted for access (7).</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/whitelist-x-forwarded-for: "true"</code></td>
+<td>Use <code>X-Forwarded-For</code> header as valid source of IP for the white list.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/protocol:&lt;NAME&gt;</code></td>
+<td>Set the protocol Traefik will use to communicate with pods. Acceptable protocols: http,https,h2c</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;1&gt; <code>traefik.ingress.kubernetes.io/app-root</code>:
+Non-root paths will not be affected by this annotation and handled normally.
+This annotation may not be combined with other redirect annotations.
+Trying to do so will result in the other redirects being ignored.
+This annotation can be used in combination with <code>traefik.ingress.kubernetes.io/redirect-permanent</code> to configure whether the <code>app-root</code> redirect is a 301 or a 302.</p>
+<p>&lt;2&gt; <code>traefik.ingress.kubernetes.io/error-pages</code> example:</p>
+<pre><code class="yaml">foo:
+  status:
+  - &quot;404&quot;
+  backend: bar
+  query: /bar
+fii:
+  status:
+  - &quot;503&quot;
+  - &quot;500&quot;
+  backend: bar
+  query: /bir
+</code></pre>
+
+<p>&lt;3&gt; <code>traefik.ingress.kubernetes.io/pass-client-tls-cert</code> example:</p>
+<pre><code class="yaml"># add escaped pem in the `X-Forwarded-Tls-Client-Cert` header
+pem: true
+# add escaped certificate following infos in the `X-Forwarded-Tls-Client-Cert-Infos` header
+infos:
+  notafter: true
+  notbefore: true
+  sans: true
+  subject:
+    country: true
+    province: true
+    locality: true
+    organization: true
+    commonname: true
+    serialnumber: true
+</code></pre>
+
+<p>If <code>pem</code> is set, it will add a <code>X-Forwarded-Tls-Client-Cert</code> header that contains the escaped pem as value.
+If at least one flag of the <code>infos</code> part is set, it will add a <code>X-Forwarded-Tls-Client-Cert-Infos</code> header that contains an escaped string composed of the client certificate data selected by the infos flags.
+This infos part is composed like the following example (not escaped):</p>
+<pre><code>Subject=&quot;C=FR,ST=SomeState,L=Lyon,O=Cheese,CN=*.cheese.org&quot;,NB=1531900816,NA=1563436816,SAN=*.cheese.org,*.cheese.net,cheese.in,test@cheese.org,test@cheese.net,10.0.1.0,10.0.1.2
+</code></pre>
+
+<p>Note these options work only with certificates issued by CAs included in the applicable <a href="../../../configuration/entrypoints/#tls-mutual-authentication">EntryPoint ClientCA section</a>; certificates from other CAs are not parsed or passed through as-is.</p>
+<p>&lt;4&gt; <code>traefik.ingress.kubernetes.io/rate-limit</code> example:</p>
+<pre><code class="yaml">extractorfunc: client.ip
+rateset:
+  bar:
+    period: 3s
+    average: 6
+    burst: 9
+  foo:
+    period: 6s
+    average: 12
+    burst: 18
+</code></pre>
+
+<p>&lt;5&gt; <code>traefik.ingress.kubernetes.io/rule-type</code>
+Note: <code>ReplacePath</code> is deprecated in this annotation, use the <code>traefik.ingress.kubernetes.io/request-modifier</code> annotation instead. Default: <code>PathPrefix</code>.</p>
+<p>&lt;6&gt; <code>traefik.ingress.kubernetes.io/service-weights</code>:
+Service weights enable to split traffic across multiple backing services in a fine-grained manner.</p>
+<p>Example:</p>
+<pre><code class="yaml">service_backend1: 12.50%
+service_backend2: 12.50%
+service_backend3: 75 # Same as 75%, the percentage sign is optional
+</code></pre>
+
+<p>A single service backend definition may be omitted; in this case, Traefik auto-completes that service backend to 100% automatically.
+Conveniently, users need not bother to compute the percentage remainder for a main service backend.
+For instance, in the example above <code>service_backend3</code> does not need to be specified to be assigned 75%.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For each service weight given, the Ingress specification must include a backend item with the corresponding <code>serviceName</code> and (if given) matching path.</p>
+</div>
+<p>Currently, 3 decimal places for the weight are supported.
+An attempt to exceed the precision should be avoided as it may lead to percentage computation flaws and, in consequence, Ingress parsing errors.</p>
+<p>For each path definition, this annotation will fail if:</p>
+<ul>
+<li>the sum of backend weights exceeds 100% or</li>
+<li>the sum of backend weights is less than 100% without one or more omitted backends</li>
+</ul>
+<p>See also the <a href="../../../user-guide/kubernetes/#traffic-splitting">user guide section traffic splitting</a>.</p>
+<p>&lt;7&gt; <code>traefik.ingress.kubernetes.io/whitelist-source-range</code>:
+All source IPs are permitted if the list is empty or a single range is ill-formatted.
+Please note, you may have to set <code>service.spec.externalTrafficPolicy</code> to the value <code>Local</code> to preserve the source IP of the request for filtering.
+Please see <a href="https://kubernetes.io/docs/tutorials/services/source-ip/">this link</a> for more information.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that <code>traefik.ingress.kubernetes.io/redirect-regex</code> and <code>traefik.ingress.kubernetes.io/redirect-replacement</code> do not have to be set if <code>traefik.ingress.kubernetes.io/redirect-entry-point</code> is defined for the redirection (they will not be used in this case).</p>
+</div>
+<p>The following annotations are applicable on the Service object associated with a particular Ingress object:</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/buffering: &lt;YML&gt;</code></td>
+<td>(1) See the <a href="../../../configuration/commons/#buffering">buffering</a> section.</td>
+</tr>
+<tr>
+<td><code>traefik.backend.loadbalancer.sticky: "true"</code></td>
+<td>Enable backend sticky sessions (DEPRECATED).</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/affinity: "true"</code></td>
+<td>Enable backend sticky sessions.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/circuit-breaker-expression: &lt;expression&gt;</code></td>
+<td>Set the circuit breaker expression for the backend.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/responseforwarding-flushinterval: "10ms</code></td>
+<td>Defines the interval between two flushes when forwarding response from backend to client.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/load-balancer-method: drr</code></td>
+<td>Override the default <code>wrr</code> load balancer algorithm.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/max-conn-amount: "10"</code></td>
+<td>Sets the maximum number of simultaneous connections to the backend.<br>Must be used in conjunction with the label below to take effect.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/max-conn-extractor-func: client.ip</code></td>
+<td>Set the function to be used against the request to determine what to limit maximum connections to the backend by.<br>Must be used in conjunction with the above label to take effect.</td>
+</tr>
+<tr>
+<td><code>traefik.ingress.kubernetes.io/session-cookie-name: &lt;NAME&gt;</code></td>
+<td>Manually set the cookie name for sticky sessions.</td>
+</tr>
+</tbody>
+</table>
+<p>&lt;1&gt; <code>traefik.ingress.kubernetes.io/buffering</code> example:</p>
+<pre><code class="yaml">maxrequestbodybytes: 10485760
+memrequestbodybytes: 2097153
+maxresponsebodybytes: 10485761
+memresponsebodybytes: 2097152
+retryexpression: IsNetworkError() &amp;&amp; Attempts() &lt;= 2
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>traefik.ingress.kubernetes.io/</code> and <code>ingress.kubernetes.io/</code> are supported prefixes.</p>
+</div>
+<h3 id="custom-headers-annotations">Custom Headers Annotations<a class="headerlink" href="#custom-headers-annotations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ingress.kubernetes.io/custom-request-headers: EXPR</code></td>
+<td>Provides the container with custom request headers that will be appended to each request forwarded to the container. Format: <code>HEADER:value&vert;&vert;HEADER2:value2</code></td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/custom-response-headers: EXPR</code></td>
+<td>Appends the headers to each response returned by the container, before forwarding the response to the client. Format: <code>HEADER:value&vert;&vert;HEADER2:value2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="security-headers-annotations">Security Headers Annotations<a class="headerlink" href="#security-headers-annotations" title="Permanent link">&para;</a></h3>
+<p>The following security annotations are applicable on the Ingress object:</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ingress.kubernetes.io/allowed-hosts: EXPR</code></td>
+<td>Provides a list of allowed hosts that requests will be processed. Format: <code>Host1,Host2</code></td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/browser-xss-filter: "true"</code></td>
+<td>Adds the X-XSS-Protection header with the value <code>1; mode=block</code>.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/content-security-policy: VALUE</code></td>
+<td>Adds CSP Header with the custom value.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/content-type-nosniff: "true"</code></td>
+<td>Adds the <code>X-Content-Type-Options</code> header with the value <code>nosniff</code>.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/custom-browser-xss-value: VALUE</code></td>
+<td>Set custom value for X-XSS-Protection header. This overrides the BrowserXssFilter option.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/custom-frame-options-value: VALUE</code></td>
+<td>Overrides the <code>X-Frame-Options</code> header with the custom value.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/force-hsts: "false"</code></td>
+<td>Adds the STS  header to non-SSL requests.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/frame-deny: "true"</code></td>
+<td>Adds the <code>X-Frame-Options</code> header with the value of <code>DENY</code>.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/hsts-max-age: "315360000"</code></td>
+<td>Sets the max-age of the HSTS header.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/hsts-include-subdomains: "true"</code></td>
+<td>Adds the IncludeSubdomains section of the STS  header.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/hsts-preload: "true"</code></td>
+<td>Adds the preload flag to the HSTS  header.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/is-development: "false"</code></td>
+<td>This will cause the <code>AllowedHosts</code>, <code>SSLRedirect</code>, and <code>STSSeconds</code>/<code>STSIncludeSubdomains</code> options to be ignored during development.<br>When deploying to production, be sure to set this to false.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/proxy-headers: EXPR</code></td>
+<td>Provides a list of headers that the proxied hostname may be stored. Format:  <code>HEADER1,HEADER2</code></td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/public-key: VALUE</code></td>
+<td>Adds HPKP header.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/referrer-policy: VALUE</code></td>
+<td>Adds referrer policy  header.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/ssl-redirect: "true"</code></td>
+<td>Forces the frontend to redirect to SSL if a non-SSL request is sent.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/ssl-temporary-redirect: "true"</code></td>
+<td>Forces the frontend to redirect to SSL if a non-SSL request is sent, but by sending a 302 instead of a 301.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/ssl-host: HOST</code></td>
+<td>This setting configures the hostname that redirects will be based on. Default is "", which is the same host as the request.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/ssl-force-host: "true"</code></td>
+<td>If <code>SSLForceHost</code> is <code>true</code> and <code>SSLHost</code> is set, requests will be forced to use <code>SSLHost</code> even the ones that are already using SSL. Default is false.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/ssl-proxy-headers: EXPR</code></td>
+<td>Header combinations that would signify a proper SSL Request (Such as <code>X-Forwarded-For:https</code>). Format: <code>HEADER:value&vert;&vert;HEADER2:value2</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
+<p>Additional authentication annotations can be added to the Ingress object.
+The source of the authentication is a Secret object that contains the credentials.</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>basic</th>
+<th>digest</th>
+<th>forward</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ingress.kubernetes.io/auth-type: basic</code></td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>Contains the authentication type: <code>basic</code>, <code>digest</code>, <code>forward</code>.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-secret: mysecret</code></td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>Name of Secret containing the username and password with access to the paths defined in the Ingress object.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-remove-header: true</code></td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>If set to <code>true</code> removes the <code>Authorization</code> header.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-header-field: X-WebAuth-User</code></td>
+<td>x</td>
+<td>x</td>
+<td></td>
+<td>Pass Authenticated user to application via headers.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-url: https://example.com</code></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td><a href="../../../configuration/entrypoints/#forward-authentication">The URL of the authentication server</a>.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-trust-headers: false</code></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>Trust <code>X-Forwarded-*</code> headers.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-response-headers: X-Auth-User, X-Secret</code></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>Copy headers from the authentication server to the request.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-tls-secret: secret</code></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>Name of Secret containing the certificate and key for the forward auth.</td>
+</tr>
+<tr>
+<td><code>ingress.kubernetes.io/auth-tls-insecure</code></td>
+<td></td>
+<td></td>
+<td>x</td>
+<td>If set to <code>true</code> invalid SSL certificates are accepted.</td>
+</tr>
+</tbody>
+</table>
+<p>The secret must be created in the same namespace as the Ingress object.</p>
+<p>The following limitations hold for basic/digest auth:</p>
+<ul>
+<li>The realm is not configurable; the only supported (and default) value is <code>traefik</code>.</li>
+<li>The Secret must contain a single file only.</li>
+</ul>
+<h3 id="tls-certificates-management">TLS certificates management<a class="headerlink" href="#tls-certificates-management" title="Permanent link">&para;</a></h3>
+<p>TLS certificates can be managed in Secrets objects.
+More information are available in the  <a href="../../../user-guide/kubernetes/#add-a-tls-certificate-to-the-ingress">User Guide</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only TLS certificates provided by users can be stored in Kubernetes Secrets.
+<a href="https://letsencrypt.org">Let's Encrypt</a> certificates cannot be managed in Kubernets Secrets yet.</p>
+</div>
+<h3 id="global-default-backend-ingresses">Global Default Backend Ingresses<a class="headerlink" href="#global-default-backend-ingresses" title="Permanent link">&para;</a></h3>
+<p>Ingresses can be created that look like the following:</p>
+<pre><code class="yaml">apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cheese
+spec:
+  backend:
+    serviceName: stilton
+    servicePort: 80
+</code></pre>
+
+<p>This ingress follows the <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource">Global Default Backend</a> property of ingresses.
+This will allow users to create a "default backend" that will match all unmatched requests.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to Traefik's use of priorities, you may have to set this ingress priority lower than other ingresses in your environment, to avoid this global ingress from satisfying requests that <em>could</em> match other ingresses.
+To do this, use the <code>traefik.ingress.kubernetes.io/priority</code> annotation (as seen in <a href="../../../configuration/backends/kubernetes/#general-annotations">General Annotations</a>) on your ingresses accordingly.</p>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../file/"-->
+               <!--title="File"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--File-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../marathon/" title="Marathon"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--Marathon-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"../../.."}})</script>
+      
+        <script src="../../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../../theme/js/extra.js"></script>
+      
+        <script src="../../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

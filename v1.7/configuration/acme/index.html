@@ -1,0 +1,2109 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Let's Encrypt - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#acme-lets-encrypt-configuration" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Traefik
+              </span>
+              <span class="md-header-nav__topic">
+                Let's Encrypt
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Let's Encrypt
+      </label>
+    
+    <a href="./" title="Let's Encrypt" class="md-nav__link md-nav__link--active">
+      Let's Encrypt
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caserver" title="caServer" class="md-nav__link">
+    caServer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acme-challenge" title="ACME Challenge" class="md-nav__link">
+    ACME Challenge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tlschallenge" title="tlsChallenge" class="md-nav__link">
+    tlsChallenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpchallenge" title="httpChallenge" class="md-nav__link">
+    httpChallenge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrypoint" title="entryPoint" class="md-nav__link">
+    entryPoint
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dnschallenge" title="dnsChallenge" class="md-nav__link">
+    dnsChallenge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#delaybeforecheck" title="delayBeforeCheck" class="md-nav__link">
+    delayBeforeCheck
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider" title="provider" class="md-nav__link">
+    provider
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolvers" title="resolvers" class="md-nav__link">
+    resolvers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domains" title="domains" class="md-nav__link">
+    domains
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-domains" title="Wildcard Domains" class="md-nav__link">
+    Wildcard Domains
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondemand-deprecated" title="onDemand (Deprecated)" class="md-nav__link">
+    onDemand (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onhostrule" title="onHostRule" class="md-nav__link">
+    onHostRule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" title="storage" class="md-nav__link">
+    storage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#as-a-file" title="As a File" class="md-nav__link">
+    As a File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-a-key-value-store-entry" title="As a Key Value Store Entry" class="md-nav__link">
+    As a Key Value Store Entry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acme-v2-migration" title="ACME v2 Migration" class="md-nav__link">
+    ACME v2 Migration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dnsprovider-deprecated" title="dnsProvider (Deprecated)" class="md-nav__link">
+    dnsProvider (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delaydontcheckdns-deprecated" title="delayDontCheckDNS (Deprecated)" class="md-nav__link">
+    delayDontCheckDNS (Deprecated)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fallbacks" title="Fallbacks" class="md-nav__link">
+    Fallbacks
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/boltdb/" title="BoltDB" class="md-nav__link">
+      BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/consul/" title="Consul" class="md-nav__link">
+      Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/consulcatalog/" title="Consul Catalog" class="md-nav__link">
+      Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/dynamodb/" title="DynamoDB" class="md-nav__link">
+      DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/etcd/" title="Etcd" class="md-nav__link">
+      Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/eureka/" title="Eureka" class="md-nav__link">
+      Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/kubernetes/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/mesos/" title="Mesos" class="md-nav__link">
+      Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/rest/" title="Rest" class="md-nav__link">
+      Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/servicefabric/" title="Azure Service Fabric" class="md-nav__link">
+      Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/zookeeper/" title="Zookeeper" class="md-nav__link">
+      Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tracing/" title="Tracing" class="md-nav__link">
+      Tracing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/web/" title="Web (Deprecated)" class="md-nav__link">
+      Web (Deprecated)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#caserver" title="caServer" class="md-nav__link">
+    caServer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acme-challenge" title="ACME Challenge" class="md-nav__link">
+    ACME Challenge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tlschallenge" title="tlsChallenge" class="md-nav__link">
+    tlsChallenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httpchallenge" title="httpChallenge" class="md-nav__link">
+    httpChallenge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entrypoint" title="entryPoint" class="md-nav__link">
+    entryPoint
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dnschallenge" title="dnsChallenge" class="md-nav__link">
+    dnsChallenge
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#delaybeforecheck" title="delayBeforeCheck" class="md-nav__link">
+    delayBeforeCheck
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#provider" title="provider" class="md-nav__link">
+    provider
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resolvers" title="resolvers" class="md-nav__link">
+    resolvers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domains" title="domains" class="md-nav__link">
+    domains
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-domains" title="Wildcard Domains" class="md-nav__link">
+    Wildcard Domains
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondemand-deprecated" title="onDemand (Deprecated)" class="md-nav__link">
+    onDemand (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onhostrule" title="onHostRule" class="md-nav__link">
+    onHostRule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage" title="storage" class="md-nav__link">
+    storage
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#as-a-file" title="As a File" class="md-nav__link">
+    As a File
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-a-key-value-store-entry" title="As a Key Value Store Entry" class="md-nav__link">
+    As a Key Value Store Entry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acme-v2-migration" title="ACME v2 Migration" class="md-nav__link">
+    ACME v2 Migration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dnsprovider-deprecated" title="dnsProvider (Deprecated)" class="md-nav__link">
+    dnsProvider (Deprecated)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delaydontcheckdns-deprecated" title="delayDontCheckDNS (Deprecated)" class="md-nav__link">
+    delayDontCheckDNS (Deprecated)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fallbacks" title="Fallbacks" class="md-nav__link">
+    Fallbacks
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.7/docs/configuration/acme.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="acme-lets-encrypt-configuration">ACME (Let's Encrypt) Configuration<a class="headerlink" href="#acme-lets-encrypt-configuration" title="Permanent link">&para;</a></h1>
+<p>See <a href="../../user-guide/examples/#lets-encrypt-support">Let's Encrypt examples</a> and <a href="../../user-guide/docker-and-lets-encrypt">Docker &amp; Let's Encrypt user guide</a> as well.</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<pre><code class="toml"># Sample entrypoint configuration when using ACME.
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+</code></pre>
+
+<pre><code class="toml"># Enable ACME (Let's Encrypt): automatic SSL.
+[acme]
+
+# Email address used for registration.
+#
+# Required
+#
+email = &quot;test@traefik.io&quot;
+
+# File used for certificates storage.
+#
+# Optional (Deprecated)
+#
+#storageFile = &quot;acme.json&quot;
+
+# File or key used for certificates storage.
+#
+# Required
+#
+storage = &quot;acme.json&quot;
+# or `storage = &quot;traefik/acme/account&quot;` if using KV store.
+
+# Entrypoint to proxy acme apply certificates to.
+#
+# Required
+#
+entryPoint = &quot;https&quot;
+
+# Deprecated, replaced by [acme.dnsChallenge].
+#
+# Optional.
+#
+# dnsProvider = &quot;digitalocean&quot;
+
+# Deprecated, replaced by [acme.dnsChallenge.delayBeforeCheck].
+#
+# Optional
+# Default: 0
+#
+# delayDontCheckDNS = 0
+
+# If true, display debug log messages from the acme client library.
+#
+# Optional
+# Default: false
+#
+# acmeLogging = true
+
+# If true, override certificates in key-value store when using storeconfig.
+#
+# Optional
+# Default: false
+#
+# overrideCertificates = true
+
+# Deprecated. Enable on demand certificate generation.
+#
+# Optional
+# Default: false
+#
+# onDemand = true
+
+# Enable certificate generation on frontends host rules.
+#
+# Optional
+# Default: false
+#
+# onHostRule = true
+
+# CA server to use.
+# Uncomment the line to use Let's Encrypt's staging server,
+# leave commented to go to prod.
+#
+# Optional
+# Default: &quot;https://acme-v02.api.letsencrypt.org/directory&quot;
+#
+# caServer = &quot;https://acme-staging-v02.api.letsencrypt.org/directory&quot;
+
+# KeyType to use.
+#
+# Optional
+# Default: &quot;RSA4096&quot;
+#
+# Available values : &quot;EC256&quot;, &quot;EC384&quot;, &quot;RSA2048&quot;, &quot;RSA4096&quot;, &quot;RSA8192&quot;
+#
+# KeyType = &quot;RSA4096&quot;
+
+# Use a TLS-ALPN-01 ACME challenge.
+#
+# Optional (but recommended)
+#
+[acme.tlsChallenge]
+
+# Use a HTTP-01 ACME challenge.
+#
+# Optional
+#
+# [acme.httpChallenge]
+
+  # EntryPoint to use for the HTTP-01 challenges.
+  #
+  # Required
+  #
+  # entryPoint = &quot;http&quot;
+
+# Use a DNS-01 ACME challenge rather than HTTP-01 challenge.
+# Note: mandatory for wildcard certificate generation.
+#
+# Optional
+#
+# [acme.dnsChallenge]
+
+  # DNS provider used.
+  #
+  # Required
+  #
+  # provider = &quot;digitalocean&quot;
+
+  # By default, the provider will verify the TXT DNS challenge record before letting ACME verify.
+  # If delayBeforeCheck is greater than zero, this check is delayed for the configured duration in seconds.
+  # Useful if internal networks block external DNS queries.
+  #
+  # Optional
+  # Default: 0
+  #
+  # delayBeforeCheck = 0
+
+  # Use following DNS servers to resolve the FQDN authority.
+  #
+  # Optional
+  # Default: empty
+  #
+  # resolvers = [&quot;1.1.1.1:53&quot;, &quot;8.8.8.8:53&quot;]
+
+  # Disable the DNS propagation checks before notifying ACME that the DNS challenge is ready.
+  #
+  # NOT RECOMMENDED:
+  # Increase the risk of reaching Let's Encrypt's rate limits.
+  #
+  # Optional
+  # Default: false
+  #
+  # disablePropagationCheck = true
+
+# Domains list.
+# Only domains defined here can generate wildcard certificates.
+# The certificates for these domains are negotiated at traefik startup only.
+#
+# [[acme.domains]]
+#   main = &quot;local1.com&quot;
+#   sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+# [[acme.domains]]
+#   main = &quot;local2.com&quot;
+# [[acme.domains]]
+#   main = &quot;*.local3.com&quot;
+#   sans = [&quot;local3.com&quot;, &quot;test1.test1.local3.com&quot;]
+</code></pre>
+
+<h3 id="caserver"><code>caServer</code><a class="headerlink" href="#caserver" title="Permanent link">&para;</a></h3>
+<p>The CA server to use.</p>
+<p>This example shows the usage of Let's Encrypt's staging server:</p>
+<pre><code class="toml">[acme]
+# ...
+caServer = &quot;https://acme-staging-v02.api.letsencrypt.org/directory&quot;
+# ...
+</code></pre>
+
+<h3 id="acme-challenge">ACME Challenge<a class="headerlink" href="#acme-challenge" title="Permanent link">&para;</a></h3>
+<h4 id="tlschallenge"><code>tlsChallenge</code><a class="headerlink" href="#tlschallenge" title="Permanent link">&para;</a></h4>
+<p>Use the <code>TLS-ALPN-01</code> challenge to generate and renew ACME certificates by provisioning a TLS certificate.</p>
+<pre><code class="toml">[acme]
+# ...
+entryPoint = &quot;https&quot;
+[acme.tlsChallenge]
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code>TLS-ALPN-01</code> challenge is used, <code>acme.entryPoint</code> has to be reachable by Let's Encrypt through port 443.
+This is a Let's Encrypt limitation as described on the <a href="https://community.letsencrypt.org/t/support-for-ports-other-than-80-and-443/3419/72">community forum</a>.</p>
+</div>
+<h4 id="httpchallenge"><code>httpChallenge</code><a class="headerlink" href="#httpchallenge" title="Permanent link">&para;</a></h4>
+<p>Use the <code>HTTP-01</code> challenge to generate and renew ACME certificates by provisioning a HTTP resource under a well-known URI.</p>
+<p>Redirection is fully compatible with the <code>HTTP-01</code> challenge.</p>
+<pre><code class="toml">[acme]
+# ...
+entryPoint = &quot;https&quot;
+[acme.httpChallenge]
+  entryPoint = &quot;http&quot;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code>HTTP-01</code> challenge is used, <code>acme.httpChallenge.entryPoint</code> has to be defined and reachable by Let's Encrypt through port 80.
+This is a Let's Encrypt limitation as described on the <a href="https://community.letsencrypt.org/t/support-for-ports-other-than-80-and-443/3419/72">community forum</a>.</p>
+</div>
+<h5 id="entrypoint"><code>entryPoint</code><a class="headerlink" href="#entrypoint" title="Permanent link">&para;</a></h5>
+<p>Specify the entryPoint to use during the challenges.</p>
+<pre><code class="toml">defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+# ...
+
+[acme]
+  # ...
+  entryPoint = &quot;https&quot;
+  [acme.httpChallenge]
+    entryPoint = &quot;http&quot;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>acme.httpChallenge.entryPoint</code> has to be reachable through port 80. It's a Let's Encrypt limitation as described on the <a href="https://community.letsencrypt.org/t/support-for-ports-other-than-80-and-443/3419/72">community forum</a>.</p>
+</div>
+<h4 id="dnschallenge"><code>dnsChallenge</code><a class="headerlink" href="#dnschallenge" title="Permanent link">&para;</a></h4>
+<p>Use the <code>DNS-01</code> challenge to generate and renew ACME certificates by provisioning a DNS record.</p>
+<pre><code class="toml">[acme]
+# ...
+[acme.dnsChallenge]
+  provider = &quot;digitalocean&quot;
+  delayBeforeCheck = 0
+# ...
+</code></pre>
+
+<h5 id="delaybeforecheck"><code>delayBeforeCheck</code><a class="headerlink" href="#delaybeforecheck" title="Permanent link">&para;</a></h5>
+<p>By default, the <code>provider</code> will verify the TXT DNS challenge record before letting ACME verify.
+If <code>delayBeforeCheck</code> is greater than zero, this check is delayed for the configured duration in seconds.</p>
+<p>Useful if internal networks block external DNS queries.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A <code>provider</code> is mandatory.</p>
+</div>
+<h5 id="provider"><code>provider</code><a class="headerlink" href="#provider" title="Permanent link">&para;</a></h5>
+<p>Here is a list of supported <code>provider</code>s, that can automate the DNS verification, along with the required environment variables and their <a href="../../configuration/acme/#wildcard-domains">wildcard &amp; root domain support</a> for each.
+Do not hesitate to complete it.
+Every lego environment variable can be overridden by their respective <code>_FILE</code> counterpart, which should have a filepath to a file that contains the secret as its value.
+For example, <code>CF_API_EMAIL_FILE=/run/secrets/traefik_cf-api-email</code> could be used to provide a Cloudflare API email address as a Docker secret named <code>traefik_cf-api-email</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Provider Name</th>
+<th>Provider Code</th>
+<th>Environment Variables</th>
+<th>Wildcard &amp; Root Domain Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/joohoi/acme-dns">ACME DNS</a></td>
+<td><code>acme-dns</code></td>
+<td><code>ACME_DNS_API_BASE</code>, <code>ACME_DNS_STORAGE_PATH</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.alibabacloud.com">Alibaba Cloud</a></td>
+<td><code>alidns</code></td>
+<td><code>ALICLOUD_ACCESS_KEY</code>, <code>ALICLOUD_SECRET_KEY</code>, <code>ALICLOUD_REGION_ID</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.pcextreme.com/aurora/dns">Auroradns</a></td>
+<td><code>auroradns</code></td>
+<td><code>AURORA_USER_ID</code>, <code>AURORA_KEY</code>, <code>AURORA_ENDPOINT</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://azure.microsoft.com/services/dns/">Azure</a></td>
+<td><code>azure</code></td>
+<td><code>AZURE_CLIENT_ID</code>, <code>AZURE_CLIENT_SECRET</code>, <code>AZURE_SUBSCRIPTION_ID</code>, <code>AZURE_TENANT_ID</code>, <code>AZURE_RESOURCE_GROUP</code>, <code>[AZURE_METADATA_ENDPOINT]</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://github.com/labbsr0x/bindman-dns-webhook">Bindman</a></td>
+<td><code>bindman</code></td>
+<td><code>BINDMAN_MANAGER_ADDRESS</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.bluecatnetworks.com/">Blue Cat</a></td>
+<td><code>bluecat</code></td>
+<td><code>BLUECAT_SERVER_URL</code>, <code>BLUECAT_USER_NAME</code>, <code>BLUECAT_PASSWORD</code>, <code>BLUECAT_CONFIG_NAME</code>, <code>BLUECAT_DNS_VIEW</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.cloudns.net/">ClouDNS</a></td>
+<td><code>cloudns</code></td>
+<td><code>CLOUDNS_AUTH_ID</code>, <code>CLOUDNS_AUTH_PASSWORD</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.cloudflare.com">Cloudflare</a></td>
+<td><code>cloudflare</code></td>
+<td><code>CF_API_EMAIL</code>, <code>CF_API_KEY</code> - The <code>Global API Key</code> needs to be used, not the <code>Origin CA Key</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.cloudxns.net">CloudXNS</a></td>
+<td><code>cloudxns</code></td>
+<td><code>CLOUDXNS_API_KEY</code>, <code>CLOUDXNS_SECRET_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.conoha.jp">ConoHa</a></td>
+<td><code>conoha</code></td>
+<td><code>CONOHA_TENANT_ID</code>, <code>CONOHA_API_USERNAME</code>, <code>CONOHA_API_PASSWORD</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.digitalocean.com">DigitalOcean</a></td>
+<td><code>digitalocean</code></td>
+<td><code>DO_AUTH_TOKEN</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://dnsimple.com">DNSimple</a></td>
+<td><code>dnsimple</code></td>
+<td><code>DNSIMPLE_OAUTH_TOKEN</code>, <code>DNSIMPLE_BASE_URL</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://dnsmadeeasy.com">DNS Made Easy</a></td>
+<td><code>dnsmadeeasy</code></td>
+<td><code>DNSMADEEASY_API_KEY</code>, <code>DNSMADEEASY_API_SECRET</code>, <code>DNSMADEEASY_SANDBOX</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.dnspod.com/">DNSPod</a></td>
+<td><code>dnspod</code></td>
+<td><code>DNSPOD_API_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.do.de/">Domain Offensive (do.de)</a></td>
+<td><code>dode</code></td>
+<td><code>DODE_TOKEN</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.dreamhost.com/">DreamHost</a></td>
+<td><code>dreamhost</code></td>
+<td><code>DREAMHOST_API_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.duckdns.org/">Duck DNS</a></td>
+<td><code>duckdns</code></td>
+<td><code>DUCKDNS_TOKEN</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://dyn.com">Dyn</a></td>
+<td><code>dyn</code></td>
+<td><code>DYN_CUSTOMER_NAME</code>, <code>DYN_USER_NAME</code>, <code>DYN_PASSWORD</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://easydns.com/">EasyDNS</a></td>
+<td><code>easydns</code></td>
+<td><code>EASYDNS_TOKEN</code>, <code>EASYDNS_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td>External Program</td>
+<td><code>exec</code></td>
+<td><code>EXEC_PATH</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.exoscale.com">Exoscale</a></td>
+<td><code>exoscale</code></td>
+<td><code>EXOSCALE_API_KEY</code>, <code>EXOSCALE_API_SECRET</code>, <code>EXOSCALE_ENDPOINT</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.akamai.com/">Fast DNS</a></td>
+<td><code>fastdns</code></td>
+<td><code>AKAMAI_CLIENT_TOKEN</code>,  <code>AKAMAI_CLIENT_SECRET</code>,  <code>AKAMAI_ACCESS_TOKEN</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.gandi.net">Gandi</a></td>
+<td><code>gandi</code></td>
+<td><code>GANDI_API_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="http://doc.livedns.gandi.net">Gandi v5</a></td>
+<td><code>gandiv5</code></td>
+<td><code>GANDIV5_API_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://glesys.com/">Glesys</a></td>
+<td><code>glesys</code></td>
+<td><code>GLESYS_API_USER</code>, <code>GLESYS_API_KEY</code>, <code>GLESYS_DOMAIN</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://godaddy.com/domains">GoDaddy</a></td>
+<td><code>godaddy</code></td>
+<td><code>GODADDY_API_KEY</code>, <code>GODADDY_API_SECRET</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://cloud.google.com/dns/docs/">Google Cloud DNS</a></td>
+<td><code>gcloud</code></td>
+<td><code>GCE_PROJECT</code>, Application Default Credentials (2) (3), [<code>GCE_SERVICE_ACCOUNT_FILE</code>]</td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.hosting.de">hosting.de</a></td>
+<td><code>hostingde</code></td>
+<td><code>HOSTINGDE_API_KEY</code>, <code>HOSTINGDE_ZONE_NAME</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td>HTTP request</td>
+<td><code>httpreq</code></td>
+<td><code>HTTPREQ_ENDPOINT</code>, <code>HTTPREQ_MODE</code>, <code>HTTPREQ_USERNAME</code>, <code>HTTPREQ_PASSWORD</code> (1)</td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.iij.ad.jp/">IIJ</a></td>
+<td><code>iij</code></td>
+<td><code>IIJ_API_ACCESS_KEY</code>, <code>IIJ_API_SECRET_KEY</code>, <code>IIJ_DO_SERVICE_CODE</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.inwx.de/en">INWX</a></td>
+<td><code>inwx</code></td>
+<td><code>INWX_USERNAME</code>, <code>INWX_PASSWORD</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://joker.com">Joker.com</a></td>
+<td><code>joker</code></td>
+<td><code>JOKER_API_KEY</code> or <code>JOKER_USERNAME</code>, <code>JOKER_PASSWORD</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://aws.amazon.com/lightsail/">Lightsail</a></td>
+<td><code>lightsail</code></td>
+<td><code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>DNS_ZONE</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.linode.com">Linode</a></td>
+<td><code>linode</code></td>
+<td><code>LINODE_API_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.linode.com">Linode v4</a></td>
+<td><code>linodev4</code></td>
+<td><code>LINODE_TOKEN</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td>manual</td>
+<td>-</td>
+<td>none, but you need to run Traefik interactively, turn on <code>acmeLogging</code> to see instructions and press <kbd>Enter</kbd>.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.mydns.jp/">MyDNS.jp</a></td>
+<td><code>mydnsjp</code></td>
+<td><code>MYDNSJP_MASTER_ID</code>, <code>MYDNSJP_PASSWORD</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.namecheap.com">Namecheap</a></td>
+<td><code>namecheap</code></td>
+<td><code>NAMECHEAP_API_USER</code>, <code>NAMECHEAP_API_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.namesilo.com/">Namesilo</a></td>
+<td><code>namesilo</code></td>
+<td><code>NAMESILO_API_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.name.com/">name.com</a></td>
+<td><code>namedotcom</code></td>
+<td><code>NAMECOM_USERNAME</code>, <code>NAMECOM_API_TOKEN</code>, <code>NAMECOM_SERVER</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.netcup.eu/">Netcup</a></td>
+<td><code>netcup</code></td>
+<td><code>NETCUP_CUSTOMER_NUMBER</code>, <code>NETCUP_API_KEY</code>, <code>NETCUP_API_PASSWORD</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://cloud.nifty.com/service/dns.htm">NIFCloud</a></td>
+<td><code>nifcloud</code></td>
+<td><code>NIFCLOUD_ACCESS_KEY_ID</code>, <code>NIFCLOUD_SECRET_ACCESS_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://ns1.com/">Ns1</a></td>
+<td><code>ns1</code></td>
+<td><code>NS1_API_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://cloud.telekom.de">Open Telekom Cloud</a></td>
+<td><code>otc</code></td>
+<td><code>OTC_DOMAIN_NAME</code>, <code>OTC_USER_NAME</code>, <code>OTC_PASSWORD</code>, <code>OTC_PROJECT_NAME</code>, <code>OTC_IDENTITY_ENDPOINT</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.ovh.com">OVH</a></td>
+<td><code>ovh</code></td>
+<td><code>OVH_ENDPOINT</code>, <code>OVH_APPLICATION_KEY</code>, <code>OVH_APPLICATION_SECRET</code>, <code>OVH_CONSUMER_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://docs.openstack.org/designate">Openstack Designate</a></td>
+<td><code>designate</code></td>
+<td><code>OS_AUTH_URL</code>, <code>OS_USERNAME</code>, <code>OS_PASSWORD</code>, <code>OS_TENANT_NAME</code>, <code>OS_REGION_NAME</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://cloud.oracle.com/home">Oracle Cloud</a></td>
+<td><code>oraclecloud</code></td>
+<td><code>OCI_COMPARTMENT_OCID</code>, <code>OCI_PRIVKEY_FILE</code>, <code>OCI_PRIVKEY_PASS</code>, <code>OCI_PUBKEY_FINGERPRINT</code>, <code>OCI_REGION</code>, <code>OCI_TENANCY_OCID</code>, <code>OCI_USER_OCID</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.powerdns.com">PowerDNS</a></td>
+<td><code>pdns</code></td>
+<td><code>PDNS_API_KEY</code>, <code>PDNS_API_URL</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.rackspace.com/cloud/dns">Rackspace</a></td>
+<td><code>rackspace</code></td>
+<td><code>RACKSPACE_USER</code>, <code>RACKSPACE_API_KEY</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc2136">RFC2136</a></td>
+<td><code>rfc2136</code></td>
+<td><code>RFC2136_TSIG_KEY</code>, <code>RFC2136_TSIG_SECRET</code>, <code>RFC2136_TSIG_ALGORITHM</code>, <code>RFC2136_NAMESERVER</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://aws.amazon.com/route53/">Route 53</a></td>
+<td><code>route53</code></td>
+<td><code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>[AWS_REGION]</code>, <code>[AWS_HOSTED_ZONE_ID]</code> or a configured user/instance IAM profile.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://cloud.sakura.ad.jp/">Sakura Cloud</a></td>
+<td><code>sakuracloud</code></td>
+<td><code>SAKURACLOUD_ACCESS_TOKEN</code>, <code>SAKURACLOUD_ACCESS_TOKEN_SECRET</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://selectel.ru/en/">Selectel</a></td>
+<td><code>selectel</code></td>
+<td><code>SELECTEL_API_TOKEN</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.stackpath.com/">Stackpath</a></td>
+<td><code>stackpath</code></td>
+<td><code>STACKPATH_CLIENT_ID</code>, <code>STACKPATH_CLIENT_SECRET</code>, <code>STACKPATH_STACK_ID</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.transip.nl/">TransIP</a></td>
+<td><code>transip</code></td>
+<td><code>TRANSIP_ACCOUNT_NAME</code>, <code>TRANSIP_PRIVATE_KEY_PATH</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://github.com/shupp/VegaDNS-API">VegaDNS</a></td>
+<td><code>vegadns</code></td>
+<td><code>SECRET_VEGADNS_KEY</code>, <code>SECRET_VEGADNS_SECRET</code>, <code>VEGADNS_URL</code></td>
+<td>Not tested yet</td>
+</tr>
+<tr>
+<td><a href="https://www.versio.nl/domeinnamen">Versio</a></td>
+<td><code>versio</code></td>
+<td><code>VERSIO_USERNAME</code>, <code>VERSIO_PASSWORD</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://vscale.io/">Vscale</a></td>
+<td><code>vscale</code></td>
+<td><code>VSCALE_API_TOKEN</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.vultr.com">VULTR</a></td>
+<td><code>vultr</code></td>
+<td><code>VULTR_API_KEY</code></td>
+<td>YES</td>
+</tr>
+<tr>
+<td><a href="https://www.zone.ee">Zone.ee</a></td>
+<td><code>zoneee</code></td>
+<td><code>ZONEEE_API_USER</code>, <code>ZONEEE_API_KEY</code></td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>(1): more information about the HTTP message format can be found <a href="https://go-acme.github.io/lego/dns/httpreq/">here</a></li>
+<li>(2): https://cloud.google.com/docs/authentication/production#providing_credentials_to_your_application</li>
+<li>(3): https://github.com/golang/oauth2/blob/36a7019397c4c86cf59eeab3bc0d188bac444277/google/default.go#L61-L76</li>
+</ul>
+<h4 id="resolvers"><code>resolvers</code><a class="headerlink" href="#resolvers" title="Permanent link">&para;</a></h4>
+<p>Use custom DNS servers to resolve the FQDN authority.</p>
+<pre><code class="toml">[acme]
+# ...
+[acme.dnsChallenge]
+  # ...
+  resolvers = [&quot;1.1.1.1:53&quot;, &quot;8.8.8.8:53&quot;]
+</code></pre>
+
+<h3 id="domains"><code>domains</code><a class="headerlink" href="#domains" title="Permanent link">&para;</a></h3>
+<p>You can provide SANs (alternative domains) to each main domain.
+All domains must have A/AAAA records pointing to Traefik.
+Each domain &amp; SAN will lead to a certificate request.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The certificates for the domains listed in <code>acme.domains</code> are negotiated at traefik startup only.</p>
+</div>
+<pre><code class="toml">[acme]
+# ...
+[[acme.domains]]
+  main = &quot;local1.com&quot;
+  sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+[[acme.domains]]
+  main = &quot;local2.com&quot;
+[[acme.domains]]
+  main = &quot;*.local3.com&quot;
+  sans = [&quot;local3.com&quot;, &quot;test1.test1.local3.com&quot;]
+# ...
+</code></pre>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Take note that Let's Encrypt applies <a href="https://letsencrypt.org/docs/rate-limits">rate limiting</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Wildcard certificates can only be verified through a <code>DNS-01</code> challenge.</p>
+</div>
+<h4 id="wildcard-domains">Wildcard Domains<a class="headerlink" href="#wildcard-domains" title="Permanent link">&para;</a></h4>
+<p><a href="https://community.letsencrypt.org/t/acme-v2-and-wildcard-certificate-support-is-live/55579">ACME V2</a> allows wildcard certificate support.
+As described in <a href="https://community.letsencrypt.org/t/staging-endpoint-for-acme-v2/49605">Let's Encrypt's post</a> wildcard certificates can only be generated through a <a href="../../configuration/acme/#dnschallenge"><code>DNS-01</code> challenge</a>.</p>
+<pre><code class="toml">[acme]
+# ...
+[[acme.domains]]
+  main = &quot;*.local1.com&quot;
+  sans = [&quot;local1.com&quot;]
+# ...
+</code></pre>
+
+<p>It is not possible to request a double wildcard certificate for a domain (for example <code>*.*.local.com</code>).
+Most likely the root domain should receive a certificate too, so it needs to be specified as SAN and 2 <code>DNS-01</code> challenges are executed.
+In this case the generated DNS TXT record for both domains is the same.
+Even though this behaviour is <a href="https://community.letsencrypt.org/t/wildcard-issuance-two-txt-records-for-the-same-name/54528/2">DNS RFC</a> compliant, it can lead to problems as all DNS providers keep DNS records cached for a certain time (TTL) and this TTL can be superior to the challenge timeout making the <code>DNS-01</code> challenge fail.
+The Traefik ACME client library <a href="https://github.com/go-acme/lego">LEGO</a> supports some but not all DNS providers to work around this issue.
+The <a href="../../configuration/acme/#provider"><code>provider</code> table</a> indicates if they allow generating certificates for a wildcard domain and its root domain.</p>
+<h3 id="ondemand-deprecated"><code>onDemand</code> (Deprecated)<a class="headerlink" href="#ondemand-deprecated" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">DEPRECATED</p>
+<p>This option is deprecated.</p>
+</div>
+<pre><code class="toml">[acme]
+# ...
+onDemand = true
+# ...
+</code></pre>
+
+<p>Enable on demand certificate generation.</p>
+<p>This will request certificates from Let's Encrypt during the first TLS handshake for host names that do not yet have certificates.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>TLS handshakes are slow when requesting a host name certificate for the first time. This can lead to DoS attacks!</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Take note that Let's Encrypt applies <a href="https://letsencrypt.org/docs/rate-limits">rate limiting</a>.</p>
+</div>
+<h3 id="onhostrule"><code>onHostRule</code><a class="headerlink" href="#onhostrule" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">[acme]
+# ...
+onHostRule = true
+# ...
+</code></pre>
+
+<p>Enable certificate generation on frontend <code>Host</code> rules (for frontends wired to the <code>acme.entryPoint</code>).</p>
+<p>This will request a certificate from Let's Encrypt for each frontend with a Host rule.</p>
+<p>For example, the rule <code>Host:test1.traefik.io,test2.traefik.io</code> will request a certificate with main domain <code>test1.traefik.io</code> and SAN <code>test2.traefik.io</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>onHostRule</code> option can not be used to generate wildcard certificates.
+Refer to <a href="../../configuration/acme/#wildcard-domains">wildcard generation</a> for further information.</p>
+</div>
+<h3 id="storage"><code>storage</code><a class="headerlink" href="#storage" title="Permanent link">&para;</a></h3>
+<p>The <code>storage</code> option sets the location where your ACME certificates are saved to.</p>
+<pre><code class="toml">[acme]
+# ...
+storage = &quot;acme.json&quot;
+# ...
+</code></pre>
+
+<p>The value can refer to two kinds of storage:</p>
+<ul>
+<li>a JSON file</li>
+<li>a KV store entry</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">DEPRECATED</p>
+<p><code>storage</code> replaces <code>storageFile</code> which is deprecated.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During migration to a KV store use both <code>storageFile</code> and <code>storage</code> to migrate ACME certificates too. See <a href="../../user-guide/kv-config/#store-configuration-in-key-value-store"><code>storeconfig</code> subcommand</a> for further information.</p>
+</div>
+<h4 id="as-a-file">As a File<a class="headerlink" href="#as-a-file" title="Permanent link">&para;</a></h4>
+<p>ACME certificates can be stored in a JSON file that needs to have file mode <code>600</code>.</p>
+<p>In Docker you can either mount the JSON file or the folder containing it:</p>
+<pre><code class="bash">docker run -v &quot;/my/host/acme.json:acme.json&quot; traefik
+</code></pre>
+
+<pre><code class="bash">docker run -v &quot;/my/host/acme:/etc/traefik/acme&quot; traefik
+</code></pre>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This file cannot be shared across multiple instances of Traefik at the same time. Please use a <a href="../../configuration/acme/#as-a-key-value-store-entry">KV Store entry</a> instead.</p>
+</div>
+<h4 id="as-a-key-value-store-entry">As a Key Value Store Entry<a class="headerlink" href="#as-a-key-value-store-entry" title="Permanent link">&para;</a></h4>
+<p>ACME certificates can be stored in a KV Store entry. This kind of storage is <strong>mandatory in cluster mode</strong>.</p>
+<pre><code class="toml">storage = &quot;traefik/acme/account&quot;
+</code></pre>
+
+<p>Because KV stores (like Consul) have limited entry size the certificates list is compressed before it is saved as KV store entry.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to store up to approximately 100 ACME certificates in Consul.</p>
+</div>
+<h4 id="acme-v2-migration">ACME v2 Migration<a class="headerlink" href="#acme-v2-migration" title="Permanent link">&para;</a></h4>
+<p>During migration from ACME v1 to ACME v2, using a storage file, a backup of the original file is created in the same place as the latter (with a <code>.bak</code> extension).</p>
+<p>For example: if <code>acme.storage</code>'s value is <code>/etc/traefik/acme/acme.json</code>, the backup file will be <code>/etc/traefik/acme/acme.json.bak</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When Traefik is launched in a container, the storage file's parent directory needs to be mounted to be able to access the backup file on the host.
+Otherwise the backup file will be deleted when the container is stopped. Traefik will only generate it once!</p>
+</div>
+<h3 id="dnsprovider-deprecated"><code>dnsProvider</code> (Deprecated)<a class="headerlink" href="#dnsprovider-deprecated" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">DEPRECATED</p>
+<p>This option is deprecated. Please use <a href="../../configuration/acme/#provider">dnsChallenge.provider</a> instead.</p>
+</div>
+<h3 id="delaydontcheckdns-deprecated"><code>delayDontCheckDNS</code> (Deprecated)<a class="headerlink" href="#delaydontcheckdns-deprecated" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">DEPRECATED</p>
+<p>This option is deprecated. Please use <a href="../../configuration/acme/#dnschallenge">dnsChallenge.delayBeforeCheck</a> instead.</p>
+</div>
+<h2 id="fallbacks">Fallbacks<a class="headerlink" href="#fallbacks" title="Permanent link">&para;</a></h2>
+<p>If Let's Encrypt is not reachable, these certificates will be used:</p>
+<ol>
+<li>ACME certificates already generated before downtime</li>
+<li>Expired ACME certificates</li>
+<li>Provided certificates</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For new (sub)domains which need Let's Encrypt authentification, the default Traefik certificate will be used until Traefik is restarted.</p>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../entrypoints/"-->
+               <!--title="EntryPoints"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--EntryPoints-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../api/" title="API / Dashboard"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--API / Dashboard-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../theme/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

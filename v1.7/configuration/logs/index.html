@@ -1,0 +1,1565 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Logs - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#logs-definition" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Traefik
+              </span>
+              <span class="md-header-nav__topic">
+                Logs
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Logs
+      </label>
+    
+    <a href="./" title="Logs" class="md-nav__link md-nav__link--active">
+      Logs
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reference" title="Reference" class="md-nav__link">
+    Reference
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toml" title="TOML" class="md-nav__link">
+    TOML
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" title="CLI" class="md-nav__link">
+    CLI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traefik-logs" title="Traefik Logs" class="md-nav__link">
+    Traefik Logs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-logs" title="Access Logs" class="md-nav__link">
+    Access Logs
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clf-common-log-format" title="CLF - Common Log Format" class="md-nav__link">
+    CLF - Common Log Format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-fields" title="Customize Fields" class="md-nav__link">
+    Customize Fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-headers" title="Customize Headers" class="md-nav__link">
+    Customize Headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-of-all-available-fields" title="List of All Available Fields" class="md-nav__link">
+    List of All Available Fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depreciation-notice" title="Depreciation Notice" class="md-nav__link">
+    Depreciation Notice
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-rotation" title="Log Rotation" class="md-nav__link">
+    Log Rotation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-zones" title="Time Zones" class="md-nav__link">
+    Time Zones
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/boltdb/" title="BoltDB" class="md-nav__link">
+      BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/consul/" title="Consul" class="md-nav__link">
+      Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/consulcatalog/" title="Consul Catalog" class="md-nav__link">
+      Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/dynamodb/" title="DynamoDB" class="md-nav__link">
+      DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/ecs/" title="ECS" class="md-nav__link">
+      ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/etcd/" title="Etcd" class="md-nav__link">
+      Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/eureka/" title="Eureka" class="md-nav__link">
+      Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/kubernetes/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/mesos/" title="Mesos" class="md-nav__link">
+      Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/rest/" title="Rest" class="md-nav__link">
+      Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/servicefabric/" title="Azure Service Fabric" class="md-nav__link">
+      Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/zookeeper/" title="Zookeeper" class="md-nav__link">
+      Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tracing/" title="Tracing" class="md-nav__link">
+      Tracing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../backends/web/" title="Web (Deprecated)" class="md-nav__link">
+      Web (Deprecated)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/examples/" title="Configuration Examples" class="md-nav__link">
+      Configuration Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#reference" title="Reference" class="md-nav__link">
+    Reference
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toml" title="TOML" class="md-nav__link">
+    TOML
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli" title="CLI" class="md-nav__link">
+    CLI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#traefik-logs" title="Traefik Logs" class="md-nav__link">
+    Traefik Logs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-logs" title="Access Logs" class="md-nav__link">
+    Access Logs
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clf-common-log-format" title="CLF - Common Log Format" class="md-nav__link">
+    CLF - Common Log Format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-fields" title="Customize Fields" class="md-nav__link">
+    Customize Fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-headers" title="Customize Headers" class="md-nav__link">
+    Customize Headers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-of-all-available-fields" title="List of All Available Fields" class="md-nav__link">
+    List of All Available Fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depreciation-notice" title="Depreciation Notice" class="md-nav__link">
+    Depreciation Notice
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#log-rotation" title="Log Rotation" class="md-nav__link">
+    Log Rotation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#time-zones" title="Time Zones" class="md-nav__link">
+    Time Zones
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.7/docs/configuration/logs.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="logs-definition">Logs Definition<a class="headerlink" href="#logs-definition" title="Permanent link">&para;</a></h1>
+<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<h3 id="toml">TOML<a class="headerlink" href="#toml" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">logLevel = &quot;INFO&quot;
+
+[traefikLog]
+  filePath = &quot;/path/to/traefik.log&quot;
+  format   = &quot;json&quot;
+
+[accessLog]
+  filePath = &quot;/path/to/access.log&quot;
+  format = &quot;json&quot;
+
+  [accessLog.filters]
+    statusCodes = [&quot;200&quot;, &quot;300-302&quot;]
+    retryAttempts = true
+    minDuration = &quot;10ms&quot;
+
+  [accessLog.fields]
+    defaultMode = &quot;keep&quot;
+    [accessLog.fields.names]
+      &quot;ClientUsername&quot; = &quot;drop&quot;
+      # ...
+
+    [accessLog.fields.headers]
+      defaultMode = &quot;keep&quot;
+      [accessLog.fields.headers.names]
+        &quot;User-Agent&quot; = &quot;redact&quot;
+        &quot;Authorization&quot; = &quot;drop&quot;
+        &quot;Content-Type&quot; = &quot;keep&quot;
+        # ...
+</code></pre>
+
+<h3 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
+<p>For more information about the CLI, see the documentation about <a href="../../basics/#traefik">Traefik command</a>.</p>
+<pre><code class="bash">--logLevel=&quot;DEBUG&quot;
+--traefikLog.filePath=&quot;/path/to/traefik.log&quot;
+--traefikLog.format=&quot;json&quot;
+--accessLog.filePath=&quot;/path/to/access.log&quot;
+--accessLog.format=&quot;json&quot;
+--accessLog.filters.statusCodes=&quot;200,300-302&quot;
+--accessLog.filters.retryAttempts=&quot;true&quot;
+--accessLog.filters.minDuration=&quot;10ms&quot;
+--accessLog.fields.defaultMode=&quot;keep&quot;
+--accessLog.fields.names=&quot;Username=drop Hostname=drop&quot;
+--accessLog.fields.headers.defaultMode=&quot;keep&quot;
+--accessLog.fields.headers.names=&quot;User-Agent=redact Authorization=drop Content-Type=keep&quot;
+</code></pre>
+
+<h2 id="traefik-logs">Traefik Logs<a class="headerlink" href="#traefik-logs" title="Permanent link">&para;</a></h2>
+<p>By default the Traefik log is written to stdout in text format.</p>
+<p>To write the logs into a log file specify the <code>filePath</code>:</p>
+<pre><code class="toml">[traefikLog]
+  filePath = &quot;/path/to/traefik.log&quot;
+</code></pre>
+
+<p>To switch to JSON format instead of standard format (<code>common</code>), specify <code>json</code> as the format:</p>
+<pre><code class="toml">[traefikLog]
+  filePath = &quot;/path/to/traefik.log&quot;
+  format   = &quot;json&quot;
+</code></pre>
+
+<p>Deprecated way (before 1.4):</p>
+<div class="admonition danger">
+<p class="admonition-title">DEPRECATED</p>
+<p><code>traefikLogsFile</code> is deprecated, use <a href="../../configuration/logs/#traefik-logs">traefikLog</a> instead.</p>
+</div>
+<pre><code class="toml"># Traefik logs file
+# If not defined, logs to stdout
+#
+# DEPRECATED - see [traefikLog] lower down
+# In case both traefikLogsFile and traefikLog.filePath are specified, the latter will take precedence.
+# Optional
+#
+traefikLogsFile = &quot;log/traefik.log&quot;
+</code></pre>
+
+<p>To customize the log level:</p>
+<pre><code class="toml"># Log level
+#
+# Optional
+# Default: &quot;ERROR&quot;
+#
+# Accepted values, in order of severity: &quot;DEBUG&quot;, &quot;INFO&quot;, &quot;WARN&quot;, &quot;ERROR&quot;, &quot;FATAL&quot;, &quot;PANIC&quot;
+# Messages at and above the selected level will be logged.
+#
+logLevel = &quot;ERROR&quot;
+</code></pre>
+
+<h2 id="access-logs">Access Logs<a class="headerlink" href="#access-logs" title="Permanent link">&para;</a></h2>
+<p>Access logs are written when the entry <code>[accessLog]</code> is defined (or the command line flag <code>--accesslog</code>).
+By default it writes to stdout and produces logs in the textual <a href="#clf-common-log-format">Common Log Format (CLF)</a>, extended with additional fields.</p>
+<p>To enable access logs using the default settings, add the <code>[accessLog]</code> entry in your <code>traefik.toml</code> configuration file:</p>
+<pre><code class="toml">[accessLog]
+</code></pre>
+
+<p>To write the logs into a log file specify the <code>filePath</code>:</p>
+<pre><code class="toml">[accessLog]
+filePath = &quot;/path/to/access.log&quot;
+</code></pre>
+
+<p>To switch to JSON format instead of <a href="#clf-common-log-format">Common Log Format (CLF)</a>, specify <code>json</code> as the format:</p>
+<pre><code class="toml">[accessLog]
+filePath = &quot;/path/to/access.log&quot;
+format = &quot;json&quot;  # Default: &quot;common&quot;
+</code></pre>
+
+<p>To write the logs in async, specify <code>bufferingSize</code> as the format (must be &gt;0):</p>
+<pre><code class="toml">[accessLog]
+filePath = &quot;/path/to/access.log&quot;
+# Buffering Size
+#
+# Optional
+# Default: 0
+#
+# Number of access log lines to process in a buffered way.
+#
+bufferingSize = 100
+</code></pre>
+
+<p>To filter logs you can specify a set of filters which are logically "OR-connected". Thus, specifying multiple filters will keep more access logs than specifying only one:</p>
+<pre><code class="toml">[accessLog]
+filePath = &quot;/path/to/access.log&quot;
+format = &quot;json&quot;  # Default: &quot;common&quot;
+
+  [accessLog.filters]
+
+  # statusCodes: keep access logs with status codes in the specified range
+  #
+  # Optional
+  # Default: []
+  #
+  statusCodes = [&quot;200&quot;, &quot;300-302&quot;]
+
+  # retryAttempts: keep access logs when at least one retry happened
+  #
+  # Optional
+  # Default: false
+  #
+  retryAttempts = true
+
+  # minDuration: keep access logs when request took longer than the specified duration
+  #
+  # Optional
+  # Default: 0
+  #
+  minDuration = &quot;10ms&quot;
+</code></pre>
+
+<h3 id="clf-common-log-format">CLF - Common Log Format<a class="headerlink" href="#clf-common-log-format" title="Permanent link">&para;</a></h3>
+<p>By default, Traefik use the CLF (<code>common</code>) as access log format.</p>
+<pre><code class="html">&lt;remote_IP_address&gt; - &lt;client_user_name_if_available&gt; [&lt;timestamp&gt;] &quot;&lt;request_method&gt; &lt;request_path&gt; &lt;request_protocol&gt;&quot; &lt;origin_server_HTTP_status&gt; &lt;origin_server_content_size&gt; &quot;&lt;request_referrer&gt;&quot; &quot;&lt;request_user_agent&gt;&quot; &lt;number_of_requests_received_since_Traefik_started&gt; &quot;&lt;Traefik_frontend_name&gt;&quot; &quot;&lt;Traefik_backend_URL&gt;&quot; &lt;request_duration_in_ms&gt;ms
+</code></pre>
+
+<h3 id="customize-fields">Customize Fields<a class="headerlink" href="#customize-fields" title="Permanent link">&para;</a></h3>
+<p>You can customize the fields written in the access logs.
+The list of available fields is found below: <a href="#list-of-all-available-fields">List of All Available Fields</a>.</p>
+<p>Each field has a "mode" which defines if it is written or not in the access log lines.
+The possible values for the mode are:</p>
+<ul>
+<li><code>keep</code>: the field and its value are written on the access log line. This is the default behavior.</li>
+<li><code>drop</code>: the field is not written at all on the access log.</li>
+</ul>
+<p>To customize the fields, you must:</p>
+<ul>
+<li>Switch to the JSON format (mandatory)</li>
+<li>Define the "default mode" for all fields (default is <code>keep</code>)</li>
+<li>OR Define the fields which does not follow the default mode</li>
+</ul>
+<pre><code class="toml">[accessLog]
+# Access Log Format
+#
+# Optional
+# Default: &quot;common&quot;
+#
+# Accepted values &quot;common&quot;, &quot;json&quot;
+#
+format = &quot;json&quot;
+
+  [accessLog.fields]
+
+  # defaultMode
+  #
+  # Optional
+  # Default: &quot;keep&quot;
+  #
+  # Accepted values &quot;keep&quot;, &quot;drop&quot;
+  #
+  defaultMode = &quot;keep&quot;
+
+  # Fields map which is used to override fields defaultMode
+  [accessLog.fields.names]
+    &quot;ClientUsername&quot; = &quot;drop&quot;
+    # ...
+</code></pre>
+
+<h3 id="customize-headers">Customize Headers<a class="headerlink" href="#customize-headers" title="Permanent link">&para;</a></h3>
+<p>Access logs prints the headers of each request, as fields of the access log line.
+You can customize which and how the headers are printed, likewise the other fields (see <a href="#customize-fields">"Customize Fields" section</a>).</p>
+<p>Each header has a "mode" which defines how it is written in the access log lines.
+The possible values for the mode are:</p>
+<ul>
+<li><code>keep</code>: the header and its value are written on the access log line. This is the default behavior.</li>
+<li><code>drop</code>: the header is not written at all on the access log.</li>
+<li><code>redacted</code>: the header is written, but its value is redacted to avoid leaking sensitive information.</li>
+</ul>
+<p>To customize the headers, you must:</p>
+<ul>
+<li>Switch to the JSON format (mandatory)</li>
+<li>Define the "default mode" for all headers (default is <code>keep</code>)</li>
+<li>OR Define the headers which does not follow the default mode</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The headers are written with the prefix <code>request_</code> in the access log.
+This prefix must not be included when specifying a header in the TOML configuration.</p>
+<ul>
+<li>Do: <code>"User-Agent" = "drop"</code></li>
+<li>Don't: <code>"redacted_User-Agent" = "drop"</code></li>
+</ul>
+</div>
+<pre><code class="toml">[accessLog]
+# Access Log Format
+#
+# Optional
+# Default: &quot;common&quot;
+#
+# Accepted values &quot;common&quot;, &quot;json&quot;
+#
+format = &quot;json&quot;
+
+  [accessLog.fields.headers]
+    # defaultMode
+    #
+    # Optional
+    # Default: &quot;keep&quot;
+    #
+    # Accepted values &quot;keep&quot;, &quot;drop&quot;, &quot;redact&quot;
+    #
+    defaultMode = &quot;keep&quot;
+    # Fields map which is used to override headers defaultMode
+    [accessLog.fields.headers.names]
+      &quot;User-Agent&quot; = &quot;redact&quot;
+      &quot;Authorization&quot; = &quot;drop&quot;
+      &quot;Content-Type&quot; = &quot;keep&quot;
+      # ...
+</code></pre>
+
+<h3 id="list-of-all-available-fields">List of All Available Fields<a class="headerlink" href="#list-of-all-available-fields" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StartUTC</code></td>
+<td>The time at which request processing started.</td>
+</tr>
+<tr>
+<td><code>StartLocal</code></td>
+<td>The local time at which request processing started.</td>
+</tr>
+<tr>
+<td><code>Duration</code></td>
+<td>The total time taken by processing the response, including the origin server's time but not the log writing time.</td>
+</tr>
+<tr>
+<td><code>FrontendName</code></td>
+<td>The name of the Traefik frontend.</td>
+</tr>
+<tr>
+<td><code>BackendName</code></td>
+<td>The name of the Traefik backend.</td>
+</tr>
+<tr>
+<td><code>BackendURL</code></td>
+<td>The URL of the Traefik backend.</td>
+</tr>
+<tr>
+<td><code>BackendAddr</code></td>
+<td>The IP:port of the Traefik backend (extracted from <code>BackendURL</code>)</td>
+</tr>
+<tr>
+<td><code>ClientAddr</code></td>
+<td>The remote address in its original form (usually IP:port).</td>
+</tr>
+<tr>
+<td><code>ClientHost</code></td>
+<td>The remote IP address from which the client request was received.</td>
+</tr>
+<tr>
+<td><code>ClientPort</code></td>
+<td>The remote TCP port from which the client request was received.</td>
+</tr>
+<tr>
+<td><code>ClientUsername</code></td>
+<td>The username provided in the URL, if present.</td>
+</tr>
+<tr>
+<td><code>RequestAddr</code></td>
+<td>The HTTP Host header (usually IP:port). This is treated as not a header by the Go API.</td>
+</tr>
+<tr>
+<td><code>RequestHost</code></td>
+<td>The HTTP Host server name (not including port).</td>
+</tr>
+<tr>
+<td><code>RequestPort</code></td>
+<td>The TCP port from the HTTP Host.</td>
+</tr>
+<tr>
+<td><code>RequestMethod</code></td>
+<td>The HTTP method.</td>
+</tr>
+<tr>
+<td><code>RequestPath</code></td>
+<td>The HTTP request URI, not including the scheme, host or port.</td>
+</tr>
+<tr>
+<td><code>RequestProtocol</code></td>
+<td>The version of HTTP requested.</td>
+</tr>
+<tr>
+<td><code>RequestLine</code></td>
+<td><code>RequestMethod</code> + <code>RequestPath</code> + <code>RequestProtocol</code></td>
+</tr>
+<tr>
+<td><code>RequestContentSize</code></td>
+<td>The number of bytes in the request entity (a.k.a. body) sent by the client.</td>
+</tr>
+<tr>
+<td><code>OriginDuration</code></td>
+<td>The time taken by the origin server ('upstream') to return its response.</td>
+</tr>
+<tr>
+<td><code>OriginContentSize</code></td>
+<td>The content length specified by the origin server, or 0 if unspecified.</td>
+</tr>
+<tr>
+<td><code>OriginStatus</code></td>
+<td>The HTTP status code returned by the origin server. If the request was handled by this Traefik instance (e.g. with a redirect), then this value will be absent.</td>
+</tr>
+<tr>
+<td><code>OriginStatusLine</code></td>
+<td><code>OriginStatus</code> + Status code explanation</td>
+</tr>
+<tr>
+<td><code>DownstreamStatus</code></td>
+<td>The HTTP status code returned to the client.</td>
+</tr>
+<tr>
+<td><code>DownstreamStatusLine</code></td>
+<td><code>DownstreamStatus</code> + Status code explanation</td>
+</tr>
+<tr>
+<td><code>DownstreamContentSize</code></td>
+<td>The number of bytes in the response entity returned to the client. This is in addition to the "Content-Length" header, which may be present in the origin response.</td>
+</tr>
+<tr>
+<td><code>RequestCount</code></td>
+<td>The number of requests received since the Traefik instance started.</td>
+</tr>
+<tr>
+<td><code>GzipRatio</code></td>
+<td>The response body compression ratio achieved.</td>
+</tr>
+<tr>
+<td><code>Overhead</code></td>
+<td>The processing time overhead caused by Traefik.</td>
+</tr>
+<tr>
+<td><code>RetryAttempts</code></td>
+<td>The amount of attempts the request was retried.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="depreciation-notice">Depreciation Notice<a class="headerlink" href="#depreciation-notice" title="Permanent link">&para;</a></h3>
+<p>Deprecated way (before 1.4):</p>
+<div class="admonition danger">
+<p class="admonition-title">DEPRECATED</p>
+<p><code>accessLogsFile</code> is deprecated, use <a href="../../configuration/logs/#access-logs">accessLog</a> instead.</p>
+</div>
+<pre><code class="toml"># Access logs file
+#
+# DEPRECATED - see [accessLog]
+#
+accessLogsFile = &quot;log/access.log&quot;
+</code></pre>
+
+<h2 id="log-rotation">Log Rotation<a class="headerlink" href="#log-rotation" title="Permanent link">&para;</a></h2>
+<p>Traefik will close and reopen its log files, assuming they're configured, on receipt of a USR1 signal.
+This allows the logs to be rotated and processed by an external program, such as <code>logrotate</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This does not work on Windows due to the lack of USR signals.</p>
+</div>
+<h2 id="time-zones">Time Zones<a class="headerlink" href="#time-zones" title="Permanent link">&para;</a></h2>
+<p>The timestamp of each log line is in UTC time by default.</p>
+<p>If you want to use local timezone, you need to ensure the 3 following elements:</p>
+<ol>
+<li>Provide the timezone data into /usr/share/zoneinfo</li>
+<li>Set the environement variable TZ to the timezone to be used</li>
+<li>Specify the field StartLocal instead of StartUTC (works on default Common Log Format (CLF) as well as JSON)</li>
+</ol>
+<p>Example using docker-compose:</p>
+<pre><code class="yml">version: '3'
+
+services:
+  traefik:
+    image: containous/traefik:[latest stable version]
+    ports:
+      - &quot;80:80&quot;
+    environment:
+      - &quot;TZ=US/Alaska&quot;
+    command:
+      - --docker
+      - --accesslog
+      - --accesslog.fields.names=&quot;StartUTC=drop&quot;
+    volumes:
+      - &quot;/var/run/docker.sock:/var/run/docker.sock&quot;
+      - &quot;/usr/share/zoneinfo:/usr/share/zoneinfo:ro&quot;
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../commons/"-->
+               <!--title="Commons"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--Commons-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../entrypoints/" title="EntryPoints"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--EntryPoints-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../theme/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

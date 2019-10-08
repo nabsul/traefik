@@ -1,0 +1,2627 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Docker - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/styles/atom-one-light.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-51880359-3", "docs.traefik.io")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#traefik-docker" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../assets/img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Traefik
+            </span>
+            <span class="md-header-nav__topic">
+              Docker
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../assets/img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/concepts/" title="Concepts" class="md-nav__link">
+      Concepts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/configuration-overview/" title="Configuration Introduction" class="md-nav__link">
+      Configuration Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/install-traefik/" title="Install Traefik" class="md-nav__link">
+      Install Traefik
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration Discovery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration Discovery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Docker
+      </label>
+    
+    <a href="./" title="Docker" class="md-nav__link md-nav__link--active">
+      Docker
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" title="Configuration Examples" class="md-nav__link">
+    Configuration Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-configuration" title="Routing Configuration" class="md-nav__link">
+    Routing Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-configuration" title="Provider Configuration" class="md-nav__link">
+    Provider Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" title="endpoint" class="md-nav__link">
+    endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usebindportip" title="useBindPortIP" class="md-nav__link">
+    useBindPortIP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exposedbydefault" title="exposedByDefault" class="md-nav__link">
+    exposedByDefault
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network" title="network" class="md-nav__link">
+    network
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defaultrule" title="defaultRule" class="md-nav__link">
+    defaultRule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swarmmode" title="swarmMode" class="md-nav__link">
+    swarmMode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swarmmoderefreshseconds" title="swarmModeRefreshSeconds" class="md-nav__link">
+    swarmModeRefreshSeconds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constraints" title="constraints" class="md-nav__link">
+    constraints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls" title="tls" class="md-nav__link">
+    tls
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tlsca" title="tls.ca" class="md-nav__link">
+    tls.ca
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlscaoptional" title="tls.caOptional" class="md-nav__link">
+    tls.caOptional
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlscert" title="tls.cert" class="md-nav__link">
+    tls.cert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlskey" title="tls.key" class="md-nav__link">
+    tls.key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlsinsecureskipverify" title="tls.insecureSkipVerify" class="md-nav__link">
+    tls.insecureSkipVerify
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes-ingress/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Routing & Load Balancing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Routing & Load Balancing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/routers/" title="Routers" class="md-nav__link">
+      Routers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/services/" title="Services" class="md-nav__link">
+      Services
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Providers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Providers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../routing/providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      HTTPS & TLS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        HTTPS & TLS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/tls/" title="TLS" class="md-nav__link">
+      TLS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Middlewares
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Middlewares
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/addprefix/" title="AddPrefix" class="md-nav__link">
+      AddPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/basicauth/" title="BasicAuth" class="md-nav__link">
+      BasicAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/buffering/" title="Buffering" class="md-nav__link">
+      Buffering
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/chain/" title="Chain" class="md-nav__link">
+      Chain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/circuitbreaker/" title="CircuitBreaker" class="md-nav__link">
+      CircuitBreaker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/compress/" title="Compress" class="md-nav__link">
+      Compress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/digestauth/" title="DigestAuth" class="md-nav__link">
+      DigestAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/errorpages/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/forwardauth/" title="ForwardAuth" class="md-nav__link">
+      ForwardAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/headers/" title="Headers" class="md-nav__link">
+      Headers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/ipwhitelist/" title="IpWhitelist" class="md-nav__link">
+      IpWhitelist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/inflightreq/" title="InFlightReq" class="md-nav__link">
+      InFlightReq
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/passtlsclientcert/" title="PassTLSClientCert" class="md-nav__link">
+      PassTLSClientCert
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/ratelimit/" title="RateLimit" class="md-nav__link">
+      RateLimit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/redirectregex/" title="RedirectRegex" class="md-nav__link">
+      RedirectRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/redirectscheme/" title="RedirectScheme" class="md-nav__link">
+      RedirectScheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/replacepath/" title="ReplacePath" class="md-nav__link">
+      ReplacePath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/replacepathregex/" title="ReplacePathRegex" class="md-nav__link">
+      ReplacePathRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/retry/" title="Retry" class="md-nav__link">
+      Retry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/stripprefix/" title="StripPrefix" class="md-nav__link">
+      StripPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/stripprefixregex/" title="StripPrefixRegex" class="md-nav__link">
+      StripPrefixRegex
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Operations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dashboard/" title="Dashboard" class="md-nav__link">
+      Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Observability
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Observability
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/access-logs/" title="Access Logs" class="md-nav__link">
+      Access Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-3" type="checkbox" id="nav-8-3">
+    
+    <label class="md-nav__link" for="nav-8-3">
+      Metrics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-3">
+        Metrics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/influxdb/" title="InfluxDB" class="md-nav__link">
+      InfluxDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/prometheus/" title="Prometheus" class="md-nav__link">
+      Prometheus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/statsd/" title="StatsD" class="md-nav__link">
+      StatsD
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-4" type="checkbox" id="nav-8-4">
+    
+    <label class="md-nav__link" for="nav-8-4">
+      Tracing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-4">
+        Tracing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/jaeger/" title="Jaeger" class="md-nav__link">
+      Jaeger
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/zipkin/" title="Zipkin" class="md-nav__link">
+      Zipkin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/instana/" title="Instana" class="md-nav__link">
+      Instana
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/haystack/" title="Haystack" class="md-nav__link">
+      Haystack
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/crd-acme/" title="Kubernetes and Let's Encrypt" class="md-nav__link">
+      Kubernetes and Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/grpc/" title="gRPC Examples" class="md-nav__link">
+      gRPC Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/basic-example/" title="Basic Example" class="md-nav__link">
+      Basic Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4-2" type="checkbox" id="nav-9-4-2">
+    
+    <label class="md-nav__link" for="nav-9-4-2">
+      HTTPS with Let's Encrypt
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-9-4-2">
+        HTTPS with Let's Encrypt
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-tls/" title="TLS Challenge" class="md-nav__link">
+      TLS Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-http/" title="HTTP Challenge" class="md-nav__link">
+      HTTP Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-dns/" title="DNS Challenge" class="md-nav__link">
+      DNS Challenge
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Migration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Migration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../migration/v1-to-v2/" title="Traefik v1 to v2" class="md-nav__link">
+      Traefik v1 to v2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Contributing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Contributing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/thank-you/" title="Thank You!" class="md-nav__link">
+      Thank You!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-issues/" title="Submitting Issues" class="md-nav__link">
+      Submitting Issues
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-pull-requests/" title="Submitting PRs" class="md-nav__link">
+      Submitting PRs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/building-testing/" title="Building and Testing" class="md-nav__link">
+      Building and Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/documentation/" title="Documentation" class="md-nav__link">
+      Documentation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/data-collection/" title="Data Collection" class="md-nav__link">
+      Data Collection
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/advocating/" title="Advocating" class="md-nav__link">
+      Advocating
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/maintainers/" title="Maintainers" class="md-nav__link">
+      Maintainers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
+    
+    <label class="md-nav__link" for="nav-12">
+      References
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-12">
+        References
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-1" type="checkbox" id="nav-12-1">
+    
+    <label class="md-nav__link" for="nav-12-1">
+      Static Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-1">
+        Static Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/env/" title="Environment variables" class="md-nav__link">
+      Environment variables
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-2" type="checkbox" id="nav-12-2">
+    
+    <label class="md-nav__link" for="nav-12-2">
+      Dynamic Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-2">
+        Dynamic Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/kubernetes-crd/" title="Kubernetes CRD" class="md-nav__link">
+      Kubernetes CRD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-examples" title="Configuration Examples" class="md-nav__link">
+    Configuration Examples
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-configuration" title="Routing Configuration" class="md-nav__link">
+    Routing Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provider-configuration" title="Provider Configuration" class="md-nav__link">
+    Provider Configuration
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#endpoint" title="endpoint" class="md-nav__link">
+    endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usebindportip" title="useBindPortIP" class="md-nav__link">
+    useBindPortIP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exposedbydefault" title="exposedByDefault" class="md-nav__link">
+    exposedByDefault
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network" title="network" class="md-nav__link">
+    network
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#defaultrule" title="defaultRule" class="md-nav__link">
+    defaultRule
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swarmmode" title="swarmMode" class="md-nav__link">
+    swarmMode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swarmmoderefreshseconds" title="swarmModeRefreshSeconds" class="md-nav__link">
+    swarmModeRefreshSeconds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constraints" title="constraints" class="md-nav__link">
+    constraints
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls" title="tls" class="md-nav__link">
+    tls
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tlsca" title="tls.ca" class="md-nav__link">
+    tls.ca
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlscaoptional" title="tls.caOptional" class="md-nav__link">
+    tls.caOptional
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlscert" title="tls.cert" class="md-nav__link">
+    tls.cert
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlskey" title="tls.key" class="md-nav__link">
+    tls.key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tlsinsecureskipverify" title="tls.insecureSkipVerify" class="md-nav__link">
+    tls.insecureSkipVerify
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v2.0/docs/content/providers/docker.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="traefik-docker">Traefik &amp; Docker<a class="headerlink" href="#traefik-docker" title="Permanent link">&para;</a></h1>
+<p class="subtitle">A Story of Labels &amp; Containers</p>
+<p><img alt="Docker" src="../../assets/img/providers/docker.png" /></p>
+<p>Attach labels to your containers and let Traefik do the rest!</p>
+<div class="admonition tip">
+<p class="admonition-title">The Quick Start Uses Docker</p>
+<p>If you haven't already, maybe you'd like to go through the <a href="../../getting-started/quick-start/">quick start</a> that uses the docker provider!</p>
+</div>
+<h2 id="configuration-examples">Configuration Examples<a class="headerlink" href="#configuration-examples" title="Permanent link">&para;</a></h2>
+<details class="example"><summary>Configuring Docker &amp; Deploying / Exposing Services</summary><p>Enabling the docker provider</p>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker: {}</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_2" />
+<label for="__tab_1_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker=true</code></pre></div>
+</div>
+<p>Attaching labels to containers (in your docker compose file)</p>
+<pre class="highlight"><code class="language-yaml">version: "3"
+services:
+  my-container:
+    # ...
+    labels:
+      - traefik.http.routers.my-container.rule=Host(`mydomain.com`)</code></pre>
+
+</details>
+<details class="example"><summary>Configuring Docker Swarm &amp; Deploying / Exposing Services</summary><p>Enabling the docker provider (Swarm Mode)</p>
+<div class="superfences-tabs">
+<input name="__tabs_2" type="radio" id="__tab_2_0" checked="checked" />
+<label for="__tab_2_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  # swarm classic (1.12-)
+  # endpoint = "tcp://127.0.0.1:2375"
+  # docker swarm mode (1.12+)
+  endpoint = "tcp://127.0.0.1:2377"
+  swarmMode = true</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_1" />
+<label for="__tab_2_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    # swarm classic (1.12-)
+    # endpoint = "tcp://127.0.0.1:2375"
+    # docker swarm mode (1.12+)
+    endpoint: "tcp://127.0.0.1:2375"
+    swarmMode: true</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_2" />
+<label for="__tab_2_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.endpoint="tcp://127.0.0.1:2375"
+--providers.docker.swarmMode=true</code></pre></div>
+</div>
+<p>Attach labels to services (not to containers) while in Swarm mode (in your docker compose file)</p>
+<pre class="highlight"><code class="language-yaml">version: "3"
+services:
+  my-container:
+    deploy:
+      labels:
+        - traefik.http.routers.my-container.rule=Host(`mydomain.com`)
+        - traefik.http.services.my-container-service.loadbalancer.server.port=8080</code></pre>
+
+<div class="admonition important">
+<p class="admonition-title">Labels in Docker Swarm Mode</p>
+<p>While in Swarm Mode, Traefik uses labels found on services, not on individual containers.</p>
+<p>Therefore, if you use a compose file with Swarm Mode, labels should be defined in the <code>deploy</code> part of your service.
+This behavior is only enabled for docker-compose version 3+ (<a href="https://docs.docker.com/compose/compose-file/#labels-1">Compose file reference</a>).</p>
+</div>
+</details>
+<h2 id="routing-configuration">Routing Configuration<a class="headerlink" href="#routing-configuration" title="Permanent link">&para;</a></h2>
+<p>See the dedicated section in <a href="../../routing/providers/docker/">routing</a>.</p>
+<h2 id="provider-configuration">Provider Configuration<a class="headerlink" href="#provider-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="endpoint"><code>endpoint</code><a class="headerlink" href="#endpoint" title="Permanent link">&para;</a></h3>
+<p><em>Required, Default="unix:///var/run/docker.sock"</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_3" type="radio" id="__tab_3_0" checked="checked" />
+<label for="__tab_3_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"</code></pre></div>
+<input name="__tabs_3" type="radio" id="__tab_3_1" />
+<label for="__tab_3_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"</code></pre></div>
+<input name="__tabs_3" type="radio" id="__tab_3_2" />
+<label for="__tab_3_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.endpoint="unix:///var/run/docker.sock"</code></pre></div>
+</div>
+<p>Traefik requires access to the docker socket to get its dynamic configuration.</p>
+<details class="warning"><summary>Security Notes</summary><p>Depending on your context, accessing the Docker API without any restriction can be a security concern: If Traefik is attacked, then the attacker might get access to the Docker (or Swarm Mode) backend.</p>
+<p>As explained in the Docker documentation: (<a href="https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface">Docker Daemon Attack Surface page</a>):</p>
+<p><code>[...] only **trusted** users should be allowed to control your Docker daemon [...]</code></p>
+<div class="admonition tip">
+<p class="admonition-title">Improved Security</p>
+<p><a href="https://containo.us/traefikee">TraefikEE</a> solves this problem by separating the control plane (connected to Docker) and the data plane (handling the requests).</p>
+</div>
+<details class="info"><summary>Resources about Docker's Security</summary><ul>
+<li><a href="https://www.youtube.com/watch?v=ltrV-Qmh3oY">KubeCon EU 2018 Keynote, Running with Scissors, from Liz Rice</a></li>
+<li><a href="https://www.lvh.io/posts/dont-expose-the-docker-socket-not-even-to-a-container.html">Don't expose the Docker socket (not even to a container)</a></li>
+<li><a href="https://news.ycombinator.com/item?id=17983623">A thread on Stack Overflow about sharing the <code>/var/run/docker.sock</code> file</a></li>
+<li><a href="https://blog.loof.fr/2018/01/to-dind-or-not-do-dind.html">To DinD or not to DinD</a></li>
+</ul>
+</details>
+</details>
+<details class="tip"><summary>Security Compensation</summary><p>Expose the Docker socket over TCP, instead of the default Unix socket file.
+It allows different implementation levels of the <a href="https://en.wikipedia.org/wiki/AAA_(computer_security)">AAA (Authentication, Authorization, Accounting) concepts</a>, depending on your security assessment:</p>
+<ul>
+<li>Authentication with Client Certificates as described in <a href="https://docs.docker.com/engine/security/https/">"Protect the Docker daemon socket."</a></li>
+<li>Authorization with the <a href="https://docs.docker.com/engine/extend/plugins_authorization/">Docker Authorization Plugin Mechanism</a></li>
+<li>Accounting at networking level, by exposing the socket only inside a Docker private network, only available for Traefik.</li>
+<li>Accounting at container level, by exposing the socket on a another container than Traefik's.
+  With Swarm mode, it allows scheduling of Traefik on worker nodes, with only the "socket exposer" container on the manager nodes.</li>
+<li>Accounting at kernel level, by enforcing kernel calls with mechanisms like <a href="https://en.wikipedia.org/wiki/Security-Enhanced_Linux">SELinux</a>, to only allows an identified set of actions for Traefik's process (or the "socket exposer" process).</li>
+</ul>
+<details class="info"><summary>Additional Resources</summary><ul>
+<li><a href="https://github.com/containous/traefik/issues/4174">Traefik issue GH-4174 about security with Docker socket</a></li>
+<li><a href="https://developers.redhat.com/blog/2015/02/25/inspecting-docker-activity-with-socat/">Inspecting Docker Activity with Socat</a></li>
+<li><a href="https://blog.mikesir87.io/2018/07/letting-traefik-run-on-worker-nodes/">Letting Traefik run on Worker Nodes</a></li>
+<li><a href="https://github.com/Tecnativa/docker-socket-proxy">Docker Socket Proxy from Tecnativa</a></li>
+</ul>
+</details>
+</details>
+<div class="admonition info">
+<p class="admonition-title">Traefik &amp; Swarm Mode</p>
+<p>To let Traefik access the Docker Socket of the Swarm manager, it is mandatory to schedule Traefik on the Swarm manager nodes.</p>
+</div>
+<details class="example"><summary>Using the docker.sock</summary><p>The docker-compose file shares the docker sock with the Traefik container</p>
+<pre class="highlight"><code class="language-yaml">version: '3'
+
+services:
+  traefik:
+     image: traefik:v2.0 # The official v2.0 Traefik docker image
+     ports:
+       - "80:80"
+     volumes:
+       - /var/run/docker.sock:/var/run/docker.sock</code></pre>
+
+<p>We specify the docker.sock in traefik's configuration file.</p>
+<div class="superfences-tabs">
+<input name="__tabs_4" type="radio" id="__tab_4_0" checked="checked" />
+<label for="__tab_4_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  # ...</code></pre></div>
+<input name="__tabs_4" type="radio" id="__tab_4_1" />
+<label for="__tab_4_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+     # ...</code></pre></div>
+<input name="__tabs_4" type="radio" id="__tab_4_2" />
+<label for="__tab_4_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.endpoint="unix:///var/run/docker.sock"
+# ...</code></pre></div>
+</div>
+</details>
+<h3 id="usebindportip"><code>useBindPortIP</code><a class="headerlink" href="#usebindportip" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=false</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_5" type="radio" id="__tab_5_0" checked="checked" />
+<label for="__tab_5_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  useBindPortIP = true
+  # ...</code></pre></div>
+<input name="__tabs_5" type="radio" id="__tab_5_1" />
+<label for="__tab_5_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    useBindPortIP: true
+    # ...</code></pre></div>
+<input name="__tabs_5" type="radio" id="__tab_5_2" />
+<label for="__tab_5_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.useBindPortIP=true
+# ...</code></pre></div>
+</div>
+<p>Traefik routes requests to the IP/Port of the matching container.
+When setting <code>useBindPortIP=true</code>, you tell Traefik to use the IP/Port attached to the container's <em>binding</em> instead of its inner network IP/Port.</p>
+<p>When used in conjunction with the <code>traefik.http.services.&lt;name&gt;.loadbalancer.server.port</code> label (that tells Traefik to route requests to a specific port),
+Traefik tries to find a binding on port <code>traefik.http.services.&lt;name&gt;.loadbalancer.server.port</code>.
+If it can't find such a binding, Traefik falls back on the internal network IP of the container,
+but still uses the <code>traefik.http.services.&lt;name&gt;.loadbalancer.server.port</code> that is set in the label.</p>
+<details class="example"><summary>Examples of <code>usebindportip</code> in different situations.</summary><table>
+<thead>
+<tr>
+<th>port label</th>
+<th>Container's binding</th>
+<th>Routes to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>IntIP:IntPort</td>
+</tr>
+<tr>
+<td>-</td>
+<td>ExtPort:IntPort</td>
+<td>IntIP:IntPort</td>
+</tr>
+<tr>
+<td>-</td>
+<td>ExtIp:ExtPort:IntPort</td>
+<td>ExtIp:ExtPort</td>
+</tr>
+<tr>
+<td>LblPort</td>
+<td>-</td>
+<td>IntIp:LblPort</td>
+</tr>
+<tr>
+<td>LblPort</td>
+<td>ExtIp:ExtPort:LblPort</td>
+<td>ExtIp:ExtPort</td>
+</tr>
+<tr>
+<td>LblPort</td>
+<td>ExtIp:ExtPort:OtherPort</td>
+<td>IntIp:LblPort</td>
+</tr>
+<tr>
+<td>LblPort</td>
+<td>ExtIp1:ExtPort1:IntPort1 &amp; ExtIp2:LblPort:IntPort2</td>
+<td>ExtIp2:LblPort</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p>In the above table:</p>
+<ul>
+<li><code>ExtIp</code> stands for "external IP found in the binding"</li>
+<li><code>IntIp</code> stands for "internal network container's IP",</li>
+<li><code>ExtPort</code> stands for "external Port found in the binding"</li>
+<li><code>IntPort</code> stands for "internal network container's port."</li>
+</ul>
+</div>
+</details>
+<h3 id="exposedbydefault"><code>exposedByDefault</code><a class="headerlink" href="#exposedbydefault" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=true</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_6" type="radio" id="__tab_6_0" checked="checked" />
+<label for="__tab_6_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  exposedByDefault = false
+  # ...</code></pre></div>
+<input name="__tabs_6" type="radio" id="__tab_6_1" />
+<label for="__tab_6_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    exposedByDefault: false
+    # ...</code></pre></div>
+<input name="__tabs_6" type="radio" id="__tab_6_2" />
+<label for="__tab_6_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.exposedByDefault=false
+# ...</code></pre></div>
+</div>
+<p>Expose containers by default through Traefik.
+If set to false, containers that don't have a <code>traefik.enable=true</code> label will be ignored from the resulting routing configuration.</p>
+<p>See also <a href="../overview/#restrict-the-scope-of-service-discovery">Restrict the Scope of Service Discovery</a>.</p>
+<h3 id="network"><code>network</code><a class="headerlink" href="#network" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=empty</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_7" type="radio" id="__tab_7_0" checked="checked" />
+<label for="__tab_7_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  network = "test"
+  # ...</code></pre></div>
+<input name="__tabs_7" type="radio" id="__tab_7_1" />
+<label for="__tab_7_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    network: test
+    # ...</code></pre></div>
+<input name="__tabs_7" type="radio" id="__tab_7_2" />
+<label for="__tab_7_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.network=test
+# ...</code></pre></div>
+</div>
+<p>Defines a default docker network to use for connections to all containers.</p>
+<p>This option can be overridden on a container basis with the <code>traefik.docker.network</code> label.</p>
+<h3 id="defaultrule"><code>defaultRule</code><a class="headerlink" href="#defaultrule" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=<code>Host(`{{ normalize .Name }}`)</code></em></p>
+<div class="superfences-tabs">
+<input name="__tabs_8" type="radio" id="__tab_8_0" checked="checked" />
+<label for="__tab_8_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  defaultRule = "Host(`{{ .Name }}.{{ index .Labels \"customLabel\"}}`)"
+  # ...</code></pre></div>
+<input name="__tabs_8" type="radio" id="__tab_8_1" />
+<label for="__tab_8_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    defaultRule: "Host(`{{ .Name }}.{{ index .Labels \"customLabel\"}}`)"
+    # ...</code></pre></div>
+<input name="__tabs_8" type="radio" id="__tab_8_2" />
+<label for="__tab_8_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.defaultRule="Host(`{{ .Name }}.{{ index .Labels \"customLabel\"}}`)"
+# ...</code></pre></div>
+</div>
+<p>For a given container if no routing rule was defined by a label, it is defined by this defaultRule instead.
+It must be a valid <a href="https://golang.org/pkg/text/template/">Go template</a>,
+augmented with the <a href="http://masterminds.github.io/sprig/">sprig template functions</a>.
+The container service name can be accessed as the <code>Name</code> identifier,
+and the template has access to all the labels defined on this container.</p>
+<h3 id="swarmmode"><code>swarmMode</code><a class="headerlink" href="#swarmmode" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=false</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_9" type="radio" id="__tab_9_0" checked="checked" />
+<label for="__tab_9_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  swarmMode = true
+  # ...</code></pre></div>
+<input name="__tabs_9" type="radio" id="__tab_9_1" />
+<label for="__tab_9_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    swarmMode: true
+    # ...</code></pre></div>
+<input name="__tabs_9" type="radio" id="__tab_9_2" />
+<label for="__tab_9_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.swarmMode=true
+# ...</code></pre></div>
+</div>
+<p>Activates the Swarm Mode.</p>
+<h3 id="swarmmoderefreshseconds"><code>swarmModeRefreshSeconds</code><a class="headerlink" href="#swarmmoderefreshseconds" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=15</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_10" type="radio" id="__tab_10_0" checked="checked" />
+<label for="__tab_10_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  swarmModeRefreshSeconds = "30s"
+  # ...</code></pre></div>
+<input name="__tabs_10" type="radio" id="__tab_10_1" />
+<label for="__tab_10_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    swarmModeRefreshSeconds: "30s"
+    # ...</code></pre></div>
+<input name="__tabs_10" type="radio" id="__tab_10_2" />
+<label for="__tab_10_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.swarmModeRefreshSeconds=30s
+# ...</code></pre></div>
+</div>
+<p>Defines the polling interval (in seconds) in Swarm Mode.</p>
+<h3 id="constraints"><code>constraints</code><a class="headerlink" href="#constraints" title="Permanent link">&para;</a></h3>
+<p><em>Optional, Default=""</em></p>
+<div class="superfences-tabs">
+<input name="__tabs_11" type="radio" id="__tab_11_0" checked="checked" />
+<label for="__tab_11_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker]
+  constraints = "Label(`a.label.name`, `foo`)"
+  # ...</code></pre></div>
+<input name="__tabs_11" type="radio" id="__tab_11_1" />
+<label for="__tab_11_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    constraints: "Label(`a.label.name`, `foo`)"
+    # ...</code></pre></div>
+<input name="__tabs_11" type="radio" id="__tab_11_2" />
+<label for="__tab_11_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.constraints="Label(`a.label.name`, `foo`)"
+# ...</code></pre></div>
+</div>
+<p>Constraints is an expression that Traefik matches against the container's labels to determine whether to create any route for that container.
+That is to say, if none of the container's labels match the expression, no route for the container is created.
+If the expression is empty, all detected containers are included.</p>
+<p>The expression syntax is based on the <code>Label("key", "value")</code>, and <code>LabelRegex("key", "value")</code> functions, as well as the usual boolean logic, as shown in examples below.</p>
+<details class="example"><summary>Constraints Expression Examples</summary><pre class="highlight"><code class="language-toml"># Includes only containers having a label with key `a.label.name` and value `foo`
+constraints = "Label(`a.label.name`, `foo`)"</code></pre>
+
+<pre class="highlight"><code class="language-toml"># Excludes containers having any label with key `a.label.name` and value `foo`
+constraints = "!Label(`a.label.name`, `value`)"</code></pre>
+
+<pre class="highlight"><code class="language-toml"># With logical AND.
+constraints = "Label(`a.label.name`, `valueA`) &amp;&amp; Label(`another.label.name`, `valueB`)"</code></pre>
+
+<pre class="highlight"><code class="language-toml"># With logical OR.
+constraints = "Label(`a.label.name`, `valueA`) || Label(`another.label.name`, `valueB`)"</code></pre>
+
+<pre class="highlight"><code class="language-toml"># With logical AND and OR, with precedence set by parentheses.
+constraints = "Label(`a.label.name`, `valueA`) &amp;&amp; (Label(`another.label.name`, `valueB`) || Label(`yet.another.label.name`, `valueC`))"</code></pre>
+
+<pre class="highlight"><code class="language-toml"># Includes only containers having a label with key `a.label.name` and a value matching the `a.+` regular expression.
+constraints = "LabelRegex(`a.label.name`, `a.+`)"</code></pre>
+
+</details>
+<p>See also <a href="../overview/#restrict-the-scope-of-service-discovery">Restrict the Scope of Service Discovery</a>.</p>
+<h3 id="tls"><code>tls</code><a class="headerlink" href="#tls" title="Permanent link">&para;</a></h3>
+<p><em>Optional</em></p>
+<h4 id="tlsca"><code>tls.ca</code><a class="headerlink" href="#tlsca" title="Permanent link">&para;</a></h4>
+<p>Certificate Authority used for the secured connection to Docker.</p>
+<div class="superfences-tabs">
+<input name="__tabs_12" type="radio" id="__tab_12_0" checked="checked" />
+<label for="__tab_12_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker.tls]
+  ca = "path/to/ca.crt"</code></pre></div>
+<input name="__tabs_12" type="radio" id="__tab_12_1" />
+<label for="__tab_12_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    tls:
+      ca: path/to/ca.crt</code></pre></div>
+<input name="__tabs_12" type="radio" id="__tab_12_2" />
+<label for="__tab_12_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.tls.ca=path/to/ca.crt</code></pre></div>
+</div>
+<h4 id="tlscaoptional"><code>tls.caOptional</code><a class="headerlink" href="#tlscaoptional" title="Permanent link">&para;</a></h4>
+<p>Policy followed for the secured connection with TLS Client Authentication to Docker.
+Requires <code>tls.ca</code> to be defined.</p>
+<ul>
+<li><code>true</code>: VerifyClientCertIfGiven</li>
+<li><code>false</code>: RequireAndVerifyClientCert</li>
+<li>if <code>tls.ca</code> is undefined NoClientCert</li>
+</ul>
+<div class="superfences-tabs">
+<input name="__tabs_13" type="radio" id="__tab_13_0" checked="checked" />
+<label for="__tab_13_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker.tls]
+  caOptional = true</code></pre></div>
+<input name="__tabs_13" type="radio" id="__tab_13_1" />
+<label for="__tab_13_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    tls:
+      caOptional: true</code></pre></div>
+<input name="__tabs_13" type="radio" id="__tab_13_2" />
+<label for="__tab_13_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.tls.caOptional=true</code></pre></div>
+</div>
+<h4 id="tlscert"><code>tls.cert</code><a class="headerlink" href="#tlscert" title="Permanent link">&para;</a></h4>
+<p>Public certificate used for the secured connection to Docker.</p>
+<div class="superfences-tabs">
+<input name="__tabs_14" type="radio" id="__tab_14_0" checked="checked" />
+<label for="__tab_14_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker.tls]
+  cert = "path/to/foo.cert"
+  key = "path/to/foo.key"</code></pre></div>
+<input name="__tabs_14" type="radio" id="__tab_14_1" />
+<label for="__tab_14_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    tls:
+      cert: path/to/foo.cert
+      key: path/to/foo.key</code></pre></div>
+<input name="__tabs_14" type="radio" id="__tab_14_2" />
+<label for="__tab_14_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.tls.cert=path/to/foo.cert
+--providers.docker.tls.key=path/to/foo.key</code></pre></div>
+</div>
+<h4 id="tlskey"><code>tls.key</code><a class="headerlink" href="#tlskey" title="Permanent link">&para;</a></h4>
+<p>Private certificate used for the secured connection to Docker.</p>
+<div class="superfences-tabs">
+<input name="__tabs_15" type="radio" id="__tab_15_0" checked="checked" />
+<label for="__tab_15_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker.tls]
+  cert = "path/to/foo.cert"
+  key = "path/to/foo.key"</code></pre></div>
+<input name="__tabs_15" type="radio" id="__tab_15_1" />
+<label for="__tab_15_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    tls:
+      cert: path/to/foo.cert
+      key: path/to/foo.key</code></pre></div>
+<input name="__tabs_15" type="radio" id="__tab_15_2" />
+<label for="__tab_15_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.tls.cert=path/to/foo.cert
+--providers.docker.tls.key=path/to/foo.key</code></pre></div>
+</div>
+<h4 id="tlsinsecureskipverify"><code>tls.insecureSkipVerify</code><a class="headerlink" href="#tlsinsecureskipverify" title="Permanent link">&para;</a></h4>
+<p>If <code>insecureSkipVerify</code> is <code>true</code>, TLS for the connection to Docker accepts any certificate presented by the server and any host name in that certificate.</p>
+<div class="superfences-tabs">
+<input name="__tabs_16" type="radio" id="__tab_16_0" checked="checked" />
+<label for="__tab_16_0">File (TOML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">[providers.docker.tls]
+  insecureSkipVerify = true</code></pre></div>
+<input name="__tabs_16" type="radio" id="__tab_16_1" />
+<label for="__tab_16_1">File (YAML)</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">providers:
+  docker:
+    tls:
+      insecureSkipVerify: true</code></pre></div>
+<input name="__tabs_16" type="radio" id="__tab_16_2" />
+<label for="__tab_16_2">CLI</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-bash">--providers.docker.tls.insecureSkipVerify=true</code></pre></div>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../assets/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>

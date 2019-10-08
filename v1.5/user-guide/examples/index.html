@@ -1,0 +1,1481 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Træfik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.4">
+    
+    
+      
+        <title>Configuration Examples - Træfik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.451f80e5.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.22915126.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../theme/styles/atom-one-light.css">
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#examples" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Træfik" class="md-header-nav__button md-logo">
+          
+            <img src="../../img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Træfik
+              </span>
+              <span class="md-header-nav__topic">
+                Configuration Examples
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Træfik" class="md-nav__button md-logo">
+      
+        <img src="../../img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Træfik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#__github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../basics/" title="Basics" class="md-nav__link">
+      Basics
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/commons/" title="Commons" class="md-nav__link">
+      Commons
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/web/" title="Backend: Web" class="md-nav__link">
+      Backend: Web
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/boltdb/" title="Backend: BoltDB" class="md-nav__link">
+      Backend: BoltDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/consul/" title="Backend: Consul" class="md-nav__link">
+      Backend: Consul
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/consulcatalog/" title="Backend: Consul Catalog" class="md-nav__link">
+      Backend: Consul Catalog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/docker/" title="Backend: Docker" class="md-nav__link">
+      Backend: Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/dynamodb/" title="Backend: DynamoDB" class="md-nav__link">
+      Backend: DynamoDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/ecs/" title="Backend: ECS" class="md-nav__link">
+      Backend: ECS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/etcd/" title="Backend: Etcd" class="md-nav__link">
+      Backend: Etcd
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/eureka/" title="Backend: Eureka" class="md-nav__link">
+      Backend: Eureka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/file/" title="Backend: File" class="md-nav__link">
+      Backend: File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/kubernetes/" title="Backend: Kubernetes Ingress" class="md-nav__link">
+      Backend: Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/marathon/" title="Backend: Marathon" class="md-nav__link">
+      Backend: Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/mesos/" title="Backend: Mesos" class="md-nav__link">
+      Backend: Mesos
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/rancher/" title="Backend: Rancher" class="md-nav__link">
+      Backend: Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/rest/" title="Backend: Rest" class="md-nav__link">
+      Backend: Rest
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/servicefabric/" title="Backend: Azure Service Fabric" class="md-nav__link">
+      Backend: Azure Service Fabric
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/backends/zookeeper/" title="Backend: Zookeeper" class="md-nav__link">
+      Backend: Zookeeper
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/api/" title="API / Dashboard" class="md-nav__link">
+      API / Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../configuration/metrics/" title="Metrics" class="md-nav__link">
+      Metrics
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configuration Examples
+      </label>
+    
+    <a href="./" title="Configuration Examples" class="md-nav__link md-nav__link--active">
+      Configuration Examples
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#http-only" title="HTTP only" class="md-nav__link">
+    HTTP only
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-https-with-sni" title="HTTP + HTTPS (with SNI)" class="md-nav__link">
+    HTTP + HTTPS (with SNI)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-redirect-on-https" title="HTTP redirect on HTTPS" class="md-nav__link">
+    HTTP redirect on HTTPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-encrypt-support" title="Let's Encrypt support" class="md-nav__link">
+    Let's Encrypt support
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-example-with-http-challenge" title="Basic example with HTTP challenge" class="md-nav__link">
+    Basic example with HTTP challenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onhostrule-option-with-http-challenge" title="OnHostRule option (with HTTP challenge)" class="md-nav__link">
+    OnHostRule option (with HTTP challenge)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondemand-option-with-http-challenge" title="OnDemand option (with HTTP challenge)" class="md-nav__link">
+    OnDemand option (with HTTP challenge)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-challenge" title="DNS challenge" class="md-nav__link">
+    DNS challenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onhostrule-option-and-provided-certificates-with-http-challenge" title="OnHostRule option and provided certificates (with HTTP challenge)" class="md-nav__link">
+    OnHostRule option and provided certificates (with HTTP challenge)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-mode" title="Cluster mode" class="md-nav__link">
+    Cluster mode
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#override-entrypoints-in-frontends" title="Override entrypoints in frontends" class="md-nav__link">
+    Override entrypoints in frontends
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-basic-authentication-in-an-entry-point" title="Enable Basic authentication in an entry point" class="md-nav__link">
+    Enable Basic authentication in an entry point
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pass-authenticated-user-to-application-via-headers" title="Pass Authenticated user to application via headers" class="md-nav__link">
+    Pass Authenticated user to application via headers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#override-the-traefik-http-server-idletimeout-andor-throttle-configurations-from-re-loading-too-quickly" title="Override the Traefik HTTP server IdleTimeout and/or throttle configurations from re-loading too quickly" class="md-nav__link">
+    Override the Traefik HTTP server IdleTimeout and/or throttle configurations from re-loading too quickly
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../swarm-mode/" title="Swarm Mode Cluster" class="md-nav__link">
+      Swarm Mode Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../swarm/" title="Swarm Cluster" class="md-nav__link">
+      Swarm Cluster
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker-and-lets-encrypt/" title="Let's Encrypt & Docker" class="md-nav__link">
+      Let's Encrypt & Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kubernetes/" title="Kubernetes" class="md-nav__link">
+      Kubernetes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kv-config/" title="Key-value Store Configuration" class="md-nav__link">
+      Key-value Store Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cluster/" title="Clustering/HA" class="md-nav__link">
+      Clustering/HA
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../grpc/" title="gRPC Example" class="md-nav__link">
+      gRPC Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cluster-docker-consul/" title="Traefik cluster example with Swarm" class="md-nav__link">
+      Traefik cluster example with Swarm
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#http-only" title="HTTP only" class="md-nav__link">
+    HTTP only
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-https-with-sni" title="HTTP + HTTPS (with SNI)" class="md-nav__link">
+    HTTP + HTTPS (with SNI)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http-redirect-on-https" title="HTTP redirect on HTTPS" class="md-nav__link">
+    HTTP redirect on HTTPS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lets-encrypt-support" title="Let's Encrypt support" class="md-nav__link">
+    Let's Encrypt support
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-example-with-http-challenge" title="Basic example with HTTP challenge" class="md-nav__link">
+    Basic example with HTTP challenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onhostrule-option-with-http-challenge" title="OnHostRule option (with HTTP challenge)" class="md-nav__link">
+    OnHostRule option (with HTTP challenge)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ondemand-option-with-http-challenge" title="OnDemand option (with HTTP challenge)" class="md-nav__link">
+    OnDemand option (with HTTP challenge)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-challenge" title="DNS challenge" class="md-nav__link">
+    DNS challenge
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onhostrule-option-and-provided-certificates-with-http-challenge" title="OnHostRule option and provided certificates (with HTTP challenge)" class="md-nav__link">
+    OnHostRule option and provided certificates (with HTTP challenge)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-mode" title="Cluster mode" class="md-nav__link">
+    Cluster mode
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" title="Prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" title="Configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#override-entrypoints-in-frontends" title="Override entrypoints in frontends" class="md-nav__link">
+    Override entrypoints in frontends
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-basic-authentication-in-an-entry-point" title="Enable Basic authentication in an entry point" class="md-nav__link">
+    Enable Basic authentication in an entry point
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pass-authenticated-user-to-application-via-headers" title="Pass Authenticated user to application via headers" class="md-nav__link">
+    Pass Authenticated user to application via headers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#override-the-traefik-http-server-idletimeout-andor-throttle-configurations-from-re-loading-too-quickly" title="Override the Traefik HTTP server IdleTimeout and/or throttle configurations from re-loading too quickly" class="md-nav__link">
+    Override the Traefik HTTP server IdleTimeout and/or throttle configurations from re-loading too quickly
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v1.5/docs/user-guide/examples.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h1>
+<p>You will find here some configuration examples of Træfik.</p>
+<h2 id="http-only">HTTP only<a class="headerlink" href="#http-only" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">defaultEntryPoints = [&quot;http&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+</code></pre>
+
+<h2 id="http-https-with-sni">HTTP + HTTPS (with SNI)<a class="headerlink" href="#http-https-with-sni" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      certFile = &quot;integration/fixtures/https/snitest.com.cert&quot;
+      keyFile = &quot;integration/fixtures/https/snitest.com.key&quot;
+      [[entryPoints.https.tls.certificates]]
+      certFile = &quot;integration/fixtures/https/snitest.org.cert&quot;
+      keyFile = &quot;integration/fixtures/https/snitest.org.key&quot;
+</code></pre>
+
+<p>Note that we can either give path to certificate file or directly the file content itself (<a href="../../user-guide/kv-config/#upload-the-configuration-in-the-key-value-store">like in this TOML example</a>).</p>
+<h2 id="http-redirect-on-https">HTTP redirect on HTTPS<a class="headerlink" href="#http-redirect-on-https" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">defaultEntryPoints = [&quot;http&quot;, &quot;https&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+    [entryPoints.http.redirect]
+    entryPoint = &quot;https&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      certFile = &quot;examples/traefik.crt&quot;
+      keyFile = &quot;examples/traefik.key&quot;
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please note that <code>regex</code> and <code>replacement</code> do not have to be set in the <code>redirect</code> structure if an entrypoint is defined for the redirection (they will not be used in this case)</p>
+</div>
+<h2 id="lets-encrypt-support">Let's Encrypt support<a class="headerlink" href="#lets-encrypt-support" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Even if <code>TLS-SNI-01</code> challenge is <a href="https://community.letsencrypt.org/t/2018-01-11-update-regarding-acme-tls-sni-and-shared-hosting-infrastructure/50188">disabled</a>, for the moment, it stays the <em>by default</em> ACME Challenge in Træfik but all the examples use the <code>HTTP-01</code> challenge (except DNS challenge examples).
+If <code>TLS-SNI-01</code> challenge is not re-enabled in the future, it we will be removed from Træfik.</p>
+</div>
+<h3 id="basic-example-with-http-challenge">Basic example with HTTP challenge<a class="headerlink" href="#basic-example-with-http-challenge" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+
+[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;acme.json&quot;
+caServer = &quot;http://172.18.0.1:4000/directory&quot;
+entryPoint = &quot;https&quot;
+  [acme.httpChallenge]
+  entryPoint = &quot;http&quot;
+
+[[acme.domains]]
+  main = &quot;local1.com&quot;
+  sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+[[acme.domains]]
+  main = &quot;local2.com&quot;
+  sans = [&quot;test1.local2.com&quot;, &quot;test2x.local2.com&quot;]
+[[acme.domains]]
+  main = &quot;local3.com&quot;
+[[acme.domains]]
+  main = &quot;local4.com&quot;
+</code></pre>
+
+<p>This configuration allows generating Let's Encrypt certificates (thanks to <code>HTTP-01</code> challenge) for the four domains <code>local[1-4].com</code> with described SANs.</p>
+<p>Træfik generates these certificates when it starts and it needs to be restart if new domains are added.</p>
+<h3 id="onhostrule-option-with-http-challenge">OnHostRule option (with HTTP challenge)<a class="headerlink" href="#onhostrule-option-with-http-challenge" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+
+[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;acme.json&quot;
+onHostRule = true
+caServer = &quot;http://172.18.0.1:4000/directory&quot;
+entryPoint = &quot;https&quot;
+  [acme.httpChallenge]
+  entryPoint = &quot;http&quot;
+
+[[acme.domains]]
+  main = &quot;local1.com&quot;
+  sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+[[acme.domains]]
+  main = &quot;local2.com&quot;
+  sans = [&quot;test1.local2.com&quot;, &quot;test2x.local2.com&quot;]
+[[acme.domains]]
+  main = &quot;local3.com&quot;
+[[acme.domains]]
+  main = &quot;local4.com&quot;
+</code></pre>
+
+<p>This configuration allows generating Let's Encrypt certificates (thanks to <code>HTTP-01</code> challenge) for the four domains <code>local[1-4].com</code>.</p>
+<p>Træfik generates these certificates when it starts.</p>
+<p>If a backend is added with a <code>onHost</code> rule, Træfik will automatically generate the Let's Encrypt certificate for the new domain (for frontends wired on the <code>acme.entryPoint</code>).</p>
+<h3 id="ondemand-option-with-http-challenge">OnDemand option (with HTTP challenge)<a class="headerlink" href="#ondemand-option-with-http-challenge" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+
+[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;acme.json&quot;
+onDemand = true
+caServer = &quot;http://172.18.0.1:4000/directory&quot;
+entryPoint = &quot;https&quot;
+  [acme.httpChallenge]
+  entryPoint = &quot;http&quot;
+</code></pre>
+
+<p>This configuration allows generating a Let's Encrypt certificate (thanks to <code>HTTP-01</code> challenge) during the first HTTPS request on a new domain.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This option simplifies the configuration but :</p>
+<ul>
+<li>TLS handshakes will be slow when requesting a hostname certificate for the first time, which can lead to DDoS attacks.</li>
+<li>Let's Encrypt have rate limiting: https://letsencrypt.org/docs/rate-limits</li>
+</ul>
+<p>That's why, it's better to use the <code>onHostRule</code> option if possible.</p>
+</div>
+<h3 id="dns-challenge">DNS challenge<a class="headerlink" href="#dns-challenge" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">[entryPoints]
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+
+[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;acme.json&quot;
+caServer = &quot;http://172.18.0.1:4000/directory&quot;
+entryPoint = &quot;https&quot;
+  [acme.dnsChallenge]
+  provider = &quot;digitalocean&quot; # DNS Provider name (cloudflare, OVH, gandi...)
+  delayBeforeCheck = 0
+
+[[acme.domains]]
+  main = &quot;local1.com&quot;
+  sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+[[acme.domains]]
+  main = &quot;local2.com&quot;
+  sans = [&quot;test1.local2.com&quot;, &quot;test2x.local2.com&quot;]
+[[acme.domains]]
+  main = &quot;local3.com&quot;
+[[acme.domains]]
+  main = &quot;local4.com&quot;
+</code></pre>
+
+<p>DNS challenge needs environment variables to be executed.
+These variables have to be set on the machine/container which host Træfik.</p>
+<p>These variables are described <a href="../../configuration/acme/#provider">in this section</a>.</p>
+<h3 id="onhostrule-option-and-provided-certificates-with-http-challenge">OnHostRule option and provided certificates (with HTTP challenge)<a class="headerlink" href="#onhostrule-option-and-provided-certificates-with-http-challenge" title="Permanent link">&para;</a></h3>
+<pre><code class="toml">[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      certFile = &quot;examples/traefik.crt&quot;
+      keyFile = &quot;examples/traefik.key&quot;
+
+[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;acme.json&quot;
+onHostRule = true
+caServer = &quot;http://172.18.0.1:4000/directory&quot;
+entryPoint = &quot;https&quot;
+  [acme.httpChallenge]
+  entryPoint = &quot;http&quot;
+</code></pre>
+
+<p>Træfik will only try to generate a Let's encrypt certificate (thanks to <code>HTTP-01</code> challenge) if the domain cannot be checked by the provided certificates.</p>
+<h3 id="cluster-mode">Cluster mode<a class="headerlink" href="#cluster-mode" title="Permanent link">&para;</a></h3>
+<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
+<p>Before you use Let's Encrypt in a Traefik cluster, take a look to <a href="../../user-guide/kv-config">the key-value store explanations</a> and more precisely at <a href="../../user-guide/kv-config/#store-configuration-in-key-value-store">this section</a>, which will describe how to migrate from a acme local storage <em>(acme.json file)</em> to a key-value store configuration.</p>
+<h4 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h4>
+<pre><code class="toml">[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.https]
+  address = &quot;:443&quot;
+    [entryPoints.https.tls]
+
+[acme]
+email = &quot;test@traefik.io&quot;
+storage = &quot;traefik/acme/account&quot;
+caServer = &quot;http://172.18.0.1:4000/directory&quot;
+entryPoint = &quot;https&quot;
+
+[acme.httpChallenge]
+    entryPoint = &quot;http&quot;
+
+[[acme.domains]]
+  main = &quot;local1.com&quot;
+  sans = [&quot;test1.local1.com&quot;, &quot;test2.local1.com&quot;]
+[[acme.domains]]
+  main = &quot;local2.com&quot;
+  sans = [&quot;test1.local2.com&quot;, &quot;test2x.local2.com&quot;]
+[[acme.domains]]
+  main = &quot;local3.com&quot;
+[[acme.domains]]
+  main = &quot;local4.com&quot;
+
+[consul]
+  endpoint = &quot;127.0.0.1:8500&quot;
+  watch = true
+  prefix = &quot;traefik&quot;
+</code></pre>
+
+<p>This configuration allows to use the key <code>traefik/acme/account</code> to get/set Let's Encrypt certificates content.
+The <code>consul</code> provider contains the configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It's possible to use others key-value store providers as described <a href="../../user-guide/kv-config/#key-value-store-configuration">here</a>.</p>
+</div>
+<h2 id="override-entrypoints-in-frontends">Override entrypoints in frontends<a class="headerlink" href="#override-entrypoints-in-frontends" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">[frontends]
+
+  [frontends.frontend1]
+  backend = &quot;backend2&quot;
+    [frontends.frontend1.routes.test_1]
+    rule = &quot;Host:test.localhost&quot;
+
+  [frontends.frontend2]
+  backend = &quot;backend1&quot;
+  passHostHeader = true
+  passTLSCert = true
+  entrypoints = [&quot;https&quot;] # overrides defaultEntryPoints
+    [frontends.frontend2.routes.test_1]
+    rule = &quot;Host:{subdomain:[a-z]+}.localhost&quot;
+
+  [frontends.frontend3]
+  entrypoints = [&quot;http&quot;, &quot;https&quot;] # overrides defaultEntryPoints
+  backend = &quot;backend2&quot;
+  rule = &quot;Path:/test&quot;
+</code></pre>
+
+<h2 id="enable-basic-authentication-in-an-entry-point">Enable Basic authentication in an entry point<a class="headerlink" href="#enable-basic-authentication-in-an-entry-point" title="Permanent link">&para;</a></h2>
+<p>With two user/pass:</p>
+<ul>
+<li><code>test</code>:<code>test</code></li>
+<li><code>test2</code>:<code>test2</code></li>
+</ul>
+<p>Passwords are encoded in MD5: you can use <code>htpasswd</code> to generate them.</p>
+<pre><code class="toml">defaultEntryPoints = [&quot;http&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.http.auth.basic]
+  users = [&quot;test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/&quot;, &quot;test2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0&quot;]
+</code></pre>
+
+<h2 id="pass-authenticated-user-to-application-via-headers">Pass Authenticated user to application via headers<a class="headerlink" href="#pass-authenticated-user-to-application-via-headers" title="Permanent link">&para;</a></h2>
+<p>Providing an authentication method as described above, it is possible to pass the user to the application
+via a configurable header value.</p>
+<pre><code class="toml">defaultEntryPoints = [&quot;http&quot;]
+
+[entryPoints]
+  [entryPoints.http]
+  address = &quot;:80&quot;
+  [entryPoints.http.auth]
+    headerField = &quot;X-WebAuth-User&quot;
+    [entryPoints.http.auth.basic]
+    users = [&quot;test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/&quot;, &quot;test2:$apr1$d9hr9HBB$4HxwgUir3HP4EsggP/QNo0&quot;]
+</code></pre>
+
+<h2 id="override-the-traefik-http-server-idletimeout-andor-throttle-configurations-from-re-loading-too-quickly">Override the Traefik HTTP server IdleTimeout and/or throttle configurations from re-loading too quickly<a class="headerlink" href="#override-the-traefik-http-server-idletimeout-andor-throttle-configurations-from-re-loading-too-quickly" title="Permanent link">&para;</a></h2>
+<pre><code class="toml">providersThrottleDuration = &quot;5s&quot;
+
+[respondingTimeouts]
+idleTimeout = &quot;360s&quot;
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        <!--
+  Copyright (c) 2016-2017 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Link to previous and/or next page -->
+    
+    <!--<div class="md-footer-nav">-->
+        <!--<nav class="md-footer-nav__inner md-grid">-->
+            <!-- -->
+            <!-- Link to previous page -->
+            <!---->
+            <!--<a href="../../configuration/metrics/"-->
+               <!--title="Metrics"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;prev"-->
+               <!--rel="prev">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-back-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Previous -->
+                <!--</span>-->
+                <!--Metrics-->
+              <!--</span>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+            <!-- -->
+            <!-- Link to next page -->
+            <!---->
+            <!--<a href="../swarm-mode/" title="Swarm Mode Cluster"-->
+               <!--class="md-flex md-footer-nav__link md-footer-nav__link&#45;&#45;next"-->
+               <!--rel="next">-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;stretch-->
+                  <!--md-footer-nav__title">-->
+              <!--<span class="md-flex__ellipsis">-->
+                <!--<span class="md-footer-nav__direction">-->
+                  <!--Next-->
+                <!--</span>-->
+                <!--Swarm Mode Cluster-->
+              <!--</span>-->
+                <!--</div>-->
+                <!--<div class="md-flex__cell md-flex__cell&#45;&#45;shrink">-->
+                    <!--<i class="md-icon md-icon&#45;&#45;arrow-forward-->
+                    <!--md-footer-nav__button"></i>-->
+                <!--</div>-->
+            <!--</a>-->
+            <!---->
+        <!--</nav>-->
+    <!--</div>-->
+    
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2018 Containous SAS
+                </div>
+                
+                powered by
+                <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="http://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+                
+            
+        </div>
+    </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.30f6b8b1.js"></script>
+      
+      <script>app.initialize({version:"0.17.5",url:{base:"../.."}})</script>
+      
+        <script src="../../theme/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../theme/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+    
+      
+        <script>!function(e,a,t,n,o,c,i){e.GoogleAnalyticsObject=o,e.ga=e.ga||function(){(e.ga.q=e.ga.q||[]).push(arguments)},e.ga.l=1*new Date,c=a.createElement(t),i=a.getElementsByTagName(t)[0],c.async=1,c.src="https://www.google-analytics.com/analytics.js",i.parentNode.insertBefore(c,i)}(window,document,"script",0,"ga"),ga("create","UA-51880359-3","docs.traefik.io"),ga("set","anonymizeIp",!0),ga("send","pageview");var links=document.getElementsByTagName("a");if(Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var a=e.getAttribute("data-md-action")||"follow";ga("send","event","outbound",a,e.href)})}),document.forms.search){var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;ga("send","pageview",e+"?q="+this.value)}})}</script>
+      
+    
+  </body>
+</html>

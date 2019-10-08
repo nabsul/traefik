@@ -1,0 +1,2736 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Traefik Documentation">
+      
+      
+      
+        <meta name="author" content="containo.us">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/img/traefik.icon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.0.2">
+    
+    
+      
+        <title>Services - Traefik</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.982221ab.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.224b79ff.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#00bcd4">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1f0bcf2b.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/styles/extra.css">
+    
+      <link rel="stylesheet" href="../../assets/styles/atom-one-light.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-51880359-3", "docs.traefik.io")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="cyan" data-md-color-accent="cyan">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#services" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Traefik" class="md-header-nav__button md-logo">
+          
+            <img src="../../assets/img/traefik.logo.png" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Traefik
+            </span>
+            <span class="md-header-nav__topic">
+              Services
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="Traefik" class="md-nav__button md-logo">
+      
+        <img src="../../assets/img/traefik.logo.png" width="48" height="48">
+      
+    </a>
+    Traefik
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/containous/traefik/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Welcome" class="md-nav__link">
+      Welcome
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/concepts/" title="Concepts" class="md-nav__link">
+      Concepts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/quick-start/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/configuration-overview/" title="Configuration Introduction" class="md-nav__link">
+      Configuration Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/install-traefik/" title="Install Traefik" class="md-nav__link">
+      Install Traefik
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Configuration Discovery
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Configuration Discovery
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/kubernetes-ingress/" title="Kubernetes Ingress" class="md-nav__link">
+      Kubernetes Ingress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Routing & Load Balancing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Routing & Load Balancing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../entrypoints/" title="EntryPoints" class="md-nav__link">
+      EntryPoints
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../routers/" title="Routers" class="md-nav__link">
+      Routers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Services
+      </label>
+    
+    <a href="./" title="Services" class="md-nav__link md-nav__link--active">
+      Services
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-example" title="Configuration Example" class="md-nav__link">
+    Configuration Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-http-services" title="Configuring HTTP Services" class="md-nav__link">
+    Configuring HTTP Services
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servers-load-balancer" title="Servers Load Balancer" class="md-nav__link">
+    Servers Load Balancer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servers" title="Servers" class="md-nav__link">
+    Servers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-balancing" title="Load-balancing" class="md-nav__link">
+    Load-balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sticky-sessions" title="Sticky sessions" class="md-nav__link">
+    Sticky sessions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#health-check" title="Health Check" class="md-nav__link">
+    Health Check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pass-host-header" title="Pass Host Header" class="md-nav__link">
+    Pass Host Header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-forwarding" title="Response Forwarding" class="md-nav__link">
+    Response Forwarding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-round-robin-service" title="Weighted Round Robin (service)" class="md-nav__link">
+    Weighted Round Robin (service)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirroring-service" title="Mirroring (service)" class="md-nav__link">
+    Mirroring (service)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-tcp-services" title="Configuring TCP Services" class="md-nav__link">
+    Configuring TCP Services
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" title="General" class="md-nav__link">
+    General
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servers-load-balancer_1" title="Servers Load Balancer" class="md-nav__link">
+    Servers Load Balancer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servers_1" title="Servers" class="md-nav__link">
+    Servers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termination-delay" title="Termination Delay" class="md-nav__link">
+    Termination Delay
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-round-robin" title="Weighted Round Robin" class="md-nav__link">
+    Weighted Round Robin
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-5" type="checkbox" id="nav-4-5">
+    
+    <label class="md-nav__link" for="nav-4-5">
+      Providers
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-5">
+        Providers
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../providers/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../providers/kubernetes-crd/" title="Kubernetes IngressRoute" class="md-nav__link">
+      Kubernetes IngressRoute
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../providers/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../providers/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      HTTPS & TLS
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        HTTPS & TLS
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/tls/" title="TLS" class="md-nav__link">
+      TLS
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../https/acme/" title="Let's Encrypt" class="md-nav__link">
+      Let's Encrypt
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Middlewares
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Middlewares
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/addprefix/" title="AddPrefix" class="md-nav__link">
+      AddPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/basicauth/" title="BasicAuth" class="md-nav__link">
+      BasicAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/buffering/" title="Buffering" class="md-nav__link">
+      Buffering
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/chain/" title="Chain" class="md-nav__link">
+      Chain
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/circuitbreaker/" title="CircuitBreaker" class="md-nav__link">
+      CircuitBreaker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/compress/" title="Compress" class="md-nav__link">
+      Compress
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/digestauth/" title="DigestAuth" class="md-nav__link">
+      DigestAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/errorpages/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/forwardauth/" title="ForwardAuth" class="md-nav__link">
+      ForwardAuth
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/headers/" title="Headers" class="md-nav__link">
+      Headers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/ipwhitelist/" title="IpWhitelist" class="md-nav__link">
+      IpWhitelist
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/inflightreq/" title="InFlightReq" class="md-nav__link">
+      InFlightReq
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/passtlsclientcert/" title="PassTLSClientCert" class="md-nav__link">
+      PassTLSClientCert
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/ratelimit/" title="RateLimit" class="md-nav__link">
+      RateLimit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/redirectregex/" title="RedirectRegex" class="md-nav__link">
+      RedirectRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/redirectscheme/" title="RedirectScheme" class="md-nav__link">
+      RedirectScheme
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/replacepath/" title="ReplacePath" class="md-nav__link">
+      ReplacePath
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/replacepathregex/" title="ReplacePathRegex" class="md-nav__link">
+      ReplacePathRegex
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/retry/" title="Retry" class="md-nav__link">
+      Retry
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/stripprefix/" title="StripPrefix" class="md-nav__link">
+      StripPrefix
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../middlewares/stripprefixregex/" title="StripPrefixRegex" class="md-nav__link">
+      StripPrefixRegex
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Operations
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        Operations
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/dashboard/" title="Dashboard" class="md-nav__link">
+      Dashboard
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/api/" title="API" class="md-nav__link">
+      API
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../operations/ping/" title="Ping" class="md-nav__link">
+      Ping
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Observability
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Observability
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/logs/" title="Logs" class="md-nav__link">
+      Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/access-logs/" title="Access Logs" class="md-nav__link">
+      Access Logs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-3" type="checkbox" id="nav-8-3">
+    
+    <label class="md-nav__link" for="nav-8-3">
+      Metrics
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-3">
+        Metrics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/influxdb/" title="InfluxDB" class="md-nav__link">
+      InfluxDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/prometheus/" title="Prometheus" class="md-nav__link">
+      Prometheus
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/metrics/statsd/" title="StatsD" class="md-nav__link">
+      StatsD
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8-4" type="checkbox" id="nav-8-4">
+    
+    <label class="md-nav__link" for="nav-8-4">
+      Tracing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-8-4">
+        Tracing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/jaeger/" title="Jaeger" class="md-nav__link">
+      Jaeger
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/zipkin/" title="Zipkin" class="md-nav__link">
+      Zipkin
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/datadog/" title="Datadog" class="md-nav__link">
+      Datadog
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/instana/" title="Instana" class="md-nav__link">
+      Instana
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../observability/tracing/haystack/" title="Haystack" class="md-nav__link">
+      Haystack
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9" type="checkbox" id="nav-9">
+    
+    <label class="md-nav__link" for="nav-9">
+      User Guides
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-9">
+        User Guides
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/crd-acme/" title="Kubernetes and Let's Encrypt" class="md-nav__link">
+      Kubernetes and Let's Encrypt
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/grpc/" title="gRPC Examples" class="md-nav__link">
+      gRPC Examples
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4" type="checkbox" id="nav-9-4">
+    
+    <label class="md-nav__link" for="nav-9-4">
+      Docker
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-9-4">
+        Docker
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/basic-example/" title="Basic Example" class="md-nav__link">
+      Basic Example
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-9-4-2" type="checkbox" id="nav-9-4-2">
+    
+    <label class="md-nav__link" for="nav-9-4-2">
+      HTTPS with Let's Encrypt
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-9-4-2">
+        HTTPS with Let's Encrypt
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-tls/" title="TLS Challenge" class="md-nav__link">
+      TLS Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-http/" title="HTTP Challenge" class="md-nav__link">
+      HTTP Challenge
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guides/docker-compose/acme-dns/" title="DNS Challenge" class="md-nav__link">
+      DNS Challenge
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Migration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Migration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../migration/v1-to-v2/" title="Traefik v1 to v2" class="md-nav__link">
+      Traefik v1 to v2
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-11" type="checkbox" id="nav-11">
+    
+    <label class="md-nav__link" for="nav-11">
+      Contributing
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-11">
+        Contributing
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/thank-you/" title="Thank You!" class="md-nav__link">
+      Thank You!
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-issues/" title="Submitting Issues" class="md-nav__link">
+      Submitting Issues
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/submitting-pull-requests/" title="Submitting PRs" class="md-nav__link">
+      Submitting PRs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/building-testing/" title="Building and Testing" class="md-nav__link">
+      Building and Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/documentation/" title="Documentation" class="md-nav__link">
+      Documentation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/data-collection/" title="Data Collection" class="md-nav__link">
+      Data Collection
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/advocating/" title="Advocating" class="md-nav__link">
+      Advocating
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/maintainers/" title="Maintainers" class="md-nav__link">
+      Maintainers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12" type="checkbox" id="nav-12">
+    
+    <label class="md-nav__link" for="nav-12">
+      References
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-12">
+        References
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-1" type="checkbox" id="nav-12-1">
+    
+    <label class="md-nav__link" for="nav-12-1">
+      Static Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-1">
+        Static Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/cli/" title="CLI" class="md-nav__link">
+      CLI
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/static-configuration/env/" title="Environment variables" class="md-nav__link">
+      Environment variables
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-12-2" type="checkbox" id="nav-12-2">
+    
+    <label class="md-nav__link" for="nav-12-2">
+      Dynamic Configuration
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-12-2">
+        Dynamic Configuration
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/file/" title="File" class="md-nav__link">
+      File
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/docker/" title="Docker" class="md-nav__link">
+      Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/kubernetes-crd/" title="Kubernetes CRD" class="md-nav__link">
+      Kubernetes CRD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/marathon/" title="Marathon" class="md-nav__link">
+      Marathon
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/dynamic-configuration/rancher/" title="Rancher" class="md-nav__link">
+      Rancher
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-example" title="Configuration Example" class="md-nav__link">
+    Configuration Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-http-services" title="Configuring HTTP Services" class="md-nav__link">
+    Configuring HTTP Services
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servers-load-balancer" title="Servers Load Balancer" class="md-nav__link">
+    Servers Load Balancer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servers" title="Servers" class="md-nav__link">
+    Servers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-balancing" title="Load-balancing" class="md-nav__link">
+    Load-balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sticky-sessions" title="Sticky sessions" class="md-nav__link">
+    Sticky sessions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#health-check" title="Health Check" class="md-nav__link">
+    Health Check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pass-host-header" title="Pass Host Header" class="md-nav__link">
+    Pass Host Header
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-forwarding" title="Response Forwarding" class="md-nav__link">
+    Response Forwarding
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-round-robin-service" title="Weighted Round Robin (service)" class="md-nav__link">
+    Weighted Round Robin (service)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mirroring-service" title="Mirroring (service)" class="md-nav__link">
+    Mirroring (service)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-tcp-services" title="Configuring TCP Services" class="md-nav__link">
+    Configuring TCP Services
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general" title="General" class="md-nav__link">
+    General
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servers-load-balancer_1" title="Servers Load Balancer" class="md-nav__link">
+    Servers Load Balancer
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servers_1" title="Servers" class="md-nav__link">
+    Servers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#termination-delay" title="Termination Delay" class="md-nav__link">
+    Termination Delay
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weighted-round-robin" title="Weighted Round Robin" class="md-nav__link">
+    Weighted Round Robin
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/containous/traefik/edit/v2.0/docs/content/routing/services/index.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="services">Services<a class="headerlink" href="#services" title="Permanent link">&para;</a></h1>
+<p class="subtitle">Configuring How to Reach the Services</p>
+<p><img alt="services" src="../../assets/img/services.png" /></p>
+<p>The <code>Services</code> are responsible for configuring how to reach the actual services that will eventually handle the incoming requests. </p>
+<h2 id="configuration-example">Configuration Example<a class="headerlink" href="#configuration-example" title="Permanent link">&para;</a></h2>
+<details class="example"><summary>Declaring an HTTP Service with Two Servers -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.my-service.loadBalancer]
+
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-1/"
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-2/"</code></pre></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-1/"
+        - url: "http://private-ip-server-2/"</code></pre></div>
+</div>
+</details>
+<details class="example"><summary>Declaring a TCP Service with Two Servers -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_2" type="radio" id="__tab_2_0" checked="checked" />
+<label for="__tab_2_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[tcp.services]
+  [tcp.services.my-service.loadBalancer]
+     [[tcp.services.my-service.loadBalancer.servers]]
+       address = "xx.xx.xx.xx:xx"
+     [[tcp.services.my-service.loadBalancer.servers]]
+       address = "xx.xx.xx.xx:xx"</code></pre></div>
+<input name="__tabs_2" type="radio" id="__tab_2_1" />
+<label for="__tab_2_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">tcp:
+  services:
+    my-service:
+      loadBalancer:         
+        servers:
+        - address: "xx.xx.xx.xx:xx"
+        - address: "xx.xx.xx.xx:xx"</code></pre></div>
+</div>
+</details>
+<h2 id="configuring-http-services">Configuring HTTP Services<a class="headerlink" href="#configuring-http-services" title="Permanent link">&para;</a></h2>
+<h3 id="servers-load-balancer">Servers Load Balancer<a class="headerlink" href="#servers-load-balancer" title="Permanent link">&para;</a></h3>
+<p>The load balancers are able to load balance the requests between multiple instances of your programs. </p>
+<details class="example"><summary>Declaring a Service with Two Servers (with Load Balancing) -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_3" type="radio" id="__tab_3_0" checked="checked" />
+<label for="__tab_3_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.my-service.loadBalancer]
+
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-1/"
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-2/"</code></pre></div>
+<input name="__tabs_3" type="radio" id="__tab_3_1" />
+<label for="__tab_3_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">http:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-1/"
+        - url: "http://private-ip-server-2/"</code></pre></div>
+</div>
+</details>
+<h4 id="servers">Servers<a class="headerlink" href="#servers" title="Permanent link">&para;</a></h4>
+<p>Servers declare a single instance of your program.
+The <code>url</code> option point to a specific instance. </p>
+<div class="admonition info">
+<p>Paths in the servers' <code>url</code> have no effect. 
+If you want the requests to be sent to a specific path on your servers,
+configure your <a href="../routers/"><code>routers</code></a> to use a corresponding <a href="../../middlewares/overview/">middleware</a> (e.g. the <a href="../../middlewares/addprefix/">AddPrefix</a> or <a href="../../middlewares/replacepath/">ReplacePath</a>) middlewares.</p>
+</div>
+<details class="example"><summary>A Service with One Server -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_4" type="radio" id="__tab_4_0" checked="checked" />
+<label for="__tab_4_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.my-service.loadBalancer]
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-1/"</code></pre></div>
+<input name="__tabs_4" type="radio" id="__tab_4_1" />
+<label for="__tab_4_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+          - url: "http://private-ip-server-1/"</code></pre></div>
+</div>
+</details>
+<h4 id="load-balancing">Load-balancing<a class="headerlink" href="#load-balancing" title="Permanent link">&para;</a></h4>
+<p>For now, only round robin load balancing is supported:</p>
+<details class="example"><summary>Load Balancing -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_5" type="radio" id="__tab_5_0" checked="checked" />
+<label for="__tab_5_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.my-service.loadBalancer]
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-1/"
+    [[http.services.my-service.loadBalancer.servers]]
+      url = "http://private-ip-server-2/"</code></pre></div>
+<input name="__tabs_5" type="radio" id="__tab_5_1" />
+<label for="__tab_5_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-1/"
+        - url: "http://private-ip-server-2/"</code></pre></div>
+</div>
+</details>
+<h4 id="sticky-sessions">Sticky sessions<a class="headerlink" href="#sticky-sessions" title="Permanent link">&para;</a></h4>
+<p>When sticky sessions are enabled, a cookie is set on the initial request to track which server handles the first response.
+On subsequent requests, the client is forwarded to the same server.</p>
+<div class="admonition info">
+<p class="admonition-title">Stickiness &amp; Unhealthy Servers</p>
+<p>If the server specified in the cookie becomes unhealthy, the request will be forwarded to a new server (and the cookie will keep track of the new server).</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Cookie Name</p>
+<p>The default cookie name is an abbreviation of a sha1 (ex: <code>_1d52e</code>).</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Secure &amp; HTTPOnly flags</p>
+<p>By default, the affinity cookie is created without those flags. One however can change that through configuration. </p>
+</div>
+<details class="example"><summary>Adding Stickiness -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_6" type="radio" id="__tab_6_0" checked="checked" />
+<label for="__tab_6_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.my-service]
+    [http.services.my-service.loadBalancer.sticky.cookie]</code></pre></div>
+<input name="__tabs_6" type="radio" id="__tab_6_1" />
+<label for="__tab_6_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    my-service:
+      loadBalancer:
+        sticky:
+         cookie: {}</code></pre></div>
+</div>
+</details>
+<details class="example"><summary>Adding Stickiness with custom Options -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_7" type="radio" id="__tab_7_0" checked="checked" />
+<label for="__tab_7_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.my-service]
+    [http.services.my-service.loadBalancer.sticky.cookie]
+      name = "my_sticky_cookie_name"
+      secure = true
+      httpOnly = true</code></pre></div>
+<input name="__tabs_7" type="radio" id="__tab_7_1" />
+<label for="__tab_7_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    my-service:
+      loadBalancer:
+        sticky:
+          cookie:
+            name: my_sticky_cookie_name
+            secure: true
+            httpOnly: true</code></pre></div>
+</div>
+</details>
+<h4 id="health-check">Health Check<a class="headerlink" href="#health-check" title="Permanent link">&para;</a></h4>
+<p>Configure health check to remove unhealthy servers from the load balancing rotation.
+Traefik will consider your servers healthy as long as they return status codes between <code>2XX</code> and <code>3XX</code> to the health check requests (carried out every <code>interval</code>).</p>
+<p>Below are the available options for the health check mechanism:</p>
+<ul>
+<li><code>path</code> is appended to the server URL to set the health check endpoint.</li>
+<li><code>scheme</code>, if defined, will replace the server URL <code>scheme</code> for the health check endpoint</li>
+<li><code>hostname</code>, if defined, will replace the server URL <code>hostname</code> for the health check endpoint.</li>
+<li><code>port</code>, if defined, will replace the server URL <code>port</code> for the health check endpoint.</li>
+<li><code>interval</code> defines the frequency of the health check calls.</li>
+<li><code>timeout</code> defines the maximum duration Traefik will wait for a health check request before considering the server failed (unhealthy).</li>
+<li><code>headers</code> defines custom headers to be sent to the health check endpoint.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Interval &amp; Timeout Format</p>
+<p>Interval and timeout are to be given in a format understood by <a href="https://golang.org/pkg/time/#ParseDuration">time.ParseDuration</a>.
+The interval must be greater than the timeout. If configuration doesn't reflect this, the interval will be set to timeout + 1 second.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Recovering Servers</p>
+<p>Traefik keeps monitoring the health of unhealthy servers. 
+If a server has recovered (returning <code>2xx</code> -&gt; <code>3xx</code> responses again), it will be added back to the load balacer rotation pool.</p>
+</div>
+<details class="example"><summary>Custom Interval &amp; Timeout -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_8" type="radio" id="__tab_8_0" checked="checked" />
+<label for="__tab_8_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.Service-1]
+    [http.services.Service-1.loadBalancer.healthCheck]
+      path = "/health"
+      interval = "10s"
+      timeout = "3s"</code></pre></div>
+<input name="__tabs_8" type="radio" id="__tab_8_1" />
+<label for="__tab_8_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    Service-1:
+      loadBalancer:
+        healthCheck:
+          path: /health
+          interval: "10s"
+          timeout: "3s"</code></pre></div>
+</div>
+</details>
+<details class="example"><summary>Custom Port -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_9" type="radio" id="__tab_9_0" checked="checked" />
+<label for="__tab_9_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.Service-1]
+    [http.services.Service-1.loadBalancer.healthCheck]
+      path = "/health"
+      port = 8080</code></pre></div>
+<input name="__tabs_9" type="radio" id="__tab_9_1" />
+<label for="__tab_9_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    Service-1:
+      loadBalancer:
+        healthCheck:
+          path: /health
+          port: 8080</code></pre></div>
+</div>
+</details>
+<details class="example"><summary>Custom Scheme -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_10" type="radio" id="__tab_10_0" checked="checked" />
+<label for="__tab_10_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.Service-1]
+    [http.services.Service-1.loadBalancer.healthCheck]
+      path = "/health"
+      scheme = "http"</code></pre></div>
+<input name="__tabs_10" type="radio" id="__tab_10_1" />
+<label for="__tab_10_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    Service-1:
+      loadBalancer:
+        healthCheck:
+          path: /health
+          scheme: http</code></pre></div>
+</div>
+</details>
+<details class="example"><summary>Additional HTTP Headers -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_11" type="radio" id="__tab_11_0" checked="checked" />
+<label for="__tab_11_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.Service-1]
+    [http.services.Service-1.loadBalancer.healthCheck]
+      path = "/health"
+
+      [http.services.Service-1.loadBalancer.healthCheck.headers]
+        My-Custom-Header = "foo"
+        My-Header = "bar"</code></pre></div>
+<input name="__tabs_11" type="radio" id="__tab_11_1" />
+<label for="__tab_11_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    Service-1:
+      loadBalancer:
+        healthCheck:
+          path: /health
+          headers:
+            My-Custom-Header: foo
+            My-Header: bar</code></pre></div>
+</div>
+</details>
+<h4 id="pass-host-header">Pass Host Header<a class="headerlink" href="#pass-host-header" title="Permanent link">&para;</a></h4>
+<p>The <code>passHostHeader</code> allows to forward client Host header to server.</p>
+<p>By default, <code>passHostHeader</code> is true.</p>
+<details class="example"><summary>Don't forward the host header -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_12" type="radio" id="__tab_12_0" checked="checked" />
+<label for="__tab_12_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.Service01]
+    [http.services.Service01.loadBalancer]
+      passHostHeader = false</code></pre></div>
+<input name="__tabs_12" type="radio" id="__tab_12_1" />
+<label for="__tab_12_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    Service01:
+      loadBalancer:
+        passHostHeader: false</code></pre></div>
+</div>
+</details>
+<h4 id="response-forwarding">Response Forwarding<a class="headerlink" href="#response-forwarding" title="Permanent link">&para;</a></h4>
+<p>This section is about configuring how Traefik forwards the response from the backend server to the client.</p>
+<p>Below are the available options for the Response Forwarding mechanism:</p>
+<ul>
+<li><code>FlushInterval</code> specifies the interval in between flushes to the client while copying the response body.
+  It is a duration in milliseconds, defaulting to 100.
+  A negative value means to flush immediately after each write to the client.
+  The FlushInterval is ignored when ReverseProxy recognizes a response as a streaming response;
+  for such responses, writes are flushed to the client immediately.</li>
+</ul>
+<details class="example"><summary>Using a custom FlushInterval -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_13" type="radio" id="__tab_13_0" checked="checked" />
+<label for="__tab_13_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.Service-1]
+    [http.services.Service-1.loadBalancer.responseForwarding]
+      flushInterval = "1s"</code></pre></div>
+<input name="__tabs_13" type="radio" id="__tab_13_1" />
+<label for="__tab_13_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    Service-1:
+      loadBalancer:
+        responseForwarding:
+          flushInterval: 1s</code></pre></div>
+</div>
+</details>
+<h3 id="weighted-round-robin-service">Weighted Round Robin (service)<a class="headerlink" href="#weighted-round-robin-service" title="Permanent link">&para;</a></h3>
+<p>The WRR is able to load balance the requests between multiple services based on weights.</p>
+<p>This strategy is only available to load balance between <a href="./">services</a> and not between <a href="./#servers">servers</a>.</p>
+<div class="admonition info">
+<p class="admonition-title">This strategy can be defined only with <a href="../../providers/file/">File</a>.</p>
+</div>
+<div class="superfences-tabs">
+<input name="__tabs_14" type="radio" id="__tab_14_0" checked="checked" />
+<label for="__tab_14_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.app]
+    [[http.services.app.weighted.services]]
+      name = "appv1"
+      weight = 3
+    [[http.services.app.weighted.services]]
+      name = "appv2"
+      weight = 1
+
+  [http.services.appv1]
+    [http.services.appv1.loadBalancer]
+      [[http.services.appv1.loadBalancer.servers]]
+        url = "http://private-ip-server-1/"
+
+  [http.services.appv2]
+    [http.services.appv2.loadBalancer]
+      [[http.services.appv2.loadBalancer.servers]]
+        url = "http://private-ip-server-2/"</code></pre></div>
+<input name="__tabs_14" type="radio" id="__tab_14_1" />
+<label for="__tab_14_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    app:
+      weighted:
+        services:
+        - name: appv1
+          weight: 3
+        - name: appv2
+          weight: 1
+
+    appv1:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-1/"
+
+    appv2:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-2/"</code></pre></div>
+</div>
+<h3 id="mirroring-service">Mirroring (service)<a class="headerlink" href="#mirroring-service" title="Permanent link">&para;</a></h3>
+<p>The mirroring is able to mirror requests sent to a service to other services.</p>
+<div class="admonition info">
+<p class="admonition-title">This strategy can be defined only with <a href="../../providers/file/">File</a>.</p>
+</div>
+<div class="superfences-tabs">
+<input name="__tabs_15" type="radio" id="__tab_15_0" checked="checked" />
+<label for="__tab_15_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[http.services]
+  [http.services.mirrored-api]
+    [http.services.mirrored-api.mirroring]
+      service = "appv1"
+    [[http.services.mirrored-api.mirroring.mirrors]]
+      name = "appv2"
+      percent = 10
+
+  [http.services.appv1]
+    [http.services.appv1.loadBalancer]
+      [[http.services.appv1.loadBalancer.servers]]
+        url = "http://private-ip-server-1/"
+
+  [http.services.appv2]
+    [http.services.appv2.loadBalancer]
+      [[http.services.appv2.loadBalancer.servers]]
+        url = "http://private-ip-server-2/"</code></pre></div>
+<input name="__tabs_15" type="radio" id="__tab_15_1" />
+<label for="__tab_15_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+http:
+  services:
+    mirrored-api:
+      mirroring:
+        service: appv1
+        mirrors:
+        - name: appv2
+          percent: 10
+
+    appv1:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-1/"
+
+    appv2:
+      loadBalancer:
+        servers:
+        - url: "http://private-ip-server-2/"</code></pre></div>
+</div>
+<h2 id="configuring-tcp-services">Configuring TCP Services<a class="headerlink" href="#configuring-tcp-services" title="Permanent link">&para;</a></h2>
+<h3 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h3>
+<p>Each of the fields of the service section represents a kind of service.
+Which means, that for each specified service, one of the fields, and only one,
+has to be enabled to define what kind of service is created.
+Currently, the two available kinds are <code>LoadBalancer</code>, and <code>Weighted</code>.</p>
+<h3 id="servers-load-balancer_1">Servers Load Balancer<a class="headerlink" href="#servers-load-balancer_1" title="Permanent link">&para;</a></h3>
+<p>The servers load balancer is in charge of balancing the requests between the servers of the same service.</p>
+<details class="example"><summary>Declaring a Service with Two Servers -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_16" type="radio" id="__tab_16_0" checked="checked" />
+<label for="__tab_16_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[tcp.services]
+  [tcp.services.my-service.loadBalancer]
+    [[tcp.services.my-service.loadBalancer.servers]]
+      address = "xx.xx.xx.xx:xx"
+    [[tcp.services.my-service.loadBalancer.servers]]
+       address = "xx.xx.xx.xx:xx"</code></pre></div>
+<input name="__tabs_16" type="radio" id="__tab_16_1" />
+<label for="__tab_16_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+tcp:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+        - address: "xx.xx.xx.xx:xx"
+        - address: "xx.xx.xx.xx:xx"</code></pre></div>
+</div>
+</details>
+<h4 id="servers_1">Servers<a class="headerlink" href="#servers_1" title="Permanent link">&para;</a></h4>
+<p>Servers declare a single instance of your program.
+The <code>address</code> option (IP:Port) point to a specific instance.</p>
+<details class="example"><summary>A Service with One Server -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_17" type="radio" id="__tab_17_0" checked="checked" />
+<label for="__tab_17_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[tcp.services]
+  [tcp.services.my-service.loadBalancer]
+    [[tcp.services.my-service.loadBalancer.servers]]
+      address = "xx.xx.xx.xx:xx"</code></pre></div>
+<input name="__tabs_17" type="radio" id="__tab_17_1" />
+<label for="__tab_17_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+tcp:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+          address: "xx.xx.xx.xx:xx"</code></pre></div>
+</div>
+</details>
+<h4 id="termination-delay">Termination Delay<a class="headerlink" href="#termination-delay" title="Permanent link">&para;</a></h4>
+<p>As a proxy between a client and a server, it can happen that either side (e.g. client side) decides to terminate its writing capability on the connection (i.e. issuance of a FIN packet).
+The proxy needs to propagate that intent to the other side, and so when that happens, it also does the same on its connection with the other side (e.g. backend side).</p>
+<p>However, if for some reason (bad implementation, or malicious intent) the other side does not eventually do the same as well,
+the connection would stay half-open, which would lock resources for however long.</p>
+<p>To that end, as soon as the proxy enters this termination sequence, it sets a deadline on fully terminating the connections on both sides.</p>
+<p>The termination delay controls that deadline.
+It is a duration in milliseconds, defaulting to 100.
+A negative value means an infinite deadline (i.e. the connection is never fully terminated by the proxy itself).</p>
+<details class="example"><summary>A Service with a termination delay -- Using the <a href="../../providers/file/">File Provider</a></summary><div class="superfences-tabs">
+<input name="__tabs_18" type="radio" id="__tab_18_0" checked="checked" />
+<label for="__tab_18_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[tcp.services]
+  [tcp.services.my-service.loadBalancer]
+    [[tcp.services.my-service.loadBalancer]]
+      terminationDelay = 200</code></pre></div>
+<input name="__tabs_18" type="radio" id="__tab_18_1" />
+<label for="__tab_18_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+tcp:
+  services:
+    my-service:
+      loadBalancer:
+        terminationDelay: 200</code></pre></div>
+</div>
+</details>
+<h3 id="weighted-round-robin">Weighted Round Robin<a class="headerlink" href="#weighted-round-robin" title="Permanent link">&para;</a></h3>
+<p>The Weighted Round Robin (alias <code>WRR</code>) load-balancer of services is in charge of balancing the requests between multiple services based on provided weights.</p>
+<p>This strategy is only available to load balance between <a href="./">services</a> and not between <a href="./#servers">servers</a>.</p>
+<p>This strategy can only be defined with <a href="../../providers/file/">File</a>.</p>
+<div class="superfences-tabs">
+<input name="__tabs_19" type="radio" id="__tab_19_0" checked="checked" />
+<label for="__tab_19_0">TOML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-toml">## Dynamic configuration
+[tcp.services]
+  [tcp.services.app]
+    [[tcp.services.app.weighted.services]]
+      name = "appv1"
+      weight = 3
+    [[tcp.services.app.weighted.services]]
+      name = "appv2"
+      weight = 1
+
+  [tcp.services.appv1]
+    [tcp.services.appv1.loadBalancer]
+      [[tcp.services.appv1.loadBalancer.servers]]
+        address = "private-ip-server-1/:8080"
+
+  [tcp.services.appv2]
+    [tcp.services.appv2.loadBalancer]
+      [[tcp.services.appv2.loadBalancer.servers]]
+        address = "private-ip-server-2/:8080"</code></pre></div>
+<input name="__tabs_19" type="radio" id="__tab_19_1" />
+<label for="__tab_19_1">YAML</label>
+<div class="superfences-content"><pre class="highlight"><code class="language-yaml">## Dynamic configuration
+tcp:
+  services:
+    app:
+      weighted:
+        services:
+        - name: appv1
+          weight: 3
+        - name: appv2
+          weight: 1
+
+    appv1:
+      loadBalancer:
+        servers:
+        - address: "xxx.xxx.xxx.xxx:8080"
+
+    appv2:
+      loadBalancer:
+        servers:
+        - address: "xxx.xxx.xxx.xxx:8080"</code></pre></div>
+</div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+    <!-- Further information -->
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                <div class="md-footer-copyright__highlight">
+                    Copyright &copy; 2016-2019 Containous
+                </div>
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+
+            <!-- Social links -->
+            
+            
+            
+        </div>
+    </div>
+</footer>
+
+
+    </div>
+    
+      <script src="../../assets/javascripts/application.d9aa80ab.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../assets/js/hljs/highlight.pack.js"></script>
+      
+        <script src="../../assets/js/extra.js"></script>
+      
+        <script src="../../theme/js/structor-menu.js"></script>
+      
+    
+  </body>
+</html>
