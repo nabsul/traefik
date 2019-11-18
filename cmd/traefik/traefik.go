@@ -14,6 +14,7 @@ import (
 	"github.com/containous/traefik/v2/cmd"
 	"github.com/containous/traefik/v2/cmd/healthcheck"
 	cmdVersion "github.com/containous/traefik/v2/cmd/version"
+	cmdAzure "github.com/containous/traefik/v2/cmd/azure"
 	"github.com/containous/traefik/v2/pkg/cli"
 	"github.com/containous/traefik/v2/pkg/collector"
 	"github.com/containous/traefik/v2/pkg/config/dynamic"
@@ -61,6 +62,12 @@ Complete documentation is available at https://traefik.io`,
 	}
 
 	err = cmdTraefik.AddCommand(cmdVersion.NewCmd())
+	if err != nil {
+		stdlog.Println(err)
+		os.Exit(1)
+	}
+
+	err = cmdTraefik.AddCommand(cmdAzure.NewCmd(&tConfig.Configuration, loaders))
 	if err != nil {
 		stdlog.Println(err)
 		os.Exit(1)
