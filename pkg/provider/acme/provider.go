@@ -41,6 +41,10 @@ type Configuration struct {
 	DNSChallenge  *DNSChallenge  `description:"Activate DNS-01 Challenge." json:"dnsChallenge,omitempty" toml:"dnsChallenge,omitempty" yaml:"dnsChallenge,omitempty" label:"allowEmpty"`
 	HTTPChallenge *HTTPChallenge `description:"Activate HTTP-01 Challenge." json:"httpChallenge,omitempty" toml:"httpChallenge,omitempty" yaml:"httpChallenge,omitempty" label:"allowEmpty"`
 	TLSChallenge  *TLSChallenge  `description:"Activate TLS-ALPN-01 Challenge." json:"tlsChallenge,omitempty" toml:"tlsChallenge,omitempty" yaml:"tlsChallenge,omitempty" label:"allowEmpty"`
+
+	AzureAccount  string         `description:"The Azure storage account to use." json:"azureAccount,omitempty" toml:"azureAccount,omitempty" yaml:"azureAccount,omitempty"`
+	AzureTable    string         `description:"The Azure table name to use" json:"azureTable,omitempty" toml:"azureTable,omitempty" yaml:"azureTable,omitempty"`
+	AzureKey      string         `description:"The Azure secret key to use" json:"azureKey,omitempty" toml:"azureKey,omitempty" yaml:"azureKey,omitempty"`
 }
 
 // SetDefaults sets the default values.
