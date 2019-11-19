@@ -67,7 +67,7 @@ Complete documentation is available at https://traefik.io`,
 		os.Exit(1)
 	}
 
-	err = cmdTraefik.AddCommand(cmdAzure.NewCmd(&tConfig.Configuration, loaders))
+	err = cmdTraefik.AddCommand(cmdAzure.NewCopyCmd(&tConfig.Configuration, loaders))
 	if err != nil {
 		stdlog.Println(err)
 		os.Exit(1)

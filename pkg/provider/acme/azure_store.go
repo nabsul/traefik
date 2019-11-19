@@ -33,7 +33,13 @@ type AzureStore struct {
 }
 
 func NewAzureStore(account, key, table string) *AzureStore {
-	return &AzureStore{account: account, key: key, table: table, nextRefresh: 0}
+	return &AzureStore{
+		account: account,
+		key: key,
+		table: table,
+		nextRefresh: 0,
+		storedData: make(map[string]*StoredData),
+	}
 }
 
 func (s *AzureStore) GetAccount(a string) (*Account, error) {
@@ -57,6 +63,15 @@ func (s *AzureStore) SaveAccount(id string, a *Account) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
+	err := s.refreshIfNeeded()
+	if err != nil {
+		return err
+	}
+
+	if _, ok := s.storedData[id]; !ok {
+		s.storedData[id] = &StoredData{}
+	}
+
 	entity, err := s.convertToAccountEntity(id, a)
 	if err != nil {
 		return err
@@ -74,10 +89,7 @@ func (s *AzureStore) SaveAccount(id string, a *Account) error {
 		return err
 	}
 	
-	s.storedData[id] = &StoredData{
-		Account:      a,
-		Certificates: nil,
-	}
+	s.storedData[id].Account = a
 
 	return nil
 }
@@ -103,17 +115,22 @@ func (s *AzureStore) SaveCertificates(id string, certs []*CertAndStore) error {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	acct, ok := s.storedData[id]
-	if !ok {
-		acct = &StoredData{
+	err := s.refreshIfNeeded()
+	if err != nil {
+		return err
+	}
+
+
+	if _, ok := s.storedData[id]; !ok {
+		s.storedData[id] = &StoredData{
 			Account:      nil,
 			Certificates: certs,
 		}
 	} else {
-		acct.Certificates = certs
+		s.storedData[id].Certificates = certs
 	}
 
-	entity, err := s.convertToAccountEntity(id, acct.Account)
+	entity, err := s.convertToAccountEntity(id, s.storedData[id].Account)
 	if err != nil {
 		return err
 	}

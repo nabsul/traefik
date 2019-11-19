@@ -29,6 +29,27 @@ func NewLocalStore(filename string) *LocalStore {
 	return store
 }
 
+func (s *LocalStore) GetAllData() (map[string]*StoredData, error) {
+	f, err := os.Open(s.filename)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	file, err := ioutil.ReadAll(f)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(file) > 0 {
+		if err := json.Unmarshal(file, &s.storedData); err != nil {
+			return nil, err
+		}
+	}
+
+	return s.storedData, nil
+}
+
 func (s *LocalStore) save(resolverName string, storedData *StoredData) {
 	s.lock.Lock()
 	defer s.lock.Unlock()

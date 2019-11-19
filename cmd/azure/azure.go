@@ -5,36 +5,53 @@ import (
 	"fmt"
 	"github.com/containous/traefik/v2/pkg/cli"
 	"github.com/containous/traefik/v2/pkg/config/static"
+	"github.com/containous/traefik/v2/pkg/provider/acme"
 )
 
-func NewCmd(traefikConfiguration *static.Configuration, loaders []cli.ResourceLoader) *cli.Command {
+func NewCopyCmd(traefikConfiguration *static.Configuration, loaders []cli.ResourceLoader) *cli.Command {
 	return &cli.Command{
-		Name:          "azure",
-		Description:   "Runs azure related cert storage commands",
+		Name:          "azure-copy",
+		Description:   "Copy Certs from local storage to Azure storage",
 		Configuration: traefikConfiguration,
 		Resources:     loaders,
-		Run:           func(args []string) error { return run(traefikConfiguration, loaders, args) },
+		Run:           func(args []string) error { return copyCerts(traefikConfiguration, loaders, args) },
 		Hidden:        false,
 		AllowArg:      true,
 	}
 }
 
-func run(traefikConfiguration *static.Configuration, loaders []cli.ResourceLoader, strings []string) error {
-	fmt.Println("traefikConfiguration")
-	err := printJson(traefikConfiguration)
-	if err != nil {return err}
-	fmt.Println("loaders")
-	err = printJson(loaders)
-	if err != nil {return err}
-	fmt.Println("strings")
-	err = printJson(strings)
-	if err != nil {return err}
-	fmt.Println(traefikConfiguration.CertificatesResolvers["default"].ACME.AzureKey)
-	fmt.Println(traefikConfiguration.CertificatesResolvers["default"].ACME.AzureKey == "")
+func copyCerts(traefikConfiguration *static.Configuration, loaders []cli.ResourceLoader, args []string) error {
+	for k, c := range traefikConfiguration.CertificatesResolvers {
+		if c.ACME == nil {
+			fmt.Printf("Resolver %s has no ACME config\n", k)
+			continue
+		}
 
-	for k, v := range traefikConfiguration.CertificatesResolvers {
-		fmt.Printf("Found: %s\n", k)
-		printJson(v)
+		if c.ACME.Storage == "" || c.ACME.AzureKey == "" || c.ACME.AzureAccount == "" || c.ACME.AzureTable == "" {
+			fmt.Printf("Resolver %s not configured for both local and azure storage\n", k)
+			continue
+		}
+
+		fmt.Printf("Processing resolver %s\n", k)
+		local := acme.NewLocalStore(c.ACME.Storage)
+		azure := acme.NewAzureStore(c.ACME.AzureAccount, c.ACME.AzureKey, c.ACME.AzureTable)
+
+		certs, err := local.GetAllData()
+		if err != nil {
+			return err
+		}
+		for id, data := range certs {
+			fmt.Printf("Saving account %s\n", id)
+			err := azure.SaveAccount(id, data.Account)
+			if err != nil {
+				return err
+			}
+
+			err = azure.SaveCertificates(id, data.Certificates)
+			if err != nil {
+				return err
+			}
+		}
 	}
 
 	return nil
