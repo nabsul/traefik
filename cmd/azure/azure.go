@@ -35,7 +35,7 @@ func copyCerts(traefikConfiguration *static.Configuration, loaders []cli.Resourc
 
 		fmt.Printf("Processing resolver %s\n", k)
 		local := acme.NewLocalStore(c.ACME.Storage)
-		azure := azure2.NewAzureStore(c.ACME.AzureAccount, c.ACME.AzureKey, c.ACME.AzureTable)
+		azure := azure2.NewAzureStore(c.ACME.AzureAccount, c.ACME.AzureKey, c.ACME.AzureTable, nil)
 
 		certs, err := local.GetAllData()
 		if err != nil {

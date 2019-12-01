@@ -94,6 +94,7 @@ type Provider struct {
 	client                 *lego.Client
 	certsChan              chan *CertAndStore
 	configurationChan      chan<- dynamic.Message
+	certNotification       chan bool
 	tlsManager             *traefiktls.Manager
 	clientMutex            sync.Mutex
 	configFromListenerChan chan dynamic.Configuration
@@ -145,6 +146,9 @@ func (p *Provider) Init() error {
 
 	// Init the currently resolved domain map
 	p.resolvingDomains = make(map[string]struct{})
+
+	p.certNotification = make(chan bool)
+	p.Store.SetNotification(p.certNotification)
 
 	return nil
 }

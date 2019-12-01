@@ -8,15 +8,15 @@ import (
 	"github.com/go-acme/lego/v3/registration"
 )
 
-type AccountEntity struct {
-	PartitionKey, RowKey, ETag string
-	Email                      string
-	RegistrationJson           string
-	PrivateKey                 string
-	KeyType                    string
-}
+func (s *TableStore) GetAccount(resolverName string) (*acme.Account, error) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 
-func (acct *AccountEntity) Convert() (*acme.Account, error) {
+	acct, ok := s.accounts[resolverName]
+	if !ok {
+		return nil, nil
+	}
+
 	key, err := base64.StdEncoding.DecodeString(acct.PrivateKey)
 	if err != nil {
 		return nil, err
@@ -36,17 +36,31 @@ func (acct *AccountEntity) Convert() (*acme.Account, error) {
 	}, nil
 }
 
-func NewAccount(acct *acme.Account) (*AccountEntity, error) {
+func (s *TableStore) SaveAccount(resolverName string, acct *acme.Account) error {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	regBytes, err := json.Marshal(acct.Registration)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	regStr := string(regBytes)
 
-	return &AccountEntity{
+	entity := &AccountEntity{
 		Email:            acct.Email,
 		RegistrationJson: regStr,
 		PrivateKey:       base64.StdEncoding.EncodeToString(acct.PrivateKey),
 		KeyType:          string(acct.KeyType),
-	}, nil
+	}
+
+	s.accounts[resolverName] = entity
+
+	entity.PartitionKey = accountPartition
+	entity.RowKey = resolverName
+	data, err := json.Marshal(entity)
+	if err != nil {
+		return err
+	}
+
+	return s.client.SaveRow(entity.PartitionKey, entity.RowKey, data)
 }

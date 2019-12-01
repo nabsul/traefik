@@ -29,6 +29,9 @@ func NewLocalStore(filename string) *LocalStore {
 	return store
 }
 
+func (s *LocalStore) SetNotification(c chan bool) {
+}
+
 func (s *LocalStore) GetAllData() (map[string]*StoredData, error) {
 	f, err := os.Open(s.filename)
 	if err != nil {
