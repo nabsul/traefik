@@ -16,9 +16,9 @@ import (
 )
 
 type Client struct {
-	account     string
-	key         string
-	table       string
+	account string
+	key     string
+	table   string
 }
 
 func NewClient(account, key, table string) *Client {

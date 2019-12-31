@@ -2,7 +2,9 @@ package azure
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/containous/traefik/v2/pkg/log"
 	"github.com/containous/traefik/v2/pkg/safe"
 	"sync"
@@ -26,15 +28,21 @@ type TableStore struct {
 	accounts           map[string]*AccountEntity
 	certs              map[string][]*CertificateEntity
 	changeNotification chan bool
+	logger             log.Logger
 }
 
 func NewAzureStore(account, key, table string, pool *safe.Pool) *TableStore {
+	fields := log.Str(log.ProviderName, fmt.Sprintf("Azure:%s:%s", account, table))
+	ctx := log.With(context.Background(), fields)
+	logger := log.FromContext(ctx)
+
 	s := &TableStore{
 		pool:        pool,
 		client:      NewClient(account, key, table),
 		nextRefresh: 0,
 		accounts:    make(map[string]*AccountEntity),
 		certs:       make(map[string][]*CertificateEntity),
+		logger:      logger,
 	}
 
 	s.loadData()
@@ -48,9 +56,11 @@ func NewAzureStore(account, key, table string, pool *safe.Pool) *TableStore {
 		for {
 			select {
 			case <-ticker.C:
+				s.logger.Debug("Refreshing certs")
 				s.loadData()
 				return
 			case <-stop:
+				s.logger.Debug("Azure provider is stopping")
 				ticker.Stop()
 				return
 			}
@@ -65,24 +75,22 @@ func (s *TableStore) SetNotificationChannel(c chan bool) {
 }
 
 func (s *TableStore) loadData() {
-	logger := log.WithoutContext()
-
 	data, err := s.client.GetPartition(accountPartition)
 	if err != nil {
-		logger.Error("Failed to fetch accounts from Azure Table Storage")
+		s.logger.Error("Failed to fetch accounts from Azure Table Storage")
 		return
 	}
 
 	result := map[string][]*AccountEntity{}
 	err = json.Unmarshal(data, &result)
 	if err != nil {
-		logger.Error("Failed to decode accounts from Azure Table Storage: ", err)
+		s.logger.Error("Failed to decode accounts from Azure Table Storage: ", err)
 		return
 	}
 
 	accountList, ok := result["value"]
 	if !ok {
-		logger.Error("Unexpected response from Azure Table Storage", string(data))
+		s.logger.Error("Unexpected response from Azure Table Storage", string(data))
 		return
 	}
 
@@ -92,7 +100,7 @@ func (s *TableStore) loadData() {
 		accounts[a.RowKey] = a
 		certs[a.RowKey], err = s.loadCerts(a.RowKey)
 		if err != nil {
-			logger.Error("Failed to load certs: ", err)
+			s.logger.Error("Failed to load certs: ", err)
 			return
 		}
 	}
@@ -102,16 +110,19 @@ func (s *TableStore) loadData() {
 
 	eq, err := areEqual(s.accounts, accounts, s.certs, certs)
 	if err != nil {
-		logger.Error("Failed to compare old and new account/cert data: ", err)
+		s.logger.Error("Failed to compare old and new account/cert data: ", err)
 		return
 	}
 
 	if !eq {
+		s.logger.Info("Data has changed in Azure. Updating.")
 		s.accounts = accounts
 		s.certs = certs
 		if s.changeNotification != nil {
 			s.changeNotification<- true
 		}
+	} else {
+		s.logger.Info("No change in data since last load.")
 	}
 }
 
