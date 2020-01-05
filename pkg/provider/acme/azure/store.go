@@ -47,10 +47,14 @@ func NewAzureStore(account, key, table string, pool *safe.Pool) *TableStore {
 
 	s.loadData()
 
-	if pool == nil {
-		return s
+	if pool != nil {
+		startRefreshJob(s)
 	}
 
+	return s
+}
+
+func startRefreshJob(s *TableStore) {
 	ticker := time.NewTicker(refreshTime)
 	s.pool.Go(func(stop chan bool) {
 		for {
@@ -66,8 +70,6 @@ func NewAzureStore(account, key, table string, pool *safe.Pool) *TableStore {
 			}
 		}
 	})
-
-	return s
 }
 
 func (s *TableStore) SetNotificationChannel(c chan bool) {
