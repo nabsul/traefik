@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"github.com/containous/traefik/v2/pkg/provider/acme/azure"
 	stdlog "log"
 	"net/http"
 	"os"
@@ -255,13 +256,27 @@ func initACMEProvider(c *static.Configuration, providerAggregator *aggregator.Pr
 	var resolvers []*acme.Provider
 	for name, resolver := range c.CertificatesResolvers {
 		if resolver.ACME != nil {
-			if localStores[resolver.ACME.Storage] == nil {
-				localStores[resolver.ACME.Storage] = acme.NewLocalStore(resolver.ACME.Storage)
+			var store acme.Store
+
+			if resolver.ACME.Storage != "" {
+				if localStores[resolver.ACME.Storage] == nil {
+					localStores[resolver.ACME.Storage] = acme.NewLocalStore(resolver.ACME.Storage)
+				}
+				store = localStores[resolver.ACME.Storage]
+			}
+
+			if resolver.ACME.Azure != "" {
+				store = azure.NewAzureStore(resolver.ACME.Azure, nil)
+			}
+
+			if store == nil {
+				log.WithoutContext().Errorf("Not enough params to configure ACME store")
+				continue
 			}
 
 			p := &acme.Provider{
 				Configuration:  resolver.ACME,
-				Store:          localStores[resolver.ACME.Storage],
+				Store:          store,
 				ChallengeStore: challengeStore,
 				ResolverName:   name,
 			}

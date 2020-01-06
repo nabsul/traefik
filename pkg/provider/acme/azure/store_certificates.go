@@ -3,7 +3,6 @@ package azure
 import (
 	"encoding/base64"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/containous/traefik/v2/pkg/provider/acme"
 	"github.com/containous/traefik/v2/pkg/types"
@@ -15,7 +14,8 @@ func (s *TableStore) GetCertificates(resolverName string) ([]*acme.CertAndStore,
 
 	certs, ok := s.certs[resolverName]
 	if !ok {
-		return nil, errors.New("Account not found for resolver: " + resolverName)
+		certs = make([]*CertificateEntity, 0)
+		s.certs[resolverName] = certs
 	}
 
 	result := make([]*acme.CertAndStore, len(certs))

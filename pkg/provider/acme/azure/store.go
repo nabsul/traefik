@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/containous/traefik/v2/pkg/log"
 	"github.com/containous/traefik/v2/pkg/safe"
+	"strings"
 	"sync"
 	"time"
 )
@@ -31,7 +32,11 @@ type TableStore struct {
 	logger             log.Logger
 }
 
-func NewAzureStore(account, key, table string, pool *safe.Pool) *TableStore {
+func (s *TableStore) SetNotification(chan bool) {
+}
+
+func NewAzureStore(connection string, pool *safe.Pool) *TableStore {
+	account, key, table := parseConnectionString(connection)
 	fields := log.Str(log.ProviderName, fmt.Sprintf("Azure:%s:%s", account, table))
 	ctx := log.With(context.Background(), fields)
 	logger := log.FromContext(ctx)
@@ -52,6 +57,16 @@ func NewAzureStore(account, key, table string, pool *safe.Pool) *TableStore {
 	}
 
 	return s
+}
+
+func parseConnectionString(conn string) (string, string, string) {
+	parts := make(map[string]string)
+	for _, p := range strings.Split(conn, ";") {
+		kvp := strings.Split(p, "=")
+		parts[kvp[0]] = kvp[1]
+	}
+
+	return parts["AccountName"], parts["AccountKey"] + "==", parts["Table"]
 }
 
 func startRefreshJob(s *TableStore) {
@@ -79,7 +94,7 @@ func (s *TableStore) SetNotificationChannel(c chan bool) {
 func (s *TableStore) loadData() {
 	data, err := s.client.GetPartition(accountPartition)
 	if err != nil {
-		s.logger.Error("Failed to fetch accounts from Azure Table Storage")
+		s.logger.Error("Failed to fetch accounts from Azure Table Storage: ", err)
 		return
 	}
 
@@ -92,7 +107,7 @@ func (s *TableStore) loadData() {
 
 	accountList, ok := result["value"]
 	if !ok {
-		s.logger.Error("Unexpected response from Azure Table Storage", string(data))
+		s.logger.Error("Unexpected response from Azure Table Storage: ", string(data))
 		return
 	}
 
