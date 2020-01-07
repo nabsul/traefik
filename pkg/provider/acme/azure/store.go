@@ -62,11 +62,11 @@ func NewAzureStore(connection string, pool *safe.Pool) *TableStore {
 func parseConnectionString(conn string) (string, string, string) {
 	parts := make(map[string]string)
 	for _, p := range strings.Split(conn, ";") {
-		kvp := strings.Split(p, "=")
+		kvp := strings.SplitN(p, "=", 2)
 		parts[kvp[0]] = kvp[1]
 	}
 
-	return parts["AccountName"], parts["AccountKey"] + "==", parts["Table"]
+	return parts["AccountName"], parts["AccountKey"], parts["Table"]
 }
 
 func startRefreshJob(s *TableStore) {
