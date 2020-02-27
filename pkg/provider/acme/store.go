@@ -18,6 +18,7 @@ type Store interface {
 	SaveAccount(string, *Account) error
 	GetCertificates(string) ([]*CertAndStore, error)
 	SaveCertificates(string, []*CertAndStore) error
+	SetNotification(chan bool)
 }
 
 // ChallengeStore is a generic interface that represents a store for challenge data.

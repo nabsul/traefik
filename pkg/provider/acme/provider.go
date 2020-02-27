@@ -41,6 +41,7 @@ type Configuration struct {
 	DNSChallenge  *DNSChallenge  `description:"Activate DNS-01 Challenge." json:"dnsChallenge,omitempty" toml:"dnsChallenge,omitempty" yaml:"dnsChallenge,omitempty" label:"allowEmpty"`
 	HTTPChallenge *HTTPChallenge `description:"Activate HTTP-01 Challenge." json:"httpChallenge,omitempty" toml:"httpChallenge,omitempty" yaml:"httpChallenge,omitempty" label:"allowEmpty"`
 	TLSChallenge  *TLSChallenge  `description:"Activate TLS-ALPN-01 Challenge." json:"tlsChallenge,omitempty" toml:"tlsChallenge,omitempty" yaml:"tlsChallenge,omitempty" label:"allowEmpty"`
+	Azure          string        `description:"The Azure storage account connection string." json:"azure,omitempty" toml:"azure,omitempty" yaml:"azure,omitempty"`
 }
 
 // SetDefaults sets the default values.
@@ -90,6 +91,7 @@ type Provider struct {
 	client                 *lego.Client
 	certsChan              chan *CertAndStore
 	configurationChan      chan<- dynamic.Message
+	certNotification       chan bool
 	tlsManager             *traefiktls.Manager
 	clientMutex            sync.Mutex
 	configFromListenerChan chan dynamic.Configuration
@@ -141,6 +143,9 @@ func (p *Provider) Init() error {
 
 	// Init the currently resolved domain map
 	p.resolvingDomains = make(map[string]struct{})
+
+	p.certNotification = make(chan bool)
+	p.Store.SetNotification(p.certNotification)
 
 	return nil
 }
